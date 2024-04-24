@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useLoginMutation } from '../slices/usersApiSlice'
 import { setCredentials } from '../slices/authSlice'
 
+import Loader from "../components/design/Loader";
 import { registration } from "../assets";
+import { toast } from 'react-toastify'
 
 
 const SigninForm = () => {
@@ -32,18 +34,19 @@ const SigninForm = () => {
       const res = await login({email: data.email, password: data.password}).unwrap();
       dispatch(setCredentials({...res}));
       navigate('/');
+      toast.success('Signed in succesfully', {autoClose: 1500, pauseOnHover: false});
     }catch(error){
-      console.log(error?.data?.message || error.error);
+      toast.error(error?.data?.message || error.error, {autoClose: 1500, pauseOnHover: false});
     }
   };
 
   return (
     <div className="flex">
-      <div className="h-screen w-[47%] flex items-center justify-center shadow-lg">
-        <img src={registration} alt="Path" className="h-full w-full object-cover rounded-r-[1rem]" />
+      <div className="h-[100vh] w-[50%] flex items-center justify-center absolute left-0">
+        <img src={registration} alt="Path" className="h-full w-full object-cover" />
         <Link to="/" className="button absolute bottom-5 left-5 border py-1 px-2 hover:bg-n-1 hover:text-n-8">Return Home</Link>
       </div>
-      <div className="flex flex-col h-screen w-[53%] items-center justify-center shadow-lg">
+      <div className="flex flex-col h-[100vh] w-[51%] items-center justify-center rounded-l-[1rem] absolute right-0 z-1 bg-n-1 shadow-xl">
         <div className="py-1 px-6 mb-5 rounded-lg border border-n-8/2">
           <h1 className="text-n-5 text-xl tracking-wider font-bold">TRAVEL</h1>
         </div>
@@ -60,6 +63,7 @@ const SigninForm = () => {
             <label htmlFor="password" className="text-n-8 pb-1">Password</label>
             <input className="bg-n-1 border text-n-8 border-n-4 p-3 rounded-md" type="password" placeholder="Enter password..."  value={data.password} onChange={(e) => setData({...data, password: e.target.value})} />
           </div>
+          {isLoading && <Loader />}
           <button type="submit" className="button bg-sky-700 p-3 mt-2 rounded-md border border-sky-700 hover:text-sky-700 hover:bg-transparent">Sign In</button>
         </form>
         <div className="flex mt-2 items-center">

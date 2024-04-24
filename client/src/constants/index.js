@@ -1,3 +1,11 @@
+import { FiShoppingBag } from 'react-icons/fi';
+import { IoHomeOutline } from "react-icons/io5";
+import { MdOutlinePrivacyTip } from "react-icons/md";
+import { BsCoin } from "react-icons/bs";
+import { FaRegUser } from 'react-icons/fa';
+import { MdOutlineExplore } from "react-icons/md";
+import { MdOutlineSpaceDashboard } from "react-icons/md";
+
 import {
   discordBlack,
   telegram,
@@ -44,18 +52,56 @@ export const navigation = [
       title: "Explore",
       url: "/search",
     },
+  ];
+
+  export const sidebar = [
     {
-      id: "4",
-      title: "New account",
-      url: "/signup",
-      onlyMobile: true,
+      title: 'QUICK MENU',
+      links: [
+        {
+          name: 'Home',
+          icon: IoHomeOutline,
+          to: 'home',
+        },
+        {
+          name: 'Dashboard',
+          icon: MdOutlineSpaceDashboard,
+          to: 'dashboard',
+        },
+        {
+          name: 'Explore',
+          icon: MdOutlineExplore ,
+          to: 'explore',
+        },
+        {
+          name: 'My Listings',
+          icon: FiShoppingBag,
+          to: 'mylistings',
+        }
+      ],
     },
     {
-      id: "5",
-      title: "Sign in",
-      url: "/login",
+      title: 'SETTINGS',
+      links: [
+        {
+          name: 'Profile',
+          icon: FaRegUser,
+          to: 'profile',
+        },
+        {
+          name: 'Subscription',
+          icon: BsCoin,
+          to: 'subscription',
+        },
+        {
+          name: 'Privacy',
+          icon: MdOutlinePrivacyTip,
+          to: 'privacy',
+        },
+      ],
     },
   ];
+
 
   export const socials = [
     {
