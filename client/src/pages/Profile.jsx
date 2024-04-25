@@ -2,7 +2,9 @@ import React from 'react'
 
 const Profile = () => {
   return (
-    <div>Profile</div>
+    <div className='ml-20 flex flex-col'>
+      h
+    </div>
   )
 }
 
