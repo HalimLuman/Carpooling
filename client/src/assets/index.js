@@ -23,6 +23,7 @@ import schedule from './roadmap/schedule.svg'
 import socialConnection from './roadmap/socialconnection.svg'
 
 import registration from './Registration.jpg'
+import profile from './profile-background.jpg'
 
 export {
     discordBlack,
@@ -50,4 +51,5 @@ export {
     socialConnection,
 
     registration,
+    profile
 }

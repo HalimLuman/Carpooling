@@ -74,7 +74,7 @@ const Header = () => {
             ))}
             {userInfo ? (
               <div className="block xl:hidden text-center">
-               <Link to='/profile' className="block relative font-code text-xl uppercase text-n-8 transition-colors hover:text-amber-600 px-6 py-5 md:py-6 lg:-mr-0.25 xl:text-sm lg:font-semibold lg:leading-5 lg:hover:text-amber-600 xl:px-10">Profile</Link>
+               <Link to='/dashboard' className="block relative font-code text-xl uppercase text-n-8 transition-colors hover:text-amber-600 px-6 py-5 md:py-6 lg:-mr-0.25 xl:text-sm lg:font-semibold lg:leading-5 lg:hover:text-amber-600 xl:px-10">Profile</Link>
                <p onClick={logoutHandler} className="block relative font-code text-xl uppercase text-n-8 transition-colors hover:text-amber-600 px-6 py-5 md:py-6 lg:-mr-0.25 xl:text-sm lg:font-semibold lg:leading-5 lg:hover:text-amber-600 xl:px-10">Logout</p>
               </div>
             ) :
@@ -103,7 +103,7 @@ const Header = () => {
                   </div>
                   <div className="flex items-center hover:bg-n-8/10 px-5 py-1 pt-1 pl-6">
                     <MdOutlineSpaceDashboard />
-                    <Link to='/profile' className="ml-3 text-[0.9rem] tracking-wider">Dashboard</Link>
+                    <Link to='/dashboard/main' className="ml-3 text-[0.9rem] tracking-wider">Dashboard</Link>
                   </div>
                   <div className="flex items-center hover:bg-n-8/10 px-5 py-2  pl-6">
                     <IoSettingsOutline/>

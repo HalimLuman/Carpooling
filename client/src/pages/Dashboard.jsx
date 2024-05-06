@@ -4,10 +4,10 @@ import Navbar from '../components/Navbar.jsx'
 
 const Dashboard = () => {
   return (
-    <div className='m-0 p-0 bg-n-8/10'>
-        <div className='flex'>
+    <div className='lg:px-5 lg:py-5 bg-[#f8f8f8] min-h-[100vh]'>
+        <div className='flex justify-center lg:justify-start'>
             <Sidebar />
-            <div className='flex flex-col w-full'>
+            <div className='flex flex-col w-full px-2 xl:px-6 lg:ml-[15rem] z-0'>
                 <Navbar/>   
                 <Outlet />
             </div>

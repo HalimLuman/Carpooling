@@ -1,10 +1,11 @@
-import { FiShoppingBag } from 'react-icons/fi';
 import { IoHomeOutline } from "react-icons/io5";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import { BsCoin } from "react-icons/bs";
 import { FaRegUser } from 'react-icons/fa';
 import { MdOutlineExplore } from "react-icons/md";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { SlSupport } from 'react-icons/sl';
+import { LuPlusCircle } from 'react-icons/lu'
 
 import {
   discordBlack,
@@ -30,6 +31,68 @@ import {
   socialConnection
 } from '../assets';
 
+export const signUpForm = [
+  {
+    id: "0",
+    title: "First Name",
+    type: "text",
+    value: name,
+  },
+  {
+    id: "1",
+    title: "Last Name",
+    type: "text",
+    value: surname,
+  },
+  {
+    id: "2",
+    title: "City",
+    type: "text",
+    value: city,
+  },
+  {
+    id: "3",
+    title: "Address",
+    type: "text",
+    value: address,
+  },
+  {
+    id: "4",
+    title: "Date Of Birth",
+    type: "date",
+    value: dateOfBirth,
+  },
+  {
+    id: "5",
+    title: "Gender",
+    type: "text",
+    value: gender,
+  },
+  {
+    id: "6",
+    title: "Email",
+    type: "email",
+    value: email,
+  },
+  {
+    id: "7",
+    title: "Phone Number",
+    type: "tel",
+    value: phone,
+  },
+  {
+    id: "8",
+    title: "Password",
+    type: "password",
+    value: password,
+  },
+  {
+    id: "9",
+    title: "Confirm Password",
+    type: "password",
+    value: confirmPassword,
+  }
+]
 
 export const navigation = [
     {
@@ -56,28 +119,33 @@ export const navigation = [
 
   export const sidebar = [
     {
-      title: 'QUICK MENU',
+      title: 'DASHBOARD',
+      links: [
+        {
+          name: 'Dashboard',
+          icon: MdOutlineSpaceDashboard,
+          to: 'main',
+        },
+        {
+          name: 'Create Travel',
+          icon: LuPlusCircle,
+          to: 'create-travel',
+        }
+      ],
+    },
+    {
+      title: 'PAGES',
       links: [
         {
           name: 'Home',
           icon: IoHomeOutline,
-          to: 'home',
-        },
-        {
-          name: 'Dashboard',
-          icon: MdOutlineSpaceDashboard,
-          to: 'dashboard',
+          to: '/',
         },
         {
           name: 'Explore',
           icon: MdOutlineExplore ,
-          to: 'explore',
+          to: '/explore',
         },
-        {
-          name: 'My Listings',
-          icon: FiShoppingBag,
-          to: 'mylistings',
-        }
       ],
     },
     {
@@ -86,7 +154,7 @@ export const navigation = [
         {
           name: 'Profile',
           icon: FaRegUser,
-          to: 'profile',
+          to: '/dashboard/:id',
         },
         {
           name: 'Subscription',
@@ -94,9 +162,19 @@ export const navigation = [
           to: 'subscription',
         },
         {
-          name: 'Privacy',
+          name: 'Password',
           icon: MdOutlinePrivacyTip,
-          to: 'privacy',
+          to: 'change-password',
+        },
+      ],
+    },
+    {
+      title: 'HELP CENTER',
+      links: [
+        {
+          name: 'Support',
+          icon: SlSupport,
+          to: '/support',
         },
       ],
     },
