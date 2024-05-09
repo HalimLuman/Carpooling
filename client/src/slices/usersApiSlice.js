@@ -37,8 +37,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 method: 'DELETE',
             })
         }),
+        veriyfUser: builder.mutation({
+            query: (data) => ({
+                url: `${USERS_URL}/verify-user`,
+                method: 'POST',
+                body: data,
+            })
+        })
     })
 })
 
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useUpdateUserMutation, useDeleteUserMutation } = usersApiSlice;
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useUpdateUserMutation, useDeleteUserMutation, useVeriyfUserMutation} = usersApiSlice;

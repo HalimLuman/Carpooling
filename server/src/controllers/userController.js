@@ -1,6 +1,8 @@
 import asyncHandler from 'express-async-handler';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js'
+import generateOTP from '../utils/generateOTP.js';
+import { sendOTPByEmail } from '../utils/sendOTP.js';
 
 // @desc  Auth user/set token
 // route POST /api/users/auth
@@ -25,6 +27,21 @@ const authUser = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
     const { name, surname, email, password, city, address, dateOfBirth, gender, phone } = req.body;
     const userExists = await User.findOne({email});
+
+    const isPasswordValid = (password) => {
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&:])[A-Za-z\d$@$!%*#?&:]{8,}$/;
+        return passwordRegex.test(password);
+    };
+    if (!isPasswordValid(password)) {
+        throw new Error("Password must contain at least 8 characters, one number, one letter, and one symbol")
+    }
+    if(!email || !surname || !name || !password || !city || !address || !dateOfBirth || !gender || !phone){
+        res.status(400);
+        throw new Error("All inputs must be filled.")
+    }
+    if(name.length < 3 || surname.length < 3){
+        throw new Error('Name and surname must contain at least 3 characters');
+    }
 
     if(userExists) {
         res.status(400);
@@ -125,6 +142,32 @@ const deleteUser = asyncHandler(async (req, res) => {
     }
 });
 
+const verifyUser = asyncHandler(async (req, res) => {  
+    const { name, surname, email, password, city, address, dateOfBirth, gender, phone } = req.body;
+    const userExists = await User.findOne({email});
+    if(userExists) {
+        res.status(400);
+        throw new Error("User already exists.");
+    }
+    if(!email || !surname || !name || !password || !city || !address || !dateOfBirth || !gender || !phone){
+        res.status(400);
+        throw new Error("All inputs must be filled.")
+    }
+    if(name.length < 3 || surname.length < 3){
+        throw new Error('Name and surname must contain at least 3 characters');
+    }
+    try {
+        const otp = generateOTP();
+        console.log(otp);
+        await sendOTPByEmail(email, otp);
+        res.status(200).json({ otp });
+        return otp;
+    } catch (error) {
+        console.error("Error generating OTP:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
 
 export {
     authUser,
@@ -133,4 +176,6 @@ export {
     getUserProfile,
     updateUserProfile,
     deleteUser,
+
+    verifyUser,
 }

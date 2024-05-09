@@ -31,69 +31,6 @@ import {
   socialConnection
 } from '../assets';
 
-export const signUpForm = [
-  {
-    id: "0",
-    title: "First Name",
-    type: "text",
-    value: name,
-  },
-  {
-    id: "1",
-    title: "Last Name",
-    type: "text",
-    value: surname,
-  },
-  {
-    id: "2",
-    title: "City",
-    type: "text",
-    value: city,
-  },
-  {
-    id: "3",
-    title: "Address",
-    type: "text",
-    value: address,
-  },
-  {
-    id: "4",
-    title: "Date Of Birth",
-    type: "date",
-    value: dateOfBirth,
-  },
-  {
-    id: "5",
-    title: "Gender",
-    type: "text",
-    value: gender,
-  },
-  {
-    id: "6",
-    title: "Email",
-    type: "email",
-    value: email,
-  },
-  {
-    id: "7",
-    title: "Phone Number",
-    type: "tel",
-    value: phone,
-  },
-  {
-    id: "8",
-    title: "Password",
-    type: "password",
-    value: password,
-  },
-  {
-    id: "9",
-    title: "Confirm Password",
-    type: "password",
-    value: confirmPassword,
-  }
-]
-
 export const navigation = [
     {
       id: "0",

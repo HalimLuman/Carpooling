@@ -40,20 +40,17 @@ const Sidebar = () => {
     };
 
     return (
-        <div className='fixed h-full flex items-center md:items-start'>
+        <div className='fixed h-full flex items-center md:items-start z-1'>
             <div className={`${isActive ? 'hidden' : null} lg:flex flex-col items-center bg-n-1 w-[100vw] lg:w-[250px] lg:rounded-xl shadow h-[100%] lg:h-[95%] border`}>
                 <div className='flex items-center p-5 px-6 justify-center lg:justify-between'>
                         <div className='flex items-center w-full justify-between lg:justify-center'>
                             <h1 className='text-n-8/60 h6'>TRAVEL</h1>
-                            <div onClick={toggleSidebar} className='lg:hidden'>
-                                <MenuSvg openNavigation={!isActive} />
-                            </div>
                         </div>
                 </div>
                 <hr className='w-[80%] mx-auto' />
                     <div className='px-3 py-2 self-start w-[100%]'>
                         {sidebar.map((menu, index) => (
-                            <div className='py-[2%] lg:py-[6%]' key={index}>
+                            <div className='py-[2%] lg:py-[3%] max-[1500px]:py-[6%] max-[2500px]:py-[10%]' key={index}>
                                 <h2 className='text-sm font-bold text-n-8/60 tracking-wider px-3 text-left'>{menu.title}</h2>
                                 <div className='pt-1'>
                                     {menu.links.map((link, linkIndex) => (
@@ -75,8 +72,7 @@ const Sidebar = () => {
                     <p className="ml-3 tracking-wider text-[0.9rem]">Logout</p>
                 </div>
             </div>
-            {isActive && (
-            <div className='fixed bottom-0 lg:hidden w-full bg-n-1 py-1 border-t' style={{ left: '50%', transform: 'translateX(-50%)' }}>
+            <div className='fixed bottom-0 lg:hidden w-full bg-n-1 py-1 border-t z-2' style={{ left: '50%', transform: 'translateX(-50%)' }}>
                 <div className='flex items-center justify-evenly py-2'>
                     <div onClick={toggleSidebar}>
                         <MenuSvg openNavigation={!isActive} />
@@ -87,7 +83,6 @@ const Sidebar = () => {
                     <NavLink to='/'><LuPlusCircle style={{ color: 'black' }} size={20} /></NavLink>
                 </div>
             </div>
-            )}
         </div>
     );
 };

@@ -32,15 +32,15 @@ const Navbar = () => {
                 {
                 openProfile 
                 ? (<div className="absolute top-7 bg-n-1 mt-11 w-[150px] border rounded-md text-center text-n-8">
-                  <div className="flex items-center hover:bg-n-8/10 px-5 py-2 pt-3 pl-6">
+                  <div className="flex items-center hover:bg-n-8/10 px-5 py-2 pt-3 pl-6 h-[45px]">
                     <IoHomeOutline size={20} style={{width: '20px'}}/>
                     <Link to='/' className="ml-3 text-[0.9rem] tracking-wider">Home</Link>
                   </div>
-                  <div className="flex items-center hover:bg-n-8/10 px-5 py-2 pt-3 pl-6">
+                  <div className="flex items-center hover:bg-n-8/10 px-5 py-2 pt-3 pl-6 h-[45px]">
                     <FaRegUser size={16} style={{width: '20px'}}/>
                     <Link to='/profile' className="ml-3 text-[0.9rem] tracking-wider">Profile</Link>
                   </div>
-                  <div className="flex items-center hover:bg-n-8/10 px-5 py-2  pl-6">
+                  <div className="flex items-center hover:bg-n-8/10 px-5 py-2 pl-6 h-[45px]">
                     <SlSupport style={{width: '20px'}} />
                     <Link to='/profile/support' className="ml-3 text-[0.9rem] tracking-wider">Support</Link>
                   </div>

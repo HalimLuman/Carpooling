@@ -15,30 +15,19 @@ import {useNavigate} from 'react-router-dom'
 
 import { useDeleteUserMutation, useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
-import { disablePageScroll, enablePageScroll } from 'scroll-lock';
+
+import { toast } from 'react-toastify'
 
 const Profile = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [deleteValidation, setDeleteValidation] = useState('');
 
-  useEffect(() => {
-    if(isClicked){
-      disablePageScroll();
-    }else{
-      enablePageScroll();
-    }
-  }, []);
-
-
   const [logoutApiCall] = useLogoutMutation();
-
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
-  
   const { userInfo } = useSelector((state) => state.auth);
-
   const [deleteUser] = useDeleteUserMutation();
+
   
   const handleDelete = async (e) => {
     e.preventDefault();
@@ -48,11 +37,9 @@ const Profile = () => {
         await deleteUser(userInfo._id).unwrap();
         navigate('/register');
         toast.success('Profile Deleted successfully', { autoClose: 1500, pauseOnHover: false });
-        enablePageScroll();
     } catch (err) {
         console.error(err);
         toast.error(err.message || 'An error occurred while deleting user');
-        enablePageScroll();
     }
 };
 
@@ -66,11 +53,11 @@ const Profile = () => {
 
           <div>
             <div className='flex flex-col md:flex-row items-center justify-between p-4 relative bottom-[2.5rem] w-[95%] mx-auto rounded-2xl shadow-md backdrop-blur-xl bg-white/70 '>
-              <div className='flex w-full'>
+              <div className='flex w-full justify-around md:justify-start'>
                 <img src={registration} alt="" className='w-[80px] h-[80px] rounded-lg'/>
-                <div className='flex flex-col md:ml-5 text-n-8 self-end py-1'>
-                  <h1 className='h6 md:h5 mb-1 ml-2 md:ml-0 font-bold'>{userInfo.name}&nbsp;{userInfo.surname}</h1>
-                  <p className='text-n-8/80 ml-2 md:ml-0 text-[0.7rem] md:text-base'>{userInfo.email}</p>
+                <div className='flex flex-col md:ml-5 text-n-8 self-end py-1 wrap'>
+                  <h1 className='h5 mb-1 ml-2 md:ml-0 font-bold max-w-[45%] md:max-w-[80%] xl:max-w-[100%] w-max overflow-hidden'>{userInfo.name}&nbsp;{userInfo.surname}</h1>
+                  <p className='text-n-8/80 ml-2 text-sm'>{userInfo.email}</p>
                 </div>
               </div>
               <div className='text-n-8 flex flex-row-reverse mt-5 md:mt-0 w-full md:w-[450px] justify-around'>
@@ -80,13 +67,13 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className='py-7 px-10 bg-n-1 my-1 rounded-xl text-n-8 w-[39%] h-full shadow'>
-          <h2>More details</h2>
-          <div className='flex w-[85%] justify-between mt-5 pl-3'>
+        <div className='py-7 px-10 bg-n-1 my-1 rounded-xl text-n-8 w-[95%] xl:w-[39%] h-full shadow'>
+          <h2 className='text-lg pl-1'>More details</h2>
+          <div className='flex flex-col md:flex-row w-[85%] justify-between pl-3'>
             <div>
               <div>
                 <div>
-                  <div className='flex items-center mt-7'>
+                  <div className='flex items-center mt-7 shadow rounded-md px-4 py-2 hover:mt-6 hover:mb-8'>
                     <CiCalendarDate size={30}/>
                     <div className='ml-5'>
                       <h3 className='font-bold'>Date of Birth</h3>
@@ -95,7 +82,7 @@ const Profile = () => {
                   </div>
                 </div>
                 <div>
-                  <div className='flex items-center mt-6'>
+                  <div className='flex items-center mt-7 shadow rounded-md px-4 py-2 hover:mt-6 hover:mb-8'>
                     <BsGenderAmbiguous size={30}/>
                     <div className='ml-5'>
                       <h3 className='font-bold'>Gender</h3>
@@ -107,7 +94,7 @@ const Profile = () => {
                   </div>
                 </div>
                 <div>
-                  <div className='flex items-center mt-7'>
+                  <div className='flex items-center mt-7 shadow rounded-md px-4 py-2 hover:mt-6 hover:mb-8'>
                     <LiaCitySolid size={30}/>
                     <div className='ml-5'>
                       <h3 className='font-bold'>City</h3>
@@ -120,7 +107,7 @@ const Profile = () => {
             <div>
               <div>
                 <div>
-                  <div className='flex items-center mt-7'>
+                  <div className='flex items-center mt-7 shadow rounded-md px-4 py-2 hover:mt-6 hover:mb-8'>
                     <CiMapPin size={30}/>
                     <div className='ml-5'>
                       <h3 className='font-bold'>Address</h3>
@@ -129,7 +116,7 @@ const Profile = () => {
                   </div>
                 </div>
                 <div>
-                  <div className='flex items-center mt-7'>
+                  <div className='flex items-center mt-7 shadow rounded-md px-4 py-2 hover:mt-6 hover:mb-8'>
                     <CiPhone size={30}/>
                     <div className='ml-5'>
                       <h3 className='font-bold'>Phone Number</h3>
@@ -143,15 +130,15 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className='py-7 px-10 bg-n-1 my-1 rounded-xl text-n-8 shadow w-full'>
+      <div className='py-7 px-10 bg-n-1 my-1 rounded-xl text-n-8 shadow w-[95%] xl:w-full self-center'>
       <EditProfile />
       </div>
-      <div className='flex justify-start bg-n-1 w-full py-5 px-5 my-4 shadow rounded-xl'>
-        <button className='px-3 py-2 bg-red-700 text-n-1 border border-red-700 rounded-md text-sm hover:bg-n-1 hover:text-red-700 hover:font-bold' onClick={() => setIsClicked(true)}>Delete account</button>
+      <div className='flex justify-start bg-n-1 py-5 px-5 my-4 shadow rounded-xl w-[95%] xl:w-full self-center'>
+        <button className='px-3 py-2 bg-red-600 text-n-1 border border-red-600 rounded-md text-sm hover:bg-n-1 hover:text-red-700 hover:font-bold' onClick={() => setIsClicked(true)}>Delete account</button>
       </div>
       {isClicked && (
-        <div className='fixed inset-0 flex justify-center items-center bg-black bg-opacity-50'>
-          <div className='fixed top-[20%] left-[40%] bg-n-1 text-n-8 w-[500px] shadow rounded-xl flex flex-col'>
+        <div className='fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-3'>
+          <div className='fixed my-auto mx-auto bg-n-1 text-n-8 w-[500px] shadow rounded-xl flex flex-col'>
           <div className='flex items-center justify-between px-4 py-4'>
               <h3>Delete the account {userInfo.name}&nbsp;{userInfo.surname}</h3>
               <button onClick={() => setIsClicked(false)}>
@@ -175,11 +162,11 @@ const Profile = () => {
             </div>
             <hr />
             <div className='self-center py-5'>
-              <p className='text-center'>Type '<span className='italic'>{userInfo.name}{userInfo.surname}/delete</span>'</p>
-              <input type="text" className={`bg-n-1 border w-full outline-none  border-n-8/50 py-1 rounded-md px-3 mt-2 ${deleteValidation === `${userInfo.name}${userInfo.surname}/delete` ? 'focus:border-green-700' : 'focus:border-red-700'}`} onChange={(e) => setDeleteValidation(e.target.value)} />
+              <p className='text-center'>Type ' <span className=''>{userInfo.name}{userInfo.surname}/delete</span> ' to delete permanently</p>
+              <input type="text" className={`bg-n-1 border w-full outline-none  border-n-8/50 py-1 rounded-md px-3 mt-2 ${deleteValidation === `${userInfo.name}${userInfo.surname}/delete` ? 'focus:border-green-700' : 'focus:border-red-600'}`} onChange={(e) => setDeleteValidation(e.target.value)} />
             </div>
             <div className='pb-5 flex justify-center'>
-              <button disabled={deleteValidation === `${userInfo.name}${userInfo.surname}/delete` ? false : true} className={deleteValidation === `${userInfo.name}${userInfo.surname}/delete` ? 'w-[90%] px-3 py-2 bg-red-700 text-n-1 border border-red-700 rounded-md text-sm hover:bg-n-1 hover:text-red-700 hover:font-bold' : 'w-[90%] px-3 py-2 bg-red-700 text-n-1 border border-red-700 rounded-md text-sm opacity-[0.5]'} onClick={handleDelete}>I am aware and I want to delete</button>
+              <button disabled={deleteValidation === `${userInfo.name}${userInfo.surname}/delete` ? false : true} className={deleteValidation === `${userInfo.name}${userInfo.surname}/delete` ? 'w-[90%] px-3 py-2 bg-red-600 text-n-1 border border-red-600 rounded-md text-sm hover:bg-n-1 hover:text-red-600 hover:font-bold' : 'w-[90%] px-3 py-2 bg-red-600 text-n-1 border border-red-600 rounded-md text-sm opacity-[0.5]'} onClick={handleDelete}>I am aware and I want to delete</button>
             </div>
           </div>
         </div>
