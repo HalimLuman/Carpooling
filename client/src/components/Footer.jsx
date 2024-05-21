@@ -1,5 +1,5 @@
 import React from "react";
-import Section from "./Section";
+import Section from "./design/Section";
 import { socials } from "../constants";
 
 const Footer = () => {
@@ -17,7 +17,7 @@ const Footer = () => {
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center w-10 h-10 bg-n-1 rounded-full transition-colors hover:bg-n-2"
+              className="flex items-center justify-center w-10 h-10 bg-n-1 rounded-full transition-colors hover:bg-sky-600/75"
             >
               <img src={item.iconUrl} width={20} height={20} alt={item.title} className="fill: white"/>
             </a>

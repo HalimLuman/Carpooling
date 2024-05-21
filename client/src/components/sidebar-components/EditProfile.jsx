@@ -43,7 +43,7 @@ const EditProfile = () => {
             city : userInfo.city || '',
             address : userInfo.address || '',
         }));
-    }, [userInfo.name, userInfo.surname, userInfo.email, userInfo.phone, userInfo.dateOfBirth]);
+    }, [userInfo.name, userInfo.surname, userInfo.email, userInfo.phone, userInfo.dateOfBirth, userInfo.city, userInfo.address]);
     
     const submitHandler = async (e) => {
         e.preventDefault();

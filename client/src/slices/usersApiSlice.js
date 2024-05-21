@@ -43,9 +43,26 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: data,
             })
-        })
+        }),
+        createPost: builder.mutation({
+            query: (data) => ({
+                url: `${USERS_URL}/create-post`,
+                method: 'POST',
+                body:data,
+            })
+        }),
+        fetchPost: builder.mutation({
+            query: () => 'posts',
+            providesTags: ['Post'],
+        }),
+        deletePost: builder.mutation({
+            query: (id) => ({
+                url: `${USERS_URL}/delete-post/${id}`, // Update to match backend endpoint URL
+                method: 'DELETE',
+            })
+        }),
     })
 })
 
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useUpdateUserMutation, useDeleteUserMutation, useVeriyfUserMutation} = usersApiSlice;
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useUpdateUserMutation, useDeleteUserMutation, useVeriyfUserMutation, useCreatePostMutation, useFetchPostsQuery, useDeletePostMutation} = usersApiSlice;

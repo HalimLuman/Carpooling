@@ -4,8 +4,10 @@ import { BsCoin } from "react-icons/bs";
 import { FaRegUser } from 'react-icons/fa';
 import { MdOutlineExplore } from "react-icons/md";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { MdOutlineQueryStats } from "react-icons/md";
 import { SlSupport } from 'react-icons/sl';
 import { LuPlusCircle } from 'react-icons/lu'
+import { RiHistoryFill } from "react-icons/ri";
 
 import {
   discordBlack,
@@ -50,7 +52,7 @@ export const navigation = [
     {
       id: "3",
       title: "Explore",
-      url: "/search",
+      url: "/explore",
     },
   ];
 
@@ -61,27 +63,27 @@ export const navigation = [
         {
           name: 'Dashboard',
           icon: MdOutlineSpaceDashboard,
-          to: 'main',
-        },
-        {
-          name: 'Create Travel',
-          icon: LuPlusCircle,
-          to: 'create-travel',
-        }
-      ],
-    },
-    {
-      title: 'PAGES',
-      links: [
-        {
-          name: 'Home',
-          icon: IoHomeOutline,
-          to: '/',
+          to: '/dashboard',
         },
         {
           name: 'Explore',
           icon: MdOutlineExplore ,
           to: '/explore',
+        },
+        {
+          name: 'Create Travel',
+          icon: LuPlusCircle,
+          to: 'create-post',
+        },
+        {
+          name: 'History',
+          icon: RiHistoryFill ,
+          to: '/dashboard/history',
+        },
+        {
+          name: 'Statistics',
+          icon: MdOutlineQueryStats ,
+          to: '/dashboard/statistics',
         },
       ],
     },

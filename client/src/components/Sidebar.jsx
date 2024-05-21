@@ -41,10 +41,11 @@ const Sidebar = () => {
 
     return (
         <div className='fixed h-full flex items-center md:items-start z-1'>
-            <div className={`${isActive ? 'hidden' : null} lg:flex flex-col items-center bg-n-1 w-[100vw] lg:w-[250px] lg:rounded-xl shadow h-[100%] lg:h-[95%] border`}>
+            <div className={`${isActive ? 'hidden' : null} lg:flex flex-col items-center bg-n-1 w-[100vw] lg:w-[220px] xl:w-[250px] shadow h-[100%] border-r`}>
                 <div className='flex items-center p-5 px-6 justify-center lg:justify-between'>
-                        <div className='flex items-center w-full justify-between lg:justify-center'>
-                            <h1 className='text-n-8/60 h6'>TRAVEL</h1>
+                        <div className='flex items-center w-full justify-start'>
+                            <img src="../../public/vite.svg" alt="" />
+                            <h1 className='text-n-8/60 h6 ml-3'>TRAVEL</h1>
                         </div>
                 </div>
                 <hr className='w-[80%] mx-auto' />
@@ -67,7 +68,7 @@ const Sidebar = () => {
                             </div>
                         ))}
                     </div>
-                <div onClick={logoutHandler} style={{ left: '50%', transform: 'translateX(-50%)' }}  className="absolute cursor-pointer bottom-[2rem] lg:bottom-[4rem] justify-center self-center flex items-center mx-auto w-[85%] py-3 mt-1 lg:mt-2 rounded-md text-n-5 text-base hover:border-b-2 hover:border-sky-700 shadow-md px-3">
+                <div onClick={logoutHandler} style={{ left: '50%', transform: 'translateX(-50%)' }}  className="absolute cursor-pointer bottom-[1rem] justify-center self-center flex items-center mx-auto w-[85%] py-3 mt-1 lg:mt-2 rounded-md text-n-5 text-base hover:border-b-2 hover:border-sky-700 shadow-md px-3">
                     <MdLogout />
                     <p className="ml-3 tracking-wider text-[0.9rem]">Logout</p>
                 </div>

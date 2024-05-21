@@ -1,9 +1,9 @@
 import ButtonGradient from "../assets/svg/ButtonGradient";
-import Benefits from "../components/Benefits";
+import Benefits from "../components/home-components/Benefits";
 import Footer from "../components/Footer";
-import Header from "../components/Header";
-import Hero from "../components/Hero";
-import Roadmap from "../components/Roadmap";
+import Header from "../components/NavbarMain";
+import Hero from "../components/home-components/Hero";
+import Roadmap from "../components/home-components/Roadmap";
 
 const App = () => {
   return (

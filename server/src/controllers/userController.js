@@ -2,18 +2,18 @@ import asyncHandler from 'express-async-handler';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js'
 import generateOTP from '../utils/generateOTP.js';
-import { sendOTPByEmail } from '../utils/sendOTP.js';
+import Post from '../models/postModel.js';
 
 // @desc  Auth user/set token
 // route POST /api/users/auth
 // @access Public
 const authUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-
     const user = await User.findOne({email});
 
     if(user && (await user.matchPasswords(password))){
-        generateToken(res, user._id)
+        generateToken(res, user._id);
+        console.log(user._id)
         res.status(201).json({_id: user._id, name: user.name, surname: user.surname, email: user.email, phone: user.phone, city: user.city, address: user.address, dateOfBirth: user.dateOfBirth, gender: user.gender});
     }else{
         res.status(401);
@@ -51,7 +51,8 @@ const registerUser = asyncHandler(async (req, res) => {
     const user = await User.create({name, surname, email, password, city, address, dateOfBirth, gender, phone});
 
     if(user){
-        generateToken(res, user._id)
+        generateToken(res, user._id);
+        console.log('Here')
         res.status(201).json({_id: user._id, name: user.name, surname: user.surname, email: user.email, phone: user.phone, city: user.city, address: user.address, dateOfBirth: user.dateOfBirth, gender: user.gender});
     }else{
         res.status(400);
@@ -103,7 +104,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         user.phone = req.body.phone || user.phone;
         user.dateOfBirth = req.body.dateOfBirth || user.dateOfBirth;
         user.city = req.body.city || user.city;
-        user.address = req.body.adress || user.address;
+        user.address = req.body.address || user.address;
         user.gender = req.body.gender || user.gender;
 
         if(req.body.password){
@@ -132,6 +133,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
     try{
         await User.findByIdAndDelete(req.params.id);
+        await Post.deleteMany({publisher: req.params.id});
         res.clearCookie('jwt', '', {
             httpOnly: true,
             expires: new Date(0)
@@ -159,7 +161,7 @@ const verifyUser = asyncHandler(async (req, res) => {
     try {
         const otp = generateOTP();
         console.log(otp);
-        await sendOTPByEmail(email, otp);
+        // await sendOTPByEmail(email, otp);
         res.status(200).json({ otp });
         return otp;
     } catch (error) {
@@ -169,6 +171,8 @@ const verifyUser = asyncHandler(async (req, res) => {
 });
 
 
+
+
 export {
     authUser,
     registerUser,
@@ -176,6 +180,5 @@ export {
     getUserProfile,
     updateUserProfile,
     deleteUser,
-
     verifyUser,
 }
