@@ -47,7 +47,7 @@ export const navigation = [
     {
       id: "2",
       title: "Safety Guideline",
-      url: "/features",
+      url: "/safety-guideline",
     },
     {
       id: "3",
@@ -79,6 +79,11 @@ export const navigation = [
           name: 'History',
           icon: RiHistoryFill ,
           to: '/dashboard/history',
+        },
+        {
+          name: 'Reservation',
+          icon: RiHistoryFill ,
+          to: '/dashboard/reservation',
         },
         {
           name: 'Statistics',

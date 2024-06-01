@@ -107,15 +107,15 @@ const NavbarMain = () => {
                   </div>
                   <div className="flex items-center hover:bg-n-8/10 px-5 py-1 pt-1 pl-6 h-[45px]">
                     <MdOutlineSpaceDashboard />
-                    <Link to='/dashboard/main' className="ml-3 text-[0.9rem] tracking-wider">Dashboard</Link>
+                    <Link to='/dashboard' className="ml-3 text-[0.9rem] tracking-wider">Dashboard</Link>
                   </div>
                   <div className="flex items-center hover:bg-n-8/10 px-5 py-2  pl-6 h-[45px]">
                     <IoSettingsOutline/>
-                    <Link to='/profile/settings' className="ml-3 text-[0.9rem] tracking-wider">Settings</Link>
+                    <Link to='/dashboard/settings' className="ml-3 text-[0.9rem] tracking-wider">Settings</Link>
                   </div>
                   <div className="flex items-center hover:bg-n-8/10 px-5 py-2  pl-6 h-[45px]">
                     <SlSupport />
-                    <Link to='/profile/support' className="ml-3 text-[0.9rem] tracking-wider">Support</Link>
+                    <Link to='/dashboard/support' className="ml-3 text-[0.9rem] tracking-wider">Support</Link>
                   </div>
                   <hr className="w-[80%] mx-auto"/>
                   <div className="flex items-center hover:bg-n-8/10 px-5 py-3 pl-7 h-[45px]">

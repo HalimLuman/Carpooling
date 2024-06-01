@@ -11,20 +11,18 @@ const transporter = nodemailer.createTransport({
     debug: true // Enable debugging output
 });
 
-export const sendOTPByEmail = async (email, otp) => {
+export const sendNotification = async (email, userName) => {
     try {
         const mailOptions = {
             from: 'lumanhalim@outlook.com',
             to: email,
-            subject: 'OTP Verification',
+            subject: 'You have a new reservation',
             html: `
                 <div style="font-family: Arial, sans-serif; line-height: 1.6; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
-                    <h2 style="color: #0284c7;">OTP Verification</h2>
+                    <h2 style="color: #4CAF50;">Reservation Confirmation</h2>
                     <p style="font-size: 16px;">Dear User,</p>
-                    <p style="font-size: 16px;">Thank you for choosing our service. Your OTP for verification is:</p>
-                    <p style="font-size: 24px; font-weight: bold; color: #333; text-align: center; margin: 20px 0;">${otp}</p>
-                    <p style="font-size: 16px;">Please enter this OTP to complete your verification process. This OTP is valid for the next 10 minutes.</p>
-                    <p style="font-size: 16px;">If you did not request this OTP, please ignore this email or contact our support team.</p>
+                    <p style="font-size: 16px;">We are pleased to inform you that <strong>${userName}</strong> has sent a request for your reservation.</p>
+                    <p style="font-size: 16px;">Thank you for using our service. If you have any questions or need further assistance, please feel free to contact us.</p>
                     <p style="font-size: 16px;">Best regards,</p>
                     <p style="font-size: 16px;">Your Company Team</p>
                     <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
@@ -34,9 +32,9 @@ export const sendOTPByEmail = async (email, otp) => {
         };
 
         await transporter.sendMail(mailOptions);
-        console.log('OTP sent successfully!');
+        console.log('Notification sent successfully!');
     } catch (error) {
-        console.error('Error sending OTP:', error);
-        throw new Error('Failed to send OTP');
+        console.error('Error sending notification:', error);
+        throw new Error('Failed to send notification');
     }
 };

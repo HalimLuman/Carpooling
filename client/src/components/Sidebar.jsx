@@ -68,10 +68,10 @@ const Sidebar = () => {
                             </div>
                         ))}
                     </div>
-                <div onClick={logoutHandler} style={{ left: '50%', transform: 'translateX(-50%)' }}  className="absolute cursor-pointer bottom-[1rem] justify-center self-center flex items-center mx-auto w-[85%] py-3 mt-1 lg:mt-2 rounded-md text-n-5 text-base hover:border-b-2 hover:border-sky-700 shadow-md px-3">
+                {/* <div onClick={logoutHandler} style={{ left: '50%', transform: 'translateX(-50%)' }}  className="absolute cursor-pointer bottom-[1rem] justify-center self-center flex items-center mx-auto w-[85%] py-3 mt-1 lg:mt-2 rounded-md text-n-5 text-base hover:border-b-2 hover:border-sky-700 shadow-md px-3">
                     <MdLogout />
                     <p className="ml-3 tracking-wider text-[0.9rem]">Logout</p>
-                </div>
+                </div> */}
             </div>
             <div className='fixed bottom-0 lg:hidden w-full bg-n-1 py-1 border-t z-2' style={{ left: '50%', transform: 'translateX(-50%)' }}>
                 <div className='flex items-center justify-evenly py-2'>

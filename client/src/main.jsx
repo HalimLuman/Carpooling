@@ -21,6 +21,9 @@ import Explore from './pages/Explore.jsx';
 import { PostFilterProvider } from './context/PostFilter.jsx';
 import History from './pages/History.jsx';
 import PostInfo from './pages/PostInfo.jsx'
+import NotFound from './pages/NotFound.jsx';
+import SafetyGuideline from './pages/SafetyGuideline.jsx';
+import Reservations from './pages/Reservations.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +32,7 @@ const router = createBrowserRouter(
       <Route path='/login' element={<SigninForm/>}/>
       <Route path='/register' element={<SignupForm/>}/>
       <Route path='/support' element={<SignupForm/>}/>
+      <Route path='/safety-guideline' element={<SafetyGuideline/>}/>
       <Route path='/explore' element={<PostFilterProvider><Explore /></PostFilterProvider>}/>
       <Route path='/explore/:id' element={<PostInfo/>}/>
       <Route path='' element={<PrivateRoute/>}>
@@ -39,8 +43,10 @@ const router = createBrowserRouter(
           <Route path='/dashboard/change-password' element={<ChangePassword />}/>
           <Route path='/dashboard/create-post' element={<CreatePost />}/>
           <Route path='/dashboard/history' element={<History />}/>
+          <Route path='/dashboard/reservation' element={<Reservations />}/>
         </Route>
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );

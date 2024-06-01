@@ -73,6 +73,35 @@ export default {
         'dashboard-pattern': "url('/src/assets/Registration.png')"
       },
     },
+    animation: {
+      'bounce-slow': 'bounce 4s infinite',
+      'pulse-slow': 'pulse 4s infinite',
+      'spin-slow': 'spin 10s linear infinite',
+      'fade-in': 'fade-in 1s ease-out',
+      'fade-in-up': 'fade-in-up 1s ease-out',
+    },
+    keyframes: {
+      bounce: {
+        '0%, 100%': { transform: 'translateY(-25%)' },
+        '50%': { transform: 'translateY(0)' },
+      },
+      pulse: {
+        '0%, 100%': { opacity: 1 },
+        '50%': { opacity: 0.5 },
+      },
+      spin: {
+        '0%': { transform: 'rotate(0deg)' },
+        '100%': { transform: 'rotate(360deg)' },
+      },
+      'fade-in': {
+        '0%': { opacity: 0 },
+        '100%': { opacity: 1 },
+      },
+      'fade-in-up': {
+        '0%': { opacity: 0, transform: 'translateY(20px)' },
+        '100%': { opacity: 1, transform: 'translateY(0)' },
+      },
+    },
   },
   plugins: [
     plugin(function ({ addBase, addComponents, addUtilities }) {

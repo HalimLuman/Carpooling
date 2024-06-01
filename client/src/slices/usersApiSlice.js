@@ -31,6 +31,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 body: data,
             })
         }),
+        reservePost: builder.mutation({
+            query: ({ postId, userId }) => ({
+                url: `${USERS_URL}/reserve`,
+                method: 'POST',
+                body: { postId, userId },
+            }),
+        }),
         deleteUser: builder.mutation({
             query: (id) => ({
                 url: `${USERS_URL}/delete/${id}`,
@@ -61,8 +68,18 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 method: 'DELETE',
             })
         }),
+        handleReservationRequest: builder.mutation({
+            query: ({ postId, userId, action }) => ({
+                url: `${USERS_URL}/handle-request`,
+                method: 'POST',
+                body: { postId, userId, action },
+            }),
+        }),
+        fetchPendingRequests: builder.query({
+            query: () => `${USERS_URL}/pending-requests`,
+        }),
     })
 })
 
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useUpdateUserMutation, useDeleteUserMutation, useVeriyfUserMutation, useCreatePostMutation, useFetchPostsQuery, useDeletePostMutation} = usersApiSlice;
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useUpdateUserMutation, useDeleteUserMutation, useVeriyfUserMutation, useCreatePostMutation, useFetchPostsQuery, useDeletePostMutation, useReservePostMutation, useFetchPendingRequestsQuery, useHandleReservationRequestMutation} = usersApiSlice;

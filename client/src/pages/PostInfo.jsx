@@ -1,20 +1,27 @@
 import React from 'react';
 import NavbarMain from '../components/NavbarMain';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { setCredentials } from '../slices/authSlice';
+import { useReservePostMutation } from '../slices/usersApiSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const PostInfo = () => {
     const location = useLocation();
     const post = location.state?.post;
-    
-    const navigate = useNavigate();
 
-    // Format date
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const { userInfo } = useSelector((state) => state.auth);
+    const [reservePost] = useReservePostMutation();
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        const options = { 
-            weekday: 'long', 
-            month: 'long', 
-            day: 'numeric', 
+        const options = {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
             year: 'numeric'
         };
         return date.toLocaleDateString('en-US', options);
@@ -31,15 +38,24 @@ const PostInfo = () => {
         );
     }
 
-    // Function to handle payment
-    const handlePayment = () => {
-        // Implement payment logic here, such as opening a payment modal or navigating to a payment page
-        alert('Payment functionality to be implemented!');
+    const handlePayment = async (e) => {
+        e.preventDefault();
+        try {
+            const reservationRes = await reservePost({
+                postId: post._id,
+                userId: userInfo._id
+            }).unwrap();
+            toast.success("Reservation made and an email has been sent to the travel owner");
+            dispatch(setCredentials({ ...reservationRes}));
+        } catch (err) {
+            toast.error(err?.data?.message || err.error);
+        }
     };
 
     const handlePostOwner = () => {
-      navigate(`/dashboard/${post.publisher._id}`)
-    }
+        navigate(`/dashboard/${post.publisher._id}`);
+    };
+    
     return (
         <>
             <NavbarMain />
@@ -115,41 +131,40 @@ const PostInfo = () => {
                                 </div>
                             </div>
                             <div className="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-gray-700" fill="none"
-viewBox="0 0 24 24" stroke="currentColor">
-<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-</svg>
-<div>
-<p className='text-lg text-gray-700 font-semibold'>Year</p>
-<p className='text-sm text-gray-500'>2022</p>
-</div>
-</div>
-<div className="flex items-center">
-<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-</svg>
-<div>
-<p className='text-lg text-gray-700 font-semibold'>Fuel Type</p>
-<p className='text-sm text-gray-500'>Petrol</p>
-</div>
-</div>
-</div>
-</div>
-{/* Post owner's info */}
-<div className='bg-white rounded-lg shadow-md p-6 mt-8 w-full '>
-<h2 className='text-xl md:text-2xl font-semibold mb-2 text-gray-800'>Post Owner</h2>
-<div className='flex items-center p-3 rounded-md hover:bg-gray-200 cursor-pointer' onClick={handlePostOwner}>
-<img src={post.publisher.profilePic} alt='Profile' className='w-12 h-12 rounded-full mr-4' />
-<div className='ml-2'>
-<p className='text-lg text-gray-700'>{post.publisher.name} {post.publisher.surname}</p>
-<p className='text-sm text-gray-600'>{post.publisher.email}</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</>
-);  
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                                <div>
+                                    <p className='text-lg text-gray-700 font-semibold'>Year</p>
+                                    <p className='text-sm text-gray-500'>2022</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                                <div>
+                                    <p className='text-lg text-gray-700 font-semibold'>Fuel Type</p>
+                                    <p className='text-sm text-gray-500'>Petrol</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Post owner's info */}
+                    <div className='bg-white rounded-lg shadow-md p-6 mt-8 w-full '>
+                        <h2 className='text-xl md:text-2xl font-semibold mb-2 text-gray-800'>Post Owner</h2>
+                        <div className='flex items-center p-3 rounded-md hover:bg-gray-200 cursor-pointer' onClick={handlePostOwner}>
+                            <img src={post.publisher.profilePic} alt='Profile' className='w-12 h-12 rounded-full mr-4' />
+                            <div className='ml-2'>
+                                <p className='text-lg text-gray-700'>{post.publisher.name} {post.publisher.surname}</p>
+                                <p className='text-sm text-gray-600'>{post.publisher.email}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );  
 };
 
 export default PostInfo;
