@@ -1,30 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { notFound } from '../assets';
+import NavbarSettings from '../components/NavbarSettings';
 
 const NotFound = () => {
-    return (
-        <div className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-50 to-gray-100 text-gray-800 overflow-hidden">
-            {/* Background Circles */}
-            <div className="absolute top-0 left-0 w-full h-full opacity-20">
-                <div className="w-64 h-64 bg-blue-500 rounded-full absolute top-1/4 left-1/4 animate-bounce-slow"></div>
-                <div className="w-48 h-48 bg-blue-300 rounded-full absolute top-3/4 left-3/4 animate-bounce-slow"></div>
-                <div className="w-56 h-56 bg-blue-700 rounded-full absolute top-2/3 right-1/4 animate-bounce-slow"></div>
-                {/* Additional Circles */}
-                <div className="w-24 h-24 bg-blue-600 rounded-full absolute bottom-1/4 left-1/4 animate-bounce-slow"></div>
-                <div className="w-40 h-40 bg-blue-300 rounded-full absolute bottom-1/2 right-1/4 animate-bounce-slow"></div>
-            </div>
-            {/* Logo */}
-            <img src="../../public/vite.svg" alt="Logo" className="w-24 h-24 mb-8" />
-            {/* 404 Text */}
-            <h1 className="text-9xl font-extrabold mb-4 text-blue-600 animate-pulse">404</h1>
-            {/* Description */}
-            <p className="text-2xl mb-8">Unfortunately, the page you are looking for is not found</p>
-            {/* Go Home Button */}
-            <Link to="/" className="bg-blue-500 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-600 hover:shadow-xl transition duration-300 transform hover:-translate-y-1 hover:scale-110">
-                Go Home
-            </Link>
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      {/* Navbar */}
+      <NavbarSettings />
+
+      {/* Main content */}
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-center py-8">
+        {/* Left section with image */}
+        <div className="md:w-1/2 mb-4 md:mb-0">
+          <img
+            src={notFound}
+            alt="Page Not Found"
+            className="w-full md:max-w-md mx-auto"
+          />
         </div>
-    );
+
+        {/* Right section with description */}
+        <div className="md:w-1/2 px-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Oops! Page Not Found</h1>
+          <p className="text-lg text-gray-700 mb-4">
+            The page you are looking for might have been removed, had its name
+            changed, or is temporarily unavailable.
+          </p>
+          <p className="text-lg text-gray-700 mb-4">Please try the following:</p>
+          <ul className="text-lg text-gray-700 mb-4">
+            <li className="mb-2">
+              <Link to="/" className="text-blue-500 hover:text-blue-700 hover:underline transition-colors duration-300">Go to Home Page</Link>
+            </li>
+            <li className="mb-2">Check your URL for typos</li>
+            <li className="mb-2">Contact the website administrator</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default NotFound;

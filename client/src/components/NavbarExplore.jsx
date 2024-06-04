@@ -9,7 +9,7 @@ import { logout } from '../slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaRegUser, FaUserCircle } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { MdLogout, MdOutlineSpaceDashboard } from "react-icons/md";
+import { MdLogout, MdOutlineModeOfTravel, MdOutlineSpaceDashboard } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import { SlSupport } from "react-icons/sl";
 import { toast } from 'react-toastify';
@@ -17,6 +17,8 @@ import { usePostSearch } from "../context/PostFilter";
 import { IoSearchOutline } from "react-icons/io5";
 import '../css/form.css'
 import { BsCoin } from "react-icons/bs";
+import { CiCirclePlus, CiLogout, CiSettings, CiUser } from "react-icons/ci";
+import { IoIosHelpCircleOutline, IoIosNotificationsOutline } from "react-icons/io";
 
 const NavbarExplore = () => {
     const [openNavigation, setOpenNavigation] = useState(false);
@@ -62,7 +64,7 @@ const NavbarExplore = () => {
 
     return (
         <div className="fixed top-0 left-0 w-full z-50 border-b border-n-2 flex flex-col bg-n-1 pb-5">
-            <div className={`lg:bg-n-1 lg:backdrop-blur-sm ${openNavigation ? "bg-n-1" : "bg-n-1/90 backdrop-blur-sm"}`}>
+            <div className={`lg:bg-n-1 lg:backdrop-blur-sm ${openNavigation ? "bg-n-1" : "bg-n-1/90 backdrop-blur-sm"} container`}>
                 <div className="flex items-center px-5 lg:px-7.5 xl:px-10 max-lg:py-4">
                     <a className="w-[12rem] xl:mr-8 flex items-center" href="#hero">
                         <img src='../../public/vite.svg' width={40} height={40} alt="Brainwave" />
@@ -89,53 +91,80 @@ const NavbarExplore = () => {
                         </div>
                     </nav>
                     {userInfo ? (
-                        <div className="flex items-center">
-                        <Link to='/dashboard/subscription'>
-                            <div className="bg-green-600 rounded-lg mx-2 px-3 py-2 flex items-center justify-between hover:-translate-y-[2px] hover:transition-transform hover:bg-green-700"><BsCoin size={18}/><span className="font-bold ml-2">{userInfo.tokens}</span></div>
-                        </Link>
-                        <div className="text-black cursor-pointer hidden xl:flex">
-                        <div className="flex items-center justify-center border px-5 py-1 rounded-lg w-[145px]" onClick={() => setOpenProfile(!openProfile)}>
-                            <FaUserCircle size={20} />
-                            <h3 className="ml-3 mt-[0.1rem]">{userInfo.name}</h3>
-                            {openProfile ? <RiArrowDropDownLine style = {{transform: 'rotate(180deg)' }} size={30}/>  : <RiArrowDropDownLine size={30}/>}
-                            
-                        </div>
-                        {
-                            openProfile 
-                            ? (<div className="absolute bg-n-1 mt-11 w-[170px] border rounded-md text-center ml-[-12px]">
-                            <div className="flex items-center hover:bg-n-8/10 px-5 py-2 pt-3 pl-6 h-[45px]">
-                                <FaRegUser size={14}/>
-                                <Link to='/profile' className="ml-3 text-[0.9rem] tracking-wider ">Profile</Link>
-                            </div>
-                            <div className="flex items-center hover:bg-n-8/10 px-5 py-1 pt-1 pl-6 h-[45px]">
-                                <MdOutlineSpaceDashboard />
-                                <Link to='/dashboard/main' className="ml-3 text-[0.9rem] tracking-wider">Dashboard</Link>
-                            </div>
-                            <div className="flex items-center hover:bg-n-8/10 px-5 py-2  pl-6 h-[45px]">
-                                <IoSettingsOutline/>
-                                <Link to='/profile/settings' className="ml-3 text-[0.9rem] tracking-wider">Settings</Link>
-                            </div>
-                            <div className="flex items-center hover:bg-n-8/10 px-5 py-2  pl-6 h-[45px]">
-                                <SlSupport />
-                                <Link to='/profile/support' className="ml-3 text-[0.9rem] tracking-wider">Support</Link>
-                            </div>
-                            <hr className="w-[80%] mx-auto"/>
-                            <div className="flex items-center hover:bg-n-8/10 px-5 py-3 pl-7 h-[45px]">
-                                <MdLogout/>
-                                <p onClick={logoutHandler} className="ml-3 tacking-wider text-[0.9rem]">Logout</p>
-                            </div>
-                            </div>) : null
-                        }
-                    </div></div>) 
-                    : <>
-                        <Link to='/register'>
-                        <h1 className="button hidden mr-8 text-n-3 transition-colors hover:text-n-8 lg:block">New account</h1>
-                        </Link >
-                        <Link to='/login'>
-                        <h1 className="hidden lg:flex button relative text-n-8 items-center justify-center h-11 hover:text-amber-600 border-2 rounded-lg px-5 border-n-8/70">Sign in</h1>
-                        </Link>
-                    </>
-                    }
+          <div className="flex items-center">
+             <Link to='/dashboard/subscription' className="mx-2">
+              <div className="flex items-center rounded-lg bg-green-600 hover:bg-green-700 px-3 py-2 space-x-2 cursor-pointer">
+                <BsCoin size={24} className="text-n-1" />
+                <span className="text-n-1 font-semibold">{userInfo.tokens}</span>
+              </div>
+            </Link>
+          <div className="flex items-center ml-auto">
+            <div className="relative">
+              <div className="flex items-center justify-center border hover:shadow text-black cursor-pointer px-4 py-2 rounded-full" onClick={() => setOpenProfile(!openProfile)}>
+                <FaUserCircle size={20} />
+                <h3 className="ml-3 mt-[0.1rem]">{userInfo.name}</h3>
+                <RiArrowDropDownLine size={30} className={`${openProfile ? 'transform rotate-180' : ''}`} />
+              </div>
+              {openProfile && (
+                <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg">
+                  <div className="flex flex-col">
+                    <div className="py-2">
+                      <Link to='/account' className="flex items-center px-4 py-2 text-black hover:bg-gray-100">
+                        <CiUser size={22} />
+                        <span className="ml-3">Account</span>
+                      </Link>
+                      <Link to='/dashboard' className="flex items-center px-4 py-2 text-black hover:bg-gray-100">
+                        <IoIosNotificationsOutline size={22} />
+                        <span className="ml-3">Notifications</span>
+                      </Link>
+                    </div>
+                    <hr className="border-gray-200"/>
+                    <div className="py-2">
+                    <Link to='/dashboard/privacy' className="flex items-center px-4 py-2 text-black hover:bg-gray-100">
+                        <CiCirclePlus size={22} />
+                        <span className="ml-3">Create Travel</span>
+                      </Link>
+                      <Link to='/dashboard/terms' className="flex items-center px-4 py-2 text-black hover:bg-gray-100">
+                        <MdOutlineModeOfTravel size={22} />
+                        <span className="ml-3">My Travels</span>
+                      </Link>
+                      
+                    </div>
+                    <hr className="border-gray-200"/>
+                    <div className="py-2">
+                      <Link to='/dashboard/settings' className="flex items-center px-4 py-2 text-black hover:bg-gray-100">
+                        <CiSettings size={22} />
+                        <span className="ml-3">Settings</span>
+                      </Link>
+                      <Link to='/dashboard/support' className="flex items-center px-4 py-2 text-black hover:bg-gray-100">
+                        <IoIosHelpCircleOutline size={22} />
+                        <span className="ml-3">Support</span>
+                      </Link>
+                      <button onClick={logoutHandler} className="flex items-center px-4 py-2 text-black hover:bg-gray-100 w-full text-left">
+                        <CiLogout size={22} />
+                        <span className="ml-3">Logout</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          </div>
+        ) : (
+          <>
+            <Link to='/register'>
+              <button className="hidden lg:block mr-8 bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 rounded-full transition-colors">
+                New account
+              </button>
+            </Link>
+            <Link to='/login'>
+              <button className="hidden lg:block bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 rounded-full transition-colors">
+                Sign in
+              </button>
+            </Link>
+          </>
+        )}
                     <Button className="ml-auto lg:hidden" px="px-3" onClick={toggleNavigation}>
                         <MenuSvg openNavigation={openNavigation} />
                     </Button>

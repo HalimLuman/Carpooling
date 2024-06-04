@@ -24,6 +24,7 @@ import socialConnection from './roadmap/socialconnection.svg'
 
 import registration from './Registration.png'
 import profile from './profile-background.jpg'
+import notFound from './notFoundAlternative1.jpg'
 
 export {
     discordBlack,
@@ -51,5 +52,6 @@ export {
     socialConnection,
 
     registration,
-    profile
+    profile,
+    notFound
 }

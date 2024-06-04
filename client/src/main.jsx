@@ -24,6 +24,16 @@ import PostInfo from './pages/PostInfo.jsx'
 import NotFound from './pages/NotFound.jsx';
 import SafetyGuideline from './pages/SafetyGuideline.jsx';
 import Reservations from './pages/Reservations.jsx';
+import AccountLayout from './pages/AccountLayout.jsx';
+import Account from './pages/Account.jsx';
+import AccountProfile from './pages/AccountProfile.jsx';
+import AccountPrivacy from './pages/AccountPrivacy.jsx';
+import AccountPayment from './pages/AccountPayment.jsx';
+import AccountRequests from './pages/AccountRequests.jsx';
+import AccountHistoryCreate from './pages/AccountHistoryCreate.jsx';
+import AccountHistoryJoin from './pages/AccountHistoryJoin.jsx';
+import AccountStats from './pages/AccountStats.jsx';
+import AccountDelete from './pages/AccountDelete.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,7 +55,19 @@ const router = createBrowserRouter(
           <Route path='/dashboard/history' element={<History />}/>
           <Route path='/dashboard/reservation' element={<Reservations />}/>
         </Route>
+        <Route path='/account' element={<AccountLayout />}>
+         <Route path='/account/' element={<Account />} />
+         <Route path='/account/personal-information' element={<AccountProfile />} />
+         <Route path='/account/security' element={<AccountPrivacy />} />
+         <Route path='/account/payments-payouts' element={<AccountPayment />} />
+         <Route path='/account/pending-requests' element={<AccountRequests />} />
+         <Route path='/account/created-carpool-history' element={<AccountHistoryCreate />} />
+         <Route path='/account/joined-carpool-history' element={<AccountHistoryJoin />} />
+         <Route path='/account/account-statistics' element={<AccountStats />} />
+         <Route path='/account/account-deactivation' element={<AccountDelete />} />
+        </Route>
       </Route>
+        
       <Route path="*" element={<NotFound />} />
     </Route>
   )

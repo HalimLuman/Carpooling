@@ -9,6 +9,14 @@ import { SlSupport } from 'react-icons/sl';
 import { LuPlusCircle } from 'react-icons/lu'
 import { RiHistoryFill } from "react-icons/ri";
 
+import { CiCircleInfo } from "react-icons/ci";
+import { GoShieldLock } from "react-icons/go";
+import { CiMoneyCheck1 } from "react-icons/ci";
+import { CiClock2 } from "react-icons/ci";
+import { CiViewList } from "react-icons/ci";
+import { TfiStatsUp } from "react-icons/tfi";
+import { CiCircleRemove } from "react-icons/ci";
+
 import {
   discordBlack,
   telegram,
@@ -123,6 +131,62 @@ export const navigation = [
       ],
     },
   ];
+  
+  export const accountSettings = [
+    {
+      links: [
+        {
+          name: 'Personal Information',
+          icon: CiCircleInfo,
+          to: '/account/personal-information',
+          description: 'Provide or update your personal information for a better profile'
+        },
+        {
+          name: 'Security',
+          icon: GoShieldLock,
+          to: '/account/security',
+          description: 'Manage your security settings including password'
+        },
+        {
+          name: 'Payment & Tokens',
+          icon: CiMoneyCheck1,
+          to: '/account/payments-payouts',
+          description: 'View and manage your payment method and buy tokens'
+        },
+        {
+          name: 'Pending Requests',
+          icon: CiClock2,
+          to: '/account/pending-requests',
+          description: 'Review and respond to pending requests from other users'
+        },
+        {
+          name: 'Created Carpool History',
+          icon: CiViewList,
+          to: '/account/created-carpool-history',
+          description: 'View the history of carpools you have created'
+        },
+        {
+          name: 'Joined Carpool History',
+          icon: CiViewList,
+          to: '/account/joined-carpool-history',
+          description: 'View the history of carpools you have joined'
+        },
+        {
+          name: 'Account Stats',
+          icon: TfiStatsUp,
+          to: '/account/account-statistics',
+          description: 'Analyze your account statistics and performance metrics'
+        },
+        {
+          name: 'Deactivate Account',
+          icon: CiCircleRemove,
+          to: '/account/account-deactivation',
+          description: 'Permanently deactivate your account if you no longer need it'
+        },
+      ],
+    },
+  ];
+  
 
 
   export const socials = [

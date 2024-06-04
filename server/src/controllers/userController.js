@@ -4,6 +4,7 @@ import User from '../models/userModel.js'
 import generateOTP from '../utils/generateOTP.js';
 import Post from '../models/postModel.js';
 import { sendOTPByEmail } from '../utils/sendOTP.js';
+import bcrypt from 'bcryptjs'
 
 // @desc  Auth user/set token
 // route POST /api/users/auth
@@ -14,7 +15,6 @@ const authUser = asyncHandler(async (req, res) => {
 
     if(user && (await user.matchPasswords(password))){
         generateToken(res, user._id);
-        console.log(user._id)
         res.status(201).json({_id: user._id, name: user.name, surname: user.surname, email: user.email, phone: user.phone, city: user.city, address: user.address, dateOfBirth: user.dateOfBirth, gender: user.gender, tokens: user.tokens});
     }else{
         res.status(401);
@@ -100,7 +100,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
 const updateUserProfile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
     
-    if(user){
+    if (user) {
+        // Update profile fields
         user.name = req.body.name || user.name;
         user.surname = req.body.surname || user.surname;
         user.email = req.body.email || user.email;
@@ -109,10 +110,18 @@ const updateUserProfile = asyncHandler(async (req, res) => {
         user.city = req.body.city || user.city;
         user.address = req.body.address || user.address;
         user.gender = req.body.gender || user.gender;
-        user.tokens = req.body.tokens;
+        user.tokens = req.body.tokens !== undefined ? req.body.tokens : user.tokens;
 
-        if(req.body.password){
-            user.password = req.body.password;
+        // Handle password update
+        if (req.body.newPassword) {
+            // Verify current password
+            const isMatch = await bcrypt.compare(req.body.password, user.password);
+            if (!isMatch) {
+                res.status(401);
+                throw new Error('Invalid current password');
+            }
+            // Update password
+            user.password = req.body.newPassword;
         }
 
         const updatedUser = await user.save();
@@ -128,8 +137,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             address: updatedUser.address,
             gender: updatedUser.gender,
             tokens: updatedUser.tokens,
-        })
-    }else{
+        });
+    } else {
         res.status(404);
         throw new Error('User not found');
     }

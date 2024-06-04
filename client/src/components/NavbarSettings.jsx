@@ -1,34 +1,29 @@
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 import { useState } from "react";
-import { navigation } from "../constants";
-import Button from "./design/Button";
-import MenuSvg from "../assets/svg/MenuSvg";
-import { HamburgerMenu } from "./design/Header";
+import { useDispatch, useSelector } from 'react-redux';
+import { FaUserCircle } from "react-icons/fa";
+import { RiArrowDropDownLine } from "react-icons/ri";
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { CiUser } from "react-icons/ci";
+import { CiSettings } from "react-icons/ci";
+import { CiCirclePlus } from "react-icons/ci";
+import { CiLogout } from "react-icons/ci";
+import { IoIosHelpCircleOutline } from "react-icons/io";
+import { CiRollingSuitcase } from "react-icons/ci";
+import { CiMap } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
+import { toast } from 'react-toastify';
+import Button from "./design/Button";
+import MenuSvg from "../assets/svg/MenuSvg";
 
-import { useDispatch, useSelector} from 'react-redux'
-import { FaRegUser } from "react-icons/fa";
-import { RiArrowDropDownLine } from "react-icons/ri";
-import { MdLogout, MdOutlineModeOfTravel } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
-import { FaUserCircle } from "react-icons/fa";
-import { SlSupport } from "react-icons/sl";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
-import { toast } from 'react-toastify'
-import { BsCoin } from "react-icons/bs";
-import { CiCirclePlus, CiLogout, CiSettings, CiUser } from "react-icons/ci";
-import { IoIosHelpCircleOutline, IoIosNotificationsOutline } from "react-icons/io";
-
-const NavbarMain = () => {
+const NavbarSettings = () => {
   const [openNavigation, setOpenNavigation] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
-
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const [logoutApiCall] = useLogoutMutation();
 
   const toggleNavigation = () => {
@@ -47,7 +42,7 @@ const NavbarMain = () => {
       await logoutApiCall().unwrap();
       dispatch(logout());
       navigate('/login');
-      toast.success('Logged out succesfully', {autoClose: 1500, pauseOnHover: false});
+      toast.success('Logged out successfully', { autoClose: 1500, pauseOnHover: false });
     } catch (err) {
       console.error(err);
     }
@@ -61,41 +56,14 @@ const NavbarMain = () => {
   };
 
   return (
-    <div className={`fixed top-0 left-0 w-full z-50 border-b border-n-2 lg:bg-n-1 lg:backdrop-blur-sm ${openNavigation ? "bg-n-1" : "bg-n-1/90 backdrop-blur-sm"}`}>
-      <div className="flex items-center px-5 lg:px-7.5 xl:px-10 max-lg:py-4 container">
-        <a className="w-[12rem] xl:mr-8 flex items-center" href="#hero">
+    <div className={`fixed top-0 left-0 w-full flex items-center z-50 shadow lg:bg-white lg:backdrop-blur-sm ${openNavigation ? "bg-white" : "bg-white/90 backdrop-blur-sm"}`}>
+      <div className="flex items-center px-5 lg:px-7.5 xl:px-10 max-lg:py-4 container py-3  ">
+        <Link className="w-[12rem] xl:mr-8 flex items-center" to='/'>
           <img src='../../public/vite.svg' width={40} height={40} alt="Brainwave" />
-          <span className="ml-3 text-2xl font-semibold tracking-wider text-n-8">TRAVEL</span>
-        </a>
+          <span className="ml-3 text-2xl font-semibold tracking-wider text-black">TRAVEL</span>
+        </Link>
 
-        <nav className={`${openNavigation ? "flex" : "hidden"} fixed top-[4.7rem] left-0 right-0 bottom-0 bg-n-1 lg:static lg:flex lg:mx-auto lg:bg-transparent`}>
-          <div className="relative z-2 flex flex-col items-center justify-center m-auto lg:flex-row">
-            {navigation.map((item) => (
-              <a key={item.id} href={item.url} onClick={handleClick} className={`block relative font-code text-xl uppercase text-n-8 transition-colors hover:text-amber-600 px-6 py-5 md:py-6 lg:-mr-0.25 xl:text-sm lg:font-semibold lg:leading-5 lg:hover:text-amber-600 xl:px-10`}>
-                {item.title}
-              </a>
-            ))}
-            {userInfo ? (
-              <div className="block xl:hidden text-center">
-               <Link to='/dashboard' className="block relative font-code text-xl uppercase text-n-8 transition-colors hover:text-amber-600 px-6 py-5 md:py-6 lg:-mr-0.25 xl:text-sm lg:font-semibold lg:leading-5 lg:hover:text-amber-600 xl:px-10">Profile</Link>
-               <p onClick={logoutHandler} className="block relative font-code text-xl uppercase text-n-8 transition-colors hover:text-amber-600 px-6 py-5 md:py-6 lg:-mr-0.25 xl:text-sm lg:font-semibold lg:leading-5 lg:hover:text-amber-600 xl:px-10">Logout</p>
-              </div>
-            ) :
-            <div className="block xl:hidden">
-              <Link to='/login' className="block relative font-code text-xl uppercase text-n-8 transition-colors hover:text-amber-600 px-6 py-5 md:py-6 lg:-mr-0.25 xl:text-sm lg:font-semibold lg:leading-5 lg:hover:text-amber-600 xl:px-10">Sign in</Link>
-              <Link to='/register' className="block relative font-code text-xl uppercase text-n-8 transition-colors hover:text-amber-600 px-6 py-5 md:py-6 lg:-mr-0.25 xl:text-sm lg:font-semibold lg:leading-5 lg:hover:text-amber-600 xl:px-10">New Account</Link>
-            </div>
-            }
-          </div>
-        </nav>
-          {userInfo ? (
-          <div className="flex items-center">
-             <Link to='/dashboard/subscription' className="mx-2">
-              <div className="flex items-center rounded-lg bg-green-600 hover:bg-green-700 px-3 py-2 space-x-2 cursor-pointer">
-                <BsCoin size={24} className="text-n-1" />
-                <span className="text-n-1 font-semibold">{userInfo.tokens}</span>
-              </div>
-            </Link>
+        {userInfo ? (
           <div className="flex items-center ml-auto">
             <div className="relative">
               <div className="flex items-center justify-center border hover:shadow text-black cursor-pointer px-4 py-2 rounded-full" onClick={() => setOpenProfile(!openProfile)}>
@@ -118,12 +86,16 @@ const NavbarMain = () => {
                     </div>
                     <hr className="border-gray-200"/>
                     <div className="py-2">
-                    <Link to='/dashboard/privacy' className="flex items-center px-4 py-2 text-black hover:bg-gray-100">
+                      <Link to='/explore' className="flex items-center px-4 py-2 text-black hover:bg-gray-100">
+                        <CiMap size={22} />
+                        <span className="ml-3">Explore</span>
+                      </Link>
+                      <Link to='/dashboard/privacy' className="flex items-center px-4 py-2 text-black hover:bg-gray-100">
                         <CiCirclePlus size={22} />
                         <span className="ml-3">Create Travel</span>
                       </Link>
                       <Link to='/dashboard/terms' className="flex items-center px-4 py-2 text-black hover:bg-gray-100">
-                        <MdOutlineModeOfTravel size={22} />
+                        <CiRollingSuitcase size={22} />
                         <span className="ml-3">My Travels</span>
                       </Link>
                       
@@ -148,7 +120,6 @@ const NavbarMain = () => {
               )}
             </div>
           </div>
-          </div>
         ) : (
           <>
             <Link to='/register'>
@@ -163,13 +134,9 @@ const NavbarMain = () => {
             </Link>
           </>
         )}
-
-        <Button className="ml-auto lg:hidden" px="px-3" onClick={toggleNavigation}>
-          <MenuSvg openNavigation={openNavigation} />
-        </Button>
       </div>
     </div>
   );
 };
 
-export default NavbarMain;
+export default NavbarSettings;

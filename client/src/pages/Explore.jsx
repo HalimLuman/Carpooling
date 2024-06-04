@@ -4,7 +4,7 @@ import Post from '../components/Post';
 import NavbarExplore from '../components/NavbarExplore';
 import Filter from '../components/Filter';
 import { usePostSearch } from '../context/PostFilter';
-import { FaSortAmountDown } from "react-icons/fa";
+import { FaSearch, FaSortAmountDown } from "react-icons/fa";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 
 const Explore = () => {
@@ -13,6 +13,7 @@ const Explore = () => {
     const [filters, setFilters] = useState({ min: 0, max: 0, cigaretteAllowed: false, petsAllowed: false, sortOrder: '' });
     const [sortLabel, setSortLabel] = useState("Select");
     const [dropdownVisible, setDropdownVisible] = useState(false);
+    const [search, setSearch] = useState({ from: '', to: '', date: '' });
     const [currentPage, setCurrentPage] = useState(1);
 
     const postsPerPage = 10;
@@ -24,6 +25,11 @@ const Explore = () => {
     const handleFilterChange = (newFilters) => {
         setFilters(newFilters);
         setCurrentPage(1); // Reset to the first page when filters change
+    };
+
+    const handleSearchChange = (e) => {
+        const { name, value } = e.target;
+        setSearch({ ...search, [name]: value });
     };
 
     const handleSortChange = (sortOrder) => {
@@ -43,30 +49,30 @@ const Explore = () => {
     };
 
     const filteredPosts = posts ? posts.filter(post => {
-        const { from, to, date } = searchCriteria;
+        const { from, to, date } = search;
         const { min, max, cigaretteAllowed, petsAllowed } = filters;
 
-        const matchesSearchCriteria = 
+        const matchesSearchCriteria =
             post.from.toLowerCase().includes(from.toLowerCase()) &&
             post.to.toLowerCase().includes(to.toLowerCase()) &&
             post.date.includes(date);
 
-        const matchesPriceRange = 
-            (!min || post.price >= min) && 
+        const matchesPriceRange =
+            (!min || post.price >= min) &&
             (!max || post.price <= max);
 
-        const matchesCigaretteAllowed = 
+        const matchesCigaretteAllowed =
             !cigaretteAllowed || post.cigaretteAllowed === cigaretteAllowed;
 
-        const matchesPetsAllowed = 
+        const matchesPetsAllowed =
             !petsAllowed || post.petsAllowed === petsAllowed;
 
         return matchesSearchCriteria && matchesPriceRange && matchesCigaretteAllowed && matchesPetsAllowed;
     }) : [];
 
-    const sortedPosts = filters.sortOrder === 'asc' 
+    const sortedPosts = filters.sortOrder === 'asc'
         ? filteredPosts.sort((a, b) => a.price - b.price)
-        : filters.sortOrder === 'desc' 
+        : filters.sortOrder === 'desc'
             ? filteredPosts.sort((a, b) => b.price - a.price)
             : filteredPosts;
 
@@ -98,7 +104,19 @@ const Explore = () => {
             <div className='w-full bg-gray-100 min-h-screen'>
                 <div className='flex flex-col items-center pt-[10rem] container'>
                     <div className='flex flex-col md:flex-row mt-5 w-full'>
-                        <div className='w-full md:w-1/3'>
+                        <div className='w-full md:w-1/3 mb-4'>
+                        <div className="bg-white rounded-lg shadow p-4 mb-5">
+                            <div className="flex items-center mb-4">
+                                <input type="text" name="from" value={search.from} onChange={handleSearchChange} placeholder="Location" className="border border-gray-300 bg-n-1 text-gray-700 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500" />
+                            </div>
+                            <div className="flex items-center mb-4">
+                                <input type="text" name="to" value={search.to} onChange={handleSearchChange} placeholder="Destination" className="border border-gray-300 bg-n-1 text-gray-700 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500" />
+                            </div>
+                            <div className="flex items-center mb-4">
+                                <input type="text" name="date" value={search.date} onChange={handleSearchChange} placeholder="Date" className="border border-gray-300 bg-n-1 text-gray-700 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500" />
+                            </div>
+                            <button className="bg-black text-white px-4 py-2 rounded-lg transition duration-300 ease-in-out mr-2 hover:bg-sky-600 w-full">Submit</button>
+                        </div>
                             <Filter onFilterChange={handleFilterChange} />
                         </div>
                         <div className="w-full md:w-2/3 flex flex-col items-center justify-center md:ml-7">
@@ -123,9 +141,6 @@ const Explore = () => {
                                     </div>
                                 </div>
                             )}
-                            {isLoading && <p>Loading...</p>}
-                            {isError && <p>Error fetching posts</p>}
-                            {sortedPosts.length === 0 && <h1 className="text-n-8 text-2xl font-bold px-4 py-2">No Posts Available</h1>}
                             {sortedPosts.length > 0 && <h1 className="text-n-8 text-2xl font-bold px-4 py-2">Search Results: {sortedPosts.length}</h1>}
                             {currentPosts.map(post => (
                                 <Post key={post._id} post={post} />
@@ -133,13 +148,13 @@ const Explore = () => {
                             {
                                 sortedPosts.length > 0 && (
                                     <div className='flex justify-center py-4 items-center'>
-                                        <MdKeyboardArrowLeft 
-                                            color='black' 
-                                            size={30} 
-                                            onClick={goToPreviousPage} 
+                                        <MdKeyboardArrowLeft
+                                            color='black'
+                                            size={30}
+                                            onClick={goToPreviousPage}
                                             className={currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
                                         />
-                                        <div className='mx-10'>         
+                                        <div className='mx-10'>
                                             {Array.from({ length: totalPages }, (_, index) => (
                                                 <button
                                                     key={index}
@@ -150,18 +165,17 @@ const Explore = () => {
                                                 </button>
                                             ))}
                                         </div>
-                                        <MdKeyboardArrowRight 
-                                            color='black' 
-                                            size={30} 
-                                            onClick={goToNextPage} 
+                                        <MdKeyboardArrowRight
+                                            color='black'
+                                            size={30}
+                                            onClick={goToNextPage}
                                             className={currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
                                         />
                                     </div>
                                 )
                             }
                         </div>
-                   
-                        </div>
+                    </div>
                 </div>
             </div>
         </>

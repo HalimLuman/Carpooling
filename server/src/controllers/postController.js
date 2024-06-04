@@ -32,8 +32,26 @@ const getPosts = asyncHandler(async (req, res) => {
 
 const deletePost = asyncHandler(async (req, res) => {
     try {
+        // Find the post by ID
+        const post = await Post.findById(req.params.id);
+
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        // Iterate over the reservations and return one token to each user
+        for (const reservationUserId of post.reservations) {
+            const user = await User.findById(reservationUserId);
+            if (user) {
+                user.tokens += 1;
+                await user.save();
+            }
+        }
+
+        // Delete the post
         await Post.findByIdAndDelete(req.params.id);
-        res.status(200).json("Post has been deleted");
+
+        res.status(200).json("Post has been deleted and tokens have been returned to users");
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -119,13 +137,15 @@ const handleRequest = asyncHandler(async (req, res) => {
         }
 
         post.reservations.push(userId);
+        user.tokens -= 1;
     }
+    
+    const updatedUser = await user.save();
 
     post.pendingRequests.splice(requestIndex, 1);
     await post.save();
 
-    user.tokens -= 1;
-    const updatedUser = await user.save();
+
 
     res.status(200).json({
         message: `Reservation has been ${action}ed`,
@@ -136,7 +156,7 @@ const handleRequest = asyncHandler(async (req, res) => {
             email: updatedUser.email,
             phone: updatedUser.phone,
             dateOfBirth: updatedUser.dateOfBirth,
-            city: updatedUser.city,
+            city: updatedUser.city, 
             address: updatedUser.address,
             gender: updatedUser.gender,
             tokens: updatedUser.tokens,
