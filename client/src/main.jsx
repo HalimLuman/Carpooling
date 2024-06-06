@@ -35,6 +35,8 @@ import AccountHistoryJoin from './pages/AccountHistoryJoin.jsx';
 import AccountStats from './pages/AccountStats.jsx';
 import AccountDelete from './pages/AccountDelete.jsx';
 
+import './i18n';
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>}>

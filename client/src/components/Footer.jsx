@@ -1,13 +1,15 @@
 import React from "react";
 import Section from "./design/Section";
 import { socials } from "../constants";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <Section className="!px-0 !py-10">
       <div className="container flex sm:justify-between justify-center items-center gap-10 max-sm:flex-col w-[95%]">
         <p className="caption text-n-4 lg:block">
-          © {new Date().getFullYear()}. All rights reserved.
+          © {new Date().getFullYear()}. {t('HOME.Footer.rights')}.
         </p>
 
         <ul className="flex gap-5 flex-wrap">

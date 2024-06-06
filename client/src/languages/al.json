@@ -1,0 +1,75 @@
+{
+    "translation": {
+        "HOME":{
+            "Hero": {
+              "header": "Përdorni covoiturazhin për të gjetur aventura udhëtimi të përballueshme.",
+              "description": "Bashkohuni me komunitetin tonë të covoitur për opsionet e udhëtimit eko-miqësore dhe me kosto efektive në Maqedoninë e Veriut.",
+              "button": "Fillo"
+            },
+            "Benefits": {
+                "tag": "PËRFITIMET E PËRDORIMIT TË TRAVEL",
+                "header": "Çfarë do të merrni gjatë përdorimit të TRAVEL",
+                "benefits": {
+                    "benefit1": {
+                        "title": "Mundësitë e kursimit të kostos",
+                        "description": "Kurseni para në kostot e transportit duke ndarë udhëtimet, duke ndarë shpenzimet e karburantit, pagesat dhe tarifat e parkimit me udhëtarët e tjerë, duke e bërë udhëtimin më të përballueshëm për të gjithë."
+                    },
+                    "benefit2": {
+                        "title": "Lidhjet shoqërore",
+                        "description": "Lidhuni me individë me mendje të ngjashme dhe zgjeroni rrjetin tuaj social nëpërmjet udhëtimeve të përbashkëta, duke nxitur marrëdhënie kuptimplota dhe përvoja të paharrueshme gjatë rrugës."
+                    },
+                    "benefit3": {
+                        "title": "Planifikimi fleksibël",
+                        "description": "Shijoni fleksibilitetin për të planifikuar udhëtime sipas orarit dhe preferencave tuaja, duke ofruar mundësi të volitshme transporti që përshtaten me stilin e jetesës dhe angazhimet tuaja."
+                    },
+                    "benefit4": {
+                        "title": "Eko-miqësore Travel",
+                        "description": "Nxitni qëndrueshmërinë e mjedisit duke udhëtuar me automjete eko-miqësore, duke reduktuar ndotjen dhe gjurmën e karbonit, duke shkurtuar gjithashtu kostot e udhëtimit për përdoruesit."
+                    }
+                }
+            },
+            "Safety": {
+                "header": "Siguria juaj është prioriteti ynë",
+                "description": "Lexoni udhëzimet më poshtë për të siguruar sigurinë tuaj",
+                "safety": {
+                    "safety1": {
+                        "title": "Verifikoni informacionin e shoferit",
+                        "description": "Para se të pranoni një udhëtim, verifikoni informacionin e shoferit duke përfshirë emrin, fotografinë dhe numrin e targës së tyre.",
+                        "icon": ""
+                    },
+                    "safety2": {
+                        "title": "Ndani detajet e udhëtimit",
+                        "description": "Ndani detajet e udhëtimit me një kontakt të besuar, duke përfshirë informacionin e shoferit dhe kohën e llogaritur të mbërritjes.",
+                        "icon": ""
+                    },
+                    "safety3": {
+                        "title": "Takoheni në vende publike",
+                        "description": "Gjithmonë njihuni me shoferin në një zonë publike, të ndriçuar mirë, dhe mos hyni në automjet nëse ndiheni të parehatshëm.",
+                        "icon": ""
+                    },
+                    "safety4": {
+                        "title": "Lidhu",
+                        "description": "Vishni rripin e sigurimit gjatë gjithë udhëtimit, pavarësisht nga distanca ose kohëzgjatja.",
+                        "icon": ""
+                    },
+                    "safety5": {
+                        "title": "Qëndroni vigjilentë",
+                        "description": "Qëndroni vigjilentë gjatë udhëtimit dhe kini besim tek instinktet tuaja. Nëse diçka ndihet keq, mos ngurro të flasësh ose të kërkosh t'i japësh fund udhëtimit.",
+                        "icon": ""
+                    },
+                    "safety6": {
+                        "title": "Norma dhe shqyrtimi",
+                        "description": "Pas udhëtimit, tarifoni dhe rishikoni shoferin në bazë të përvojës suaj. Kjo ndihmon në ruajtjen e përgjegjshmërisë brenda komunitetit.",
+                        "icon": ""
+                    }
+                },
+                "link": "EKSPLORO MË SHUMË"
+
+            },
+            "Footer": {
+              "rights": "Të gjitha të drejtat e rezervuara"
+            }
+        }
+    }
+}
+  

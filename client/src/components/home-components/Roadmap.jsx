@@ -1,21 +1,23 @@
+import React from "react";
 import { roadmap } from "../../constants";
 import { grid } from "../../assets";
 import Section from "../design/Section";
 import Heading from "../design/Heading";
+import { useTranslation } from "react-i18next";
 
-const Roadmap = () => (
-  <Section className="overflow-hidden" id="roadmap">
-    <div className="container md:mb-[-5rem]">
-      <Heading
-        tag="Benefits of using TRAVEL"
-        title="What you will get while using TRAVEL"
-        className="text-n-8"
-      />
+const Roadmap = () => {
+  const { t } = useTranslation();
+  return (
+    <Section className="overflow-hidden" id="roadmap">
+      <div className="container md:mb-[-5rem]">
+        <Heading
+          tag={`${t('HOME.Benefits.tag')}`}
+          title={`${t('HOME.Benefits.header')}`}
+          className="text-n-8 text-center"
+        />
 
-      <div className="relative grid gap-6 md:grid-cols-2 md:gap-8 md:pb-[7rem] w-[95%] mx-auto">
-        {roadmap.map((item) => {
-
-          return (
+        <div className="relative grid gap-6 md:grid-cols-2 md:gap-8 md:pb-[7rem] w-[95%] mx-auto">
+          {roadmap.map((item,index) => (
             <div
               className="md:flex border border-n-2/40 rounded-[1.5rem] shadow-lg hover:shadow-xl transition-shadow duration-300"
               key={item.id}
@@ -36,16 +38,16 @@ const Roadmap = () => (
                       alt={item.title}
                     />
                   </div>
-                  <h4 className="h5 mb-4 text-center text-n-8">{item.title}</h4>
-                  <p className="body-3 text-n-4 text-center mb-6">{item.text}</p>
+                  <h4 className="h5 mb-4 text-center text-n-8">{t(`HOME.Benefits.benefits.benefit${index+1}.title`)}</h4>
+                  <p className="body-3 text-n-4 text-center mb-6">{t(`HOME.Benefits.benefits.benefit${index+1}.description`)}</p>
                 </div>
               </div>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
-    </div>
-  </Section>
-);
+    </Section>
+  );
+};
 
 export default Roadmap;

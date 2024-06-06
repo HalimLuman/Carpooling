@@ -16,7 +16,9 @@ const App = () => {
       </div>
 
       <ButtonGradient />
-    <Footer />
+      <div className="border-t">
+        <Footer />
+      </div>
     </>
   );
 };

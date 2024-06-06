@@ -60,6 +60,11 @@ const AccountRequests = () => {
     { label: 'Pending Requests' }
   ];
 
+  // Filter pending requests to exclude those made by the current user
+  const filteredRequests = pendingRequests?.filter(request => 
+    request.pendingRequests.some(user => user._id !== userInfo._id)
+  );
+
   return (
     <div className="w-full min-h-screen text-n-8">
       <div className="flex flex-col items-center">
@@ -67,56 +72,56 @@ const AccountRequests = () => {
           <AccountHeader elements={headerElements} />
           <div className="flex my-10">
             <div className="w-[75%] flex flex-wrap">
-              <div className="flex justify-between items-center w-full relative">
+              <div className="flex justify-between w-full relative">
                 {isLoading && <p className="text-lg">Loading...</p>}
                 {isError && <p className="text-lg text-red-500">Error fetching pending requests</p>}
-                {pendingRequests?.length === 0 && !isLoading && !isError && (
+                {filteredRequests?.length === 0 && !isLoading && !isError && (
                   <h1 className="text-n-8 text-2xl font-bold py-2 container self-start">No Pending Requests</h1>
                 )}
-                {pendingRequests?.length > 0 && (
+                {filteredRequests?.length > 0 && (
                   <div className="container grid grid-cols-1 gap-10">
-                  {pendingRequests.map((request) => (
-                    <div key={request._id} className="bg-white rounded-lg shadow-md overflow-hidden">
-                      <div className="relative">
-                        <img 
-                          src={registration} // Assuming you have an image URL
-                          alt="Reservation"
-                          className="w-full h-48 object-cover"
-                        />
-                        <div className="absolute top-2 left-2 bg-black shadow text-white px-2 py-1 rounded-lg text-sm">
-                          {new Date(request.date).toLocaleDateString()}
+                    {filteredRequests.map((request) => (
+                      <div key={request._id} className="bg-white rounded-lg shadow-md overflow-hidden h-max">
+                        <div className="relative">
+                          <img 
+                            src={registration} // Assuming you have an image URL
+                            alt="Reservation"
+                            className="w-full h-48 object-cover"
+                          />
+                          <div className="absolute top-2 left-2 bg-black shadow text-white px-2 py-1 rounded-lg text-sm">
+                            {new Date(request.date).toLocaleDateString()}
+                          </div>
+                        </div>
+                        <div className="p-6">
+                          <h3 className="text-lg font-semibold mb-2">{request.from} - {request.to}</h3>
+                          <div className="space-y-2">
+                            {request.pendingRequests.map(user => (
+                              user._id !== userInfo._id && (
+                                <div key={user._id}>
+                                  <p className="text-gray-600"><strong>Requester Name:</strong> {user.name} {user.surname}</p>
+                                  <p className="text-gray-600"><strong>Requester Email:</strong> {user.email}</p>
+                                </div>
+                              )
+                            ))}
+                          </div>
+                        </div>
+                        <div className="p-4 border-t flex justify-end">
+                          <button 
+                            onClick={() => handleAction(request._id, request.pendingRequests[0]._id, 'accept')}
+                            className="bg-black text-white px-4 py-2 rounded-lg transition duration-300 ease-in-out mr-2 hover:bg-green-600"
+                          >
+                            Accept
+                          </button>
+                          <button 
+                            onClick={() => handleAction(request._id, request.pendingRequests[0]._id, 'reject')}
+                            className="border border-black text-black px-4 py-2 rounded-lg transition duration-300 ease-in-out hover:bg-red-600/50"
+                          >
+                            Reject
+                          </button>
                         </div>
                       </div>
-                      <div className="p-6">
-                        <h3 className="text-lg font-semibold mb-2">{request.from} - {request.to}</h3>
-                        <div className="space-y-2">
-                          {request.pendingRequests.map(user => (
-                            <div key={user._id}>
-                              <p className="text-gray-600"><strong>Requester Name:</strong> {user.name} {user.surname}</p>
-                              <p className="text-gray-600"><strong>Requester Email:</strong> {user.email}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="p-4 border-t flex justify-end">
-                        <button 
-                          onClick={() => handleAction(request._id, request.pendingRequests[0]._id, 'accept')}
-                          className="bg-black text-white px-4 py-2 rounded-lg transition duration-300 ease-in-out mr-2 hover:bg-green-600"
-                        >
-                          Accept
-                        </button>
-                        <button 
-                          onClick={() => handleAction(request._id, request.pendingRequests[0]._id, 'reject')}
-                          className="border border-black text-black px-4 py-2 rounded-lg transition duration-300 ease-in-out hover:bg-red-600/50"
-                        >
-                          Reject
-                        </button>
-                      </div>
-
-                    </div>
-                  ))}
-                </div>
-                
+                    ))}
+                  </div>
                 )}
               </div>
             </div>

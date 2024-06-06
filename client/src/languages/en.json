@@ -1,0 +1,74 @@
+{
+    "translation": {
+        "HOME": {
+            "Hero": {
+              "header": "Explore affordable and accessible carpooling for exciting travel adventures.",
+              "description": "Join our carpool community for eco-friendly, cost-effective travel options in North Macedonia.",
+              "button": "Get Started"
+            },
+            "Benefits": {
+                "tag": "BENEFITS OF USING TRAVEL",
+                "header": "What you will get while using TRAVEL",
+                "benefits": {
+                    "benefit1": {
+                        "title": "Cost-saving Opportunities",
+                        "description": "Save money on transportation costs by sharing rides, splitting fuel expenses, tolls, and parking fees with fellow travelers, making travel more affordable for everyone."
+                    },
+                    "benefit2": {
+                        "title": "Social Connections",
+                        "description": "Connect with like-minded individuals and expand your social network through shared rides, fostering meaningful relationships and memorable experiences along the way."
+                    },
+                    "benefit3": {
+                        "title": "Flexible Scheduling",
+                        "description": "Enjoy the flexibility to plan rides according to your schedule and preferences, offering convenient transportation options that adapt to your lifestyle and commitments."
+                    },
+                    "benefit4": {
+                        "title": "Eco-friendly Travel",
+                        "description": "Promote environmental sustainability by traveling with eco-friendly vehicles, reducing pollution and carbon footprint while also cutting down travel costs for users."
+                    }
+                }
+            },
+            "Safety": {
+                "header": "Your Safety is Our Priority",
+                "description": "Read the guidelines below to ensure your safety",
+                "safety": {
+                    "safety1": {
+                        "title": "Verify Driver Information",
+                        "description": "Before accepting a ride, verify the driver's information including their name, photo, and license plate number.",
+                        "icon": ""
+                    },
+                    "safety2": {
+                        "title": "Share Trip Details",
+                        "description": "Share trip details with a trusted contact, including the driver's information and estimated time of arrival.",
+                        "icon": ""
+                    },
+                    "safety3": {
+                        "title": "Meet in Public Locations",
+                        "description": "Always meet the driver in a public, well-lit area, and avoid getting into the vehicle if you feel uncomfortable.",
+                        "icon": ""
+                    },
+                    "safety4": {
+                        "title": "Buckle Up",
+                        "description": "Wear your seatbelt during the entire ride, regardless of the distance or duration.",
+                        "icon": ""
+                    },
+                    "safety5": {
+                        "title": "Stay Alert",
+                        "description": "Stay alert during the ride and trust your instincts. If something feels off, don't hesitate to speak up or request to end the trip.",
+                        "icon": ""
+                    },
+                    "safety6": {
+                        "title": "Rate and Review",
+                        "description": "After the ride, rate and review the driver based on your experience. This helps maintain accountability within the community.",
+                        "icon": ""
+                    }
+                },
+                "link": "EXPLORE MORE"
+
+            },
+            "Footer": {
+                "rights": "All rights reserved"
+              }
+        }
+    }
+}

@@ -15,8 +15,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 import { toast } from 'react-toastify';
-import Button from "./design/Button";
-import MenuSvg from "../assets/svg/MenuSvg";
 
 const NavbarSettings = () => {
   const [openNavigation, setOpenNavigation] = useState(false);

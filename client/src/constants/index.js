@@ -49,16 +49,11 @@ export const navigation = [
     },
     {
       id: "1",
-      title: "How to use",
-      url: "/pricing",
-    },
-    {
-      id: "2",
       title: "Safety Guideline",
       url: "/safety-guideline",
     },
     {
-      id: "3",
+      id: "2",
       title: "Explore",
       url: "/explore",
     },
