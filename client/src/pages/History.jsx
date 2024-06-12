@@ -21,9 +21,11 @@ const History = () => {
             let sorted = [...posts];
             if (sortBy === 'date-added') {
                 sorted = sorted.sort((a, b) => {
-                    if (sortDirection === 'asc') return new Date(a.dateAdded) - new Date(b.dateAdded);
-                    else return new Date(b.dateAdded) - new Date(a.dateAdded);
-                });
+                    const dateA = new Date(a.date).getTime();
+                    const dateB = new Date(b.date).getTime();
+                    if (sortDirection === 'asc') return dateA - dateB;
+                    else return dateB - dateA;
+                  });
             } else if (sortBy === 'price') {
                 sorted = sorted.sort((a, b) => {
                     if (sortDirection === 'asc') return a.price - b.price;
@@ -45,12 +47,12 @@ const History = () => {
 
     const handleSortDirectionChange = () => {
         setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
-    };
+      };
 
     return (
-        <div className='w-full bg-[#f8f8f8] min-h-[100vh]'>
-            <div className='flex flex-col items-center'>
-                <div className='flex mt-5 w-[90%]'>
+        <div className='w-full min-h-[90vh]'>
+            <div className='flex flex-col items-center p-5'>
+                <div className='flex mt-5 w-full'>
                     <div className="w-full flex flex-wrap">
                         <div className='flex justify-between items-center w-full mr-5 relative'>
                             {isLoading && <p>Loading...</p>}
@@ -68,20 +70,29 @@ const History = () => {
                                             <h1 className="text-n-8 text-xl font-bold px-4 py-2">Travels Joined: 0</h1>
                                         </div>
                                     </div>
-                                    <div className='border border-n-8/10 rounded-xl px-10 py-5 bg-n-1 w-full'>
-                                        <div className="flex items-center justify-between text-n-8 mt-3 mb-3 mx-4">
-                                            <div className='w-[33%] flex justify-between font-bold'>
-                                                <span className='min-w-[100px]'>From</span>
-                                                <span className='min-w-[100px]'>To</span>
-                                            </div>
-                                            <div className='w-[30%] flex justify-between ml-[3rem]'>
-                                                <button className={`mr-4 font-bold ${sortBy === 'date-added' && 'text-sky-600'}`} onClick={() => handleSortByChange('date-added')}>Date Added</button>
-                                                <button className={`mr-4 font-bold ${sortBy === 'price' && 'text-sky-600'}`} onClick={() => handleSortByChange('price')}>Price</button>
-                                                <button className={`font-bold ${sortBy === 'capacity' && 'text-sky-600'}`} onClick={() => handleSortByChange('capacity')}>Capacity</button>
-                                            </div>
-                                                <button onClick={handleSortDirectionChange} className='w-[15%] flex items-center justify-end'>{sortDirection === 'asc' ? '▼' : '▲'}</button>
+                                    <div className='py-5 bg-n-1 w-full'>
+                                    <div className="container rounded-lg mb-5 bg-gray-800 p-4 flex items-center justify-between">
+                                        <label htmlFor="sortBy" className="text-white font-medium mr-2 hidden lg:block">Sort By:</label>
+                                        <div className="flex items-center mx-auto lg:mx-0">
+                                            <select
+                                            id="sortBy"
+                                            value={sortBy}
+                                            onChange={(e) => handleSortByChange(e.target.value)}
+                                            className="px-4 py-2 border text-sm lg:text-md border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 bg-gray-700 text-white font-medium"
+                                            >
+                                            <option value="date-added">Date Added</option>
+                                            <option value="price">Price</option>
+                                            <option value="capacity">Capacity</option>
+                                            </select>
+                                            <button
+                                            onClick={handleSortDirectionChange}
+                                            className="ml-2 px-6 py-2 bg-blue-500 text-sm lg:text-md text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition-colors duration-300 ease-in-out"
+                                            >
+                                            {sortDirection === 'asc' ? 'Ascending' : 'Descending'}
+                                            </button>
                                         </div>
-                                        <div className=' mx-auto float-left w-[98%]'>              
+                                        </div>
+                                        <div className=' mx-auto float-left w-full'>              
                                             {sortedPosts.map(post => (
                                                 <HistoryPost key={post._id} post={post} />
                                             ))}

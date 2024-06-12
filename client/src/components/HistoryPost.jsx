@@ -30,15 +30,14 @@ const HistoryPost = ({ post }) => {
     };
 
     return (
-        <div className='w-full h-[60px] bg-n-1 flex px-5 py-4 border-t justify-between'>
-            <div className='flex justify-between text-n-8 text-left w-[30%]'>
-                <h2 className='text-lg'>{post.from}</h2>
-                <h2 className='text-lg'>{post.to}</h2>
+        <div className='w-full bg-n-1 flex flex-col lg:flex-row p-4 shadow mt-4 rounded-lg justify-between lg:items-center'>
+            <div className='flex text-n-8 text-left lg:w-[30%]'>
+                <h2 className='text-lg'>{post.from}&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;{post.to}</h2>
             </div>
-            <div className='flex w-[30%] justify-between text-right'>
-                <h2 className='text-lg body-2 text-n-8 min-w-[150px]'>{date}</h2>
-                <h2 className='text-lg body-2 text-n-8 min-w-[150px]'>{post.price}</h2>
-                <h2 className='text-lg body-2 text-n-8 min-w-[150px]'>{post.capacity}</h2>
+            <div className='flex flex-col lg:flex-row my-3 lg:my-0 w-full lg:w-[50%] justify-between'>
+                <h2 className='text-lg body-2 text-n-8 min-w-[150px]'><span className='font-bold'>Date:</span>&nbsp;{date}</h2>
+                <h2 className='text-lg body-2 text-n-8 min-w-[150px]'><span className='font-bold'>Price:</span>&nbsp;{post.price}</h2>
+                <h2 className='text-lg body-2 text-n-8 min-w-[150px]'><span className='font-bold'>Capacity:</span>&nbsp;{post.capacity}</h2>
             </div>
             <div className='w-[15%] flex justify-end items-center'>
                 <div className='w-max bg-red-600 p-2 rounded-lg hover:bg-red-700 border border-red-600 hover:cursor-pointer' onClick={handleDelete}>

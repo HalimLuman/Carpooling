@@ -4,7 +4,7 @@ import { socials } from "../constants";
 
 const FooterDashboard = () => {
   return (
-      <div className="px-10 py-4 mt-5 flex sm:justify-between justify-center items-center gap-10 max-sm:flex-col w-full bg-n-1 shadow">
+      <div className="xl:fixed bottom-0 px-10 py-4 mt-5 flex sm:justify-between justify-center items-center gap-10 max-sm:flex-col w-full bg-[#f8f8f8] shadow z-2">
         <p className="caption text-n-4 lg:block">
           © {new Date().getFullYear()}. All rights reserved.
         </p>

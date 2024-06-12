@@ -25,6 +25,8 @@ import socialConnection from './roadmap/socialconnection.svg'
 import registration from './Registration.png'
 import profile from './profile-background.jpg'
 import notFound from './notFoundAlternative1.jpg'
+import deneme from './deneme.jpg'
+import wave from './wave.svg'
 
 export {
     discordBlack,
@@ -53,5 +55,7 @@ export {
 
     registration,
     profile,
-    notFound
+    notFound,
+    deneme,
+    wave
 }

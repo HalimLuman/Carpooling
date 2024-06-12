@@ -8,8 +8,8 @@ import Roadmap from "../components/home-components/Roadmap";
 const App = () => {
   return (
     <>
-    <Header position={'fixed'} padding={6}/>
-      <div className="pt-[4.75rem] lg:pt-[5.25rem] overflow-hidden">
+      <Header position={'fixed'} padding={6}/>
+      <div className="pt-[1rem] lg:pt-[4rem] overflow-hidden">
         <Hero />
         <Roadmap />
         <Benefits />

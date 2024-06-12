@@ -17,6 +17,7 @@ export default {
         },
         stroke: {
           1: "#26242C",
+          2: "#fff",
         },
         n: {
           1: "#FFFFFF",

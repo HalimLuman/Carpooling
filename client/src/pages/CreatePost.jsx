@@ -6,42 +6,32 @@ import '../css/form.css';
 import { useCreatePostMutation } from '../slices/usersApiSlice';
 
 const CreatePost = () => {
-    const [data, setData] = useState({
+    const initialData = {
         from: '',
         to: '',
         date: '',
         time: '',
         capacity: 0,
         price: 0,
-    });
+        carModel: '',
+        carColor: ''
+    };
+
+    const [data, setData] = useState(initialData);
+    const dispatch = useDispatch();
+    const [createPost] = useCreatePostMutation();
+    const { userInfo } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        setData({
-            from: '',
-            to: '',
-            date: '',
-            time: '',
-            capacity: '',
-            price: '',
-        });
+        setData(initialData);
     }, []);
-
-    const dispatch = useDispatch();
-
-    const [createPost] = useCreatePostMutation();
-    const {userInfo} = useSelector((state) => state.auth);
 
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
             const res = await createPost({
                 publisher: userInfo._id,
-                from: data.from,
-                to: data.to,
-                date: data.date,
-                time: data.time,
-                capacity: data.capacity,
-                price: data.price,
+                ...data,
             }).unwrap();
             dispatch(setPostInfo(res));
             toast.success('Post created successfully', { autoClose: 2000, pauseOnHover: false });
@@ -51,49 +41,104 @@ const CreatePost = () => {
         }
     };
 
-    return (
-        <div className='flex flex-col bg-n-1 text-n-8 px-10 rounded-xl'>
-            <div className='flex flex-col mt-4 w-[100%]'>
-                <form onSubmit={submitHandler}>
-                    <div className='flex justify-between'>
-                        <div className='text-center md:text-left'>
-                            <h2 className='h6 md:h5 font-bold'>Create Travel</h2>
-                            <p className='body-2'>Use the form below to create a new travel.</p>
-                        </div>
-                        <button className='hidden md:block border px-5 py-3 rounded-lg border-sky-600 text-sky-600 hover:text-n-1 hover:bg-sky-600 h-max'>Post Travel</button>
-                    </div>
-                    <div className='flex flex-col md:flex-row justify-between mt-2'>
-                        <div className='flex flex-col md:w-[49%]'>
-                            <label className='relative top-[0.59rem] bg-n-1 w-max left-2 px-1 text-sm'>From:</label>
-                            <input type="text" className='bg-n-1 border outline-none hover:border-sky-700 focus:border-sky-700 border-n-8/50 py-3 rounded-md px-3 h-[50px]' onChange={(e) => setData({...data, from: e.target.value})} />
-                        </div>
-                        <div className='flex flex-col md:w-[49%] mt-5 md:mt-0'>
-                            <label className='relative top-[0.59rem] bg-n-1 w-max left-2 px-1 text-sm'>To:</label>
-                            <input type="text" className='bg-n-1 border outline-none hover:border-sky-700 focus:border-sky-700 border-n-8/50 py-3 rounded-md px-3 h-[50px]' onChange={(e) => setData({...data, to: e.target.value})} />
-                        </div>
-                    </div>
-                    <div className='flex flex-col w-full my-5'>
-                        <label className="relative top-[0.59rem] bg-n-1 w-max left-2 px-1 text-sm">Date</label>
-                        <input className="bg-n-1 border outline-none hover:border-sky-700 focus:border-sky-700 border-n-8/50 py-3 rounded-md px-3 h-[50px]" type="date" onChange={(e) => setData({...data, date: e.target.value})} />
-                    </div>
-                    <div className='flex flex-col w-full my-5'>
-                        <label className='relative top-[0.59rem] bg-n-1 w-max left-2 px-1 text-sm'>Time</label>
-                        <input type="time" className='bg-n-1 border outline-none hover:border-sky-700 focus:border-sky-700 border-n-8/50 py-3 rounded-md px-3 h-[50px]' onChange={(e) => setData({...data, time: e.target.value})} />
-                    </div>
-                    <div className='flex flex-col w-full my-5'>
-                        <label className='relative top-[0.59rem] bg-n-1 w-max left-2 px-1 text-sm'>Capacity</label>
-                        <input type="number" className='bg-n-1 border outline-none hover:border-sky-700 focus:border-sky-700 border-n-8/50 py-3 rounded-md px-3 h-[50px]' onChange={(e) => setData({...data, capacity: e.target.value})} />
-                    </div>
-                    <div className='flex flex-col w-full my-5'>
-                        <label className='relative top-[0.59rem] bg-n-1 w-max left-2 px-1 text-sm'>Price</label>
-                        <input type="number" className='bg-n-1 border outline-none hover:border-sky-700 focus:border-sky-700 border-n-8/50 py-3 rounded-md px-3 h-[50px]' onChange={(e) => setData({...data, price: e.target.value})} />
-                    </div>
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData({ ...data, [name]: value });
+    };
 
-                    <button className='md:hidden w-full border px-5 py-3 rounded-lg border-sky-600 text-sky-600 hover:text-n-1 hover:bg-sky-600 h-max' type='submit'>Save Profile</button>
+    return (
+        <div className="flex flex-col bg-white text-gray-800 px-8 py-10 rounded-xl">
+            <div className="flex flex-col w-full">
+                <form onSubmit={submitHandler}>
+                    <div className="flex justify-between items-center mb-6">
+                        <div className="text-center md:text-left">
+                            <h2 className="text-2xl font-semibold text-gray-700">Create Travel</h2>
+                            <p className="text-gray-500">Use the form below to create a new travel.</p>
+                        </div>
+                        <button className="hidden md:block bg-sky-600 text-white px-5 py-3 rounded-lg hover:bg-sky-700 transition-colors duration-300">Post Travel</button>
+                    </div>
+                    <div className="flex flex-col md:flex-row justify-between gap-4">
+                        <div className="flex flex-col md:w-[49%]">
+                            <label className="text-gray-600 mb-1">Location:</label>
+                            <input
+                                type="text"
+                                name="from"
+                                placeholder='Enter the location you will start'
+                                className="bg-gray-100 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="flex flex-col md:w-[49%]">
+                            <label className="text-gray-600 mb-1">Destination:</label>
+                            <input
+                                type="text"
+                                name="to"
+                                placeholder='Enter the destination you will reach'
+                                className="bg-gray-100 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+                    <div className="flex flex-col mt-6">
+                        <label className="text-gray-600 mb-1">Date:</label>
+                        <input
+                            type="date"
+                            name="date"
+                            className="bg-gray-100 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="flex flex-col mt-6">
+                        <label className="text-gray-600 mb-1">Time:</label>
+                        <input
+                            type="time"
+                            name="time"
+                            className="bg-gray-100 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="flex flex-col mt-6">
+                        <label className="text-gray-600 mb-1">Capacity:</label>
+                        <input
+                            type="number"
+                            name="capacity"
+                            placeholder='Number of passengers you accept'
+                            className="bg-gray-100 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="flex flex-col mt-6">
+                        <label className="text-gray-600 mb-1">Price:</label>
+                        <input
+                            type="number"
+                            name="price"
+                            className="bg-gray-100 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="flex flex-col mt-6">
+                        <label className="text-gray-600 mb-1">Car Model:</label>
+                        <input
+                            type="text"
+                            name="carModel"
+                            className="bg-gray-100 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="flex flex-col mt-6">
+                        <label className="text-gray-600 mb-1">Car Color:</label>
+                        <input
+                            type="text"
+                            name="carColor"
+                            className="bg-gray-100 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <button className="md:hidden mt-6 w-full bg-sky-600 text-white px-5 py-3 rounded-lg hover:bg-sky-700 transition-colors duration-300" type="submit">Post Travel</button>
                 </form>
             </div>
         </div>
     );
-}
+};
 
 export default CreatePost;

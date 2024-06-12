@@ -3,6 +3,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 20px;
     cursor: pointer;
 }
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    font-size: 20px;
+    cursor: pointer;
+}
 ::-webkit-scrollbar {
     width: 5px;
     background-color: white;

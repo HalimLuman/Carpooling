@@ -16,6 +16,11 @@ import { CiClock2 } from "react-icons/ci";
 import { CiViewList } from "react-icons/ci";
 import { TfiStatsUp } from "react-icons/tfi";
 import { CiCircleRemove } from "react-icons/ci";
+import { CiSettings } from "react-icons/ci";
+import { CiUser } from "react-icons/ci";
+import { CiMoneyBill } from "react-icons/ci";
+import { CiCirclePlus, CiMap, CiHome  } from "react-icons/ci";
+import { IoIosHelpCircleOutline } from "react-icons/io";
 
 import {
   discordBlack,
@@ -61,66 +66,67 @@ export const navigation = [
 
   export const sidebar = [
     {
-      title: 'DASHBOARD',
       links: [
         {
-          name: 'Dashboard',
-          icon: MdOutlineSpaceDashboard,
-          to: '/dashboard',
+          name: 'Home',
+          icon: CiHome,
+          to: '/',
         },
         {
           name: 'Explore',
-          icon: MdOutlineExplore ,
+          icon: CiMap ,
           to: '/explore',
         },
+      ],
+    },
+    {
+      links: [
         {
           name: 'Create Travel',
-          icon: LuPlusCircle,
+          icon: CiCirclePlus,
           to: 'create-post',
         },
         {
           name: 'History',
-          icon: RiHistoryFill ,
+          icon: CiViewList ,
           to: '/dashboard/history',
         },
         {
           name: 'Reservation',
-          icon: RiHistoryFill ,
+          icon: CiClock2 ,
           to: '/dashboard/reservation',
+        },
+      ]
+    },
+    {
+      links: [
+        {
+          name: 'Settings',
+          icon: CiSettings,
+          to: '/settings',
+        },
+        {
+          name: 'Account',
+          icon: CiUser,
+          to: '/dashboard/:id',
+        },
+        {
+          name: 'Payment',
+          icon: CiMoneyBill,
+          to: 'subscription',
         },
         {
           name: 'Statistics',
-          icon: MdOutlineQueryStats ,
+          icon: TfiStatsUp ,
           to: '/dashboard/statistics',
         },
       ],
     },
     {
-      title: 'SETTINGS',
-      links: [
-        {
-          name: 'Profile',
-          icon: FaRegUser,
-          to: '/dashboard/:id',
-        },
-        {
-          name: 'Subscription',
-          icon: BsCoin,
-          to: 'subscription',
-        },
-        {
-          name: 'Password',
-          icon: MdOutlinePrivacyTip,
-          to: 'change-password',
-        },
-      ],
-    },
-    {
-      title: 'HELP CENTER',
       links: [
         {
           name: 'Support',
-          icon: SlSupport,
+          icon: IoIosHelpCircleOutline,
           to: '/support',
         },
       ],
