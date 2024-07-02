@@ -12,11 +12,13 @@ const resources = {
   mk: mkTranslations
 };
 
+const language = localStorage.getItem('i18nextLng') || 'en';
+
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: "en",
+    lng: language,
     interpolation: {
       escapeValue: false
     }

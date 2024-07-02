@@ -1,5 +1,22 @@
 {
     "translation": {
+        "GENERAL": {
+            "Navbar": {
+                "Home": "Ana Sayfa",
+                "Guideline": "Güvenlik Kılavuzu",
+                "profile": "Profil",
+                "account": "Hesap",
+                "notification": "Bildirimler",
+                "explore": "Kesfet",
+                "create": "Yolculuk Paylaş",
+                "travels": "Yolculuklarım",
+                "settings": "Ayarlar",
+                "dark": "Gece Modu",
+                "light": "Gündüz Modu",
+                "support": "Yardım",
+                "logout": "Çıkış"
+            }
+        },
         "HOME" : {
             "Hero": {
               "header": "Uygun fiyatlı ve erişilebilir araç paylaşımıyla heyecan verici seyahat maceraları keşfedin.",
@@ -69,7 +86,42 @@
             "Footer": {
               "rights": "Tüm hakları saklıdır"
             }
+        },
+        "ACCOUNT": {
+            "Title": "Hesap",
+            "Links": {
+                "home": "ANA SAYFA",
+                "account": "HESAP",
+                "goto": "Hesabıma git"
+            },
+            "Pages": {
+                "personalInfo" : {
+                    "title": "Kişisel Bilgiler",
+                    "description": "Daha iyi bir profil için kişisel bilgilerinizi ekleyin veya güncelleyin"
+                },
+                "security" : {
+                    "title": "Güvenlik",
+                    "description": "Parola dahil güvenlik ayarlarınızı yönetin"
+                },
+                "payment" : {
+                    "title": "Ödeme & Tokenlar",
+                    "description": "Ödeme yönteminizi görüntüleyin, yönetin ve token satın alın"
+                },
+                "stats" : {
+                    "title": "Hesap İstatistikleri",
+                    "description": "Hesap istatistiklerinizi ve performans metriklerinizi analiz edin"
+                },
+                "deactivate" : {
+                    "title": "Hesap Etkisizleştirme",
+                    "description": "Artık ihtiyacınız yoksa hesabınızı kalıcı olarak devre dışı bırakın"
+                },
+                "settings" : {
+                    "title": "Ayarlar",
+                    "description": "Web sitesinin tema, dil vb. özelliklerini yönetin. "
+                }
+            }
         }
+
     }
 }
   

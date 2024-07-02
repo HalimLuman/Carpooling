@@ -23,10 +23,14 @@ import schedule from './roadmap/schedule.svg'
 import socialConnection from './roadmap/socialconnection.svg'
 
 import registration from './Registration.png'
-import profile from './profile-background.jpg'
 import notFound from './notFoundAlternative1.jpg'
-import deneme from './deneme.jpg'
-import wave from './wave.svg'
+import fullLogo1Black from './Logo1BlackFull.svg'
+import fullLogo1White from './Logo1WhiteFull.svg'
+import fullLogo2Black from './Logo2BlackFull.svg'
+import fullLogo2White from './Logo2WhiteFull.svg'
+
+import LogoIcon from './LogoIcon.svg'
+import LogoText from './LogoText.svg'
 
 export {
     discordBlack,
@@ -54,8 +58,12 @@ export {
     socialConnection,
 
     registration,
-    profile,
     notFound,
-    deneme,
-    wave
+    fullLogo1White,
+    fullLogo1Black,
+    fullLogo2Black,
+    fullLogo2White,
+
+    LogoIcon,
+    LogoText
 }

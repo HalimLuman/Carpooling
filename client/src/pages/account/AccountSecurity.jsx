@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import Section from '../components/design/Section';
-import { Link, NavLink } from 'react-router-dom';
+import Section from '../../components/design/Section';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaLock, FaEye, FaEyeSlash } from 'react-icons/fa'; // Import the eye icons
 import { toast } from 'react-toastify';
-import '../css/form.css';
-import { useUpdateUserMutation } from '../slices/usersApiSlice';
-import { setCredentials } from '../slices/authSlice';
+import '../../css/form.css';
+import { useUpdateUserMutation } from '../../slices/usersApiSlice';
+import { setCredentials } from '../../slices/authSlice';
+import AccountHeader from '../../components/AccountHeader';
 
 const AccountPrivacy = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -29,6 +30,7 @@ const AccountPrivacy = () => {
   const [updateUser] = useUpdateUserMutation();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     if (userInfo) {
       setFormData({
@@ -75,12 +77,22 @@ const AccountPrivacy = () => {
     }
   };
 
+  const handleGoToProfile = () => {
+    navigate(`/profiles/${userInfo._id}`, { state: { postOwner: userInfo } });
+  }
+
+  const headerElements = [
+    { label: 'Home', link: '/' },
+    { label: 'Account', link: '/account' },
+    { label: 'Account Security' }
+  ];
+
   return (
     <Section>
-      <div className='container mx-auto px-4 text-n-8'>
-        <Breadcrumbs />
+      <div className='container px-4 text-n-8 min-h-[72vh]'>
+        <AccountHeader elements={headerElements} handleGoToProfile={handleGoToProfile}/>
         <div className='flex flex-wrap container'>
-          <div className='w-full lg:w-3/5'>
+          <div className='w-full xl:w-3/5'>
             <SecurityForm
               formData={formData}
               editState={editState}
@@ -89,7 +101,7 @@ const AccountPrivacy = () => {
               setFormData={setFormData}
             />
           </div>
-          <div className='w-full lg:w-2/5 lg:pl-15 mt-10 lg:mt-0'>
+          <div className='w-full xl:w-2/5 xl:pl-15 mt-10 xl:mt-0'>
             <SecurityInfo />
           </div>
         </div>
@@ -98,17 +110,17 @@ const AccountPrivacy = () => {
   );
 };
 
-const Breadcrumbs = () => (
-  <div className='text-n-8 container w-full mb-5'>
+const Breadcrumbs = ({handleGoToProfile}) => (
+  <div className='text-n-8 dark:text-n-1 container w-full mb-5'>
     <div className='flex items-center'>
-      <NavLink to="/" className='text-n-8 hover:text-sky-600'>Home</NavLink>
+      <NavLink to="/" className=' hover:text-sky-600'>Home</NavLink>
       <MdOutlineKeyboardArrowRight className='mx-2' size={20} color='#5b5c5e' />
-      <NavLink to="/account" className='text-n-8 hover:text-sky-600'>Account</NavLink>
+      <NavLink to="/account" className=' hover:text-sky-600'>Account</NavLink>
       <MdOutlineKeyboardArrowRight className='mx-2' size={20} color='#5b5c5e' />
       <span>Security</span>
     </div>
     <h1 className="text-4xl mt-5 mb-2">Account Security</h1>
-    <Link to="/profile" className="underline text-md font-bold">Go to profile</Link>
+    <button onClick={handleGoToProfile} className="underline text-md font-bold">Go to profile</button>
   </div>
 );
 
@@ -128,7 +140,7 @@ const SecurityForm = ({ formData, editState, setEditState, handleSubmit, setForm
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className='border-b pb-2 mt-10'>
+      <div className='border-b dark:border-gray-600 pb-2 mt-10 text-n-8 dark:text-n-1'>
         <div className='flex justify-between'>
           <h2>Password</h2>
           <span className='underline cursor-pointer' onClick={() => setEditState(!editState)}>
@@ -149,12 +161,12 @@ const SecurityForm = ({ formData, editState, setEditState, handleSubmit, setForm
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   placeholder='Current Password'
-                  className='bg-n-1 border outline-none hover:border-sky-700 focus:border-sky-700 border-n-8/50 py-3 rounded-md px-3 h-[50px] w-full mb-3 pr-10'
+                  className='bg-white dark:bg-gray-800 border outline-none hover:border-sky-700 focus:border-sky-700 border-gray-300 dark:border-gray-700 py-3 rounded-md px-3 h-[50px] w-full mb-3'
                   required
                 />
                 <button
                   type='button'
-                  className='absolute top-[40%] transform -translate-y-1/2 right-3 text-n-8 hover:text-n-8/70'
+                  className='absolute top-[40%] transform -translate-y-1/2 right-3 text-n-8 dark:text-n-1 hover:text-n-8/70'
                   onClick={() => togglePasswordVisibility('password')}
                 >
                   {showPassword.password ? <FaEyeSlash /> : <FaEye />}
@@ -168,12 +180,12 @@ const SecurityForm = ({ formData, editState, setEditState, handleSubmit, setForm
                   value={formData.newPassword}
                   onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
                   placeholder='New Password'
-                  className='bg-n-1 border outline-none hover:border-sky-700 focus:border-sky-700 border-n-8/50 py-3 rounded-md px-3 h-[50px] w-full mb-3 pr-10'
+                  className='bg-white dark:bg-gray-800 border outline-none hover:border-sky-700 focus:border-sky-700 border-gray-300 dark:border-gray-700 py-3 rounded-md px-3 h-[50px] w-full mb-3'
                   required
                 />
                 <button
                   type='button'
-                  className='absolute top-[40%] transform -translate-y-1/2 right-3 text-n-8 hover:text-n-8/70'
+                  className='absolute top-[40%] transform -translate-y-1/2 right-3 text-n-8 dark:text-n-1 hover:text-n-8/70'
                   onClick={() => togglePasswordVisibility('newPassword')}
                 >
                   {showPassword.newPassword ? <FaEyeSlash /> : <FaEye />}
@@ -187,12 +199,12 @@ const SecurityForm = ({ formData, editState, setEditState, handleSubmit, setForm
                   value={formData.confirmNewPassword}
                   onChange={(e) => setFormData({ ...formData, confirmNewPassword: e.target.value })}
                   placeholder='Confirm New Password'
-                  className='bg-n-1 border outline-none hover:border-sky-700 focus:border-sky-700 border-n-8/50 py-3 rounded-md px-3 h-[50px] w-full mb-3 pr-10'
+                  className='bg-white dark:bg-gray-800 border outline-none hover:border-sky-700 focus:border-sky-700 border-gray-300 dark:border-gray-700 py-3 rounded-md px-3 h-[50px] w-full mb-3'
                   required
                 />
                 <button
                   type='button'
-                  className='absolute top-[40%] transform -translate-y-1/2 right-3 text-n-8 hover:text-n-8/70'
+                  className='absolute top-[40%] transform -translate-y-1/2 right-3 text-n-8 dark:text-n-1 hover:text-n-8/70'
                   onClick={() => togglePasswordVisibility('confirmNewPassword')}
                 >
                   {showPassword.confirmNewPassword ? <FaEyeSlash /> : <FaEye />}
@@ -237,14 +249,13 @@ const SecurityInfo = () => (
   </div>
 );
 const SecurityBox = ({ title, content, icon }) => (
-
-  <div className='p-5 border rounded-lg shadow-lg flex items-center text-n-8'>
-    <div className='mr-4 p-4 rounded-full bg-white text-2xl text-gray-800'>
+  <div className='p-5 lg:px-7 border dark:border-gray-700 dark:bg-gray-800 rounded-lg shadow-lg flex flex-col items-start text-n-8 dark:text-n-1'>
+    <div className='mr-4 rounded-full bg-n-1 dark:bg-gray-800 text-2xl text-gray-800 dark:text-n-1'>
       {icon}
     </div>
-    <div>
+    <div className='pt-3'>
       <h2 className='text-lg font-bold mb-2'>{title}</h2>
-      <p>{content}</p>
+      <p className='text-sm'>{content}</p>
     </div>
   </div>
 );

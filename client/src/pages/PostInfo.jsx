@@ -1,170 +1,323 @@
-import React from 'react';
-import NavbarMain from '../components/NavbarMain';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { setCredentials } from '../slices/authSlice';
-import { useReservePostMutation } from '../slices/usersApiSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import React from "react";
+import NavbarMain from "../components/NavbarMain";
+import { useLocation, useNavigate } from "react-router-dom";
+import { setCredentials } from "../slices/authSlice";
+import { useReservePostMutation } from "../slices/usersApiSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const PostInfo = () => {
-    const location = useLocation();
-    const post = location.state?.post;
+  const location = useLocation();
+  const post = location.state?.post;
 
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    const { userInfo } = useSelector((state) => state.auth);
-    const [reservePost] = useReservePostMutation();
+  const { userInfo } = useSelector((state) => state.auth);
+  const [reservePost] = useReservePostMutation();
 
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const options = {
-            weekday: 'long',
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric'
-        };
-        return date.toLocaleDateString('en-US', options);
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric",
     };
+    return date.toLocaleDateString("en-US", options);
+  };
 
-    if (!post) {
-        return (
-            <>
-                <NavbarMain />
-                <div className='container mx-auto mt-12 text-center'>
-                    <p className='text-lg text-gray-700'>No post data available</p>
-                </div>
-            </>
-        );
-    }
-
-    const handlePayment = async (e) => {
-        e.preventDefault();
-        try {
-            const reservationRes = await reservePost({
-                postId: post._id,
-                userId: userInfo._id
-            }).unwrap();
-            toast.success("Reservation made and an email has been sent to the travel owner");
-            dispatch(setCredentials({ ...reservationRes}));
-        } catch (err) {
-            toast.error(err?.data?.message || err.error);
-        }
-    };
-
-    const handlePostOwner = () => {
-        navigate(`/dashboard/${post.publisher._id}`);
-    };
-    
+  if (!post) {
     return (
-        <>
-            <NavbarMain />
-            <div className='bg-gray-100 py-[6rem]'>
-                <div className='container mx-auto px-4 flex flex-col items-center'>
-                    <h1 className='text-3xl md:text-4xl font-bold mb-8 text-gray-800'>{post.from} - {post.to}</h1>
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-8 w-full'>
-                        <div className='bg-white rounded-lg shadow-md p-6 col-span-2 md:col-span-2 mb-7 lg:mb-0'>
-                            <h2 className='text-xl md:text-2xl font-semibold mb-4 text-gray-800'>Trip Details</h2>
-                            <div className='flex justify-between items-center mb-4'>
-                                <p className='text-lg text-gray-700'>Date:</p>
-                                <p className='text-lg text-gray-900'>{formatDate(post.date)}</p>
-                            </div>
-                            <div className='flex justify-between items-center mb-4'>
-                                <p className='text-lg text-gray-700'>Departure Time:</p>
-                                <p className='text-lg text-gray-900'>{post.time}</p>
-                            </div>
-                            <div className='flex justify-between items-center mb-4'>
-                                <p className='text-lg text-gray-700'>Trip Duration:</p>
-                                <p className='text-lg text-gray-900'>{3} hours</p>
-                            </div>
-                            <div className='flex justify-between items-center mb-4'>
-                                <p className='text-lg text-gray-700'>Available Seats:</p>
-                                <p className='text-lg text-gray-900'>{post.capacity}</p>
-                            </div>
-                            {/* Additional details */}
-                            <div className='mt-6'>
-                                <h2 className='text-xl md:text-2xl font-semibold mb-4 text-gray-800'>Additional Information</h2>
-                                <div className='flex justify-between items-center'>
-                                    <p className='text-lg text-gray-700'>Cigarettes Allowed:</p>
-                                    <p className='text-lg text-gray-900'>{post.cigarettesAllowed ? 'Yes' : 'No'}</p>
-                                </div>
-                                <div className='flex justify-between items-center mt-2'>
-                                    <p className='text-lg text-gray-700'>Pets Allowed:</p>
-                                    <p className='text-lg text-gray-900'>{post.petsAllowed ? 'Yes' : 'No'}</p>
-                                </div>
-                                {/* Add more additional information as needed */}
-                            </div>
-                        </div>
-                        <div className='bg-white rounded-lg shadow-md p-6 col-span-3 lg:col-span-1'>
-                            <div>
-                                <h2 className='text-xl md:text-2xl font-semibold mb-4 text-gray-800'>Payment</h2>
-                                <p className='text-lg text-gray-700 mb-2'>Total Price: {post.price} MKD</p>
-                                {/* Add more payment info if needed */}
-                                <button onClick={handlePayment} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 w-full mb-4">
-                                    Proceed to Payment
-                                </button>
-                                <p className='text-sm text-gray-600'>For inquiries, please contact:</p>
-                                <p className='text-lg text-gray-900'>{post.publisher.email}</p>
-                                {/* Add more contact info if needed */}
-                            </div>
-                        </div>
-                    </div>
-                    <div className='bg-white rounded-lg shadow-md p-6 mt-8 w-full'>
-                        <h2 className='text-xl md:text-2xl font-semibold mb-4 text-gray-800'>Car Details</h2>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                </svg>
-                                <div>
-                                    <p className='text-lg text-gray-700 font-semibold'>Model</p>
-                                    <p className='text-sm text-gray-500'>Audi A6</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                </svg>
-                                <div>
-                                    <p className='text-lg text-gray-700 font-semibold'>Color</p>
-                                    <p className='text-sm text-gray-500'>Black</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                </svg>
-                                <div>
-                                    <p className='text-lg text-gray-700 font-semibold'>Year</p>
-                                    <p className='text-sm text-gray-500'>2022</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                </svg>
-                                <div>
-                                    <p className='text-lg text-gray-700 font-semibold'>Fuel Type</p>
-                                    <p className='text-sm text-gray-500'>Petrol</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* Post owner's info */}
-                    <div className='bg-white rounded-lg shadow-md p-6 mt-8 w-full '>
-                        <h2 className='text-xl md:text-2xl font-semibold mb-2 text-gray-800'>Post Owner</h2>
-                        <div className='flex items-center p-3 rounded-md hover:bg-gray-200 cursor-pointer' onClick={handlePostOwner}>
-                            <img src={post.publisher.profilePic} alt='Profile' className='w-12 h-12 rounded-full mr-4' />
-                            <div className='ml-2'>
-                                <p className='text-lg text-gray-700'>{post.publisher.name} {post.publisher.surname}</p>
-                                <p className='text-sm text-gray-600'>{post.publisher.email}</p>
-                            </div>
-                        </div>
-                    </div>
+      <>
+        <NavbarMain />
+        <div className="container mx-auto mt-12 text-center">
+          <p className="text-lg text-gray-700 dark:text-gray-300">
+            No post data available
+          </p>
+        </div>
+      </>
+    );
+  }
+
+  const handlePayment = async (e) => {
+    e.preventDefault();
+    try {
+      const reservationRes = await reservePost({
+        postId: post._id,
+        userId: userInfo._id,
+      }).unwrap();
+      toast.success(
+        "Reservation made and an email has been sent to the travel owner"
+      );
+      dispatch(setCredentials({ ...reservationRes }));
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
+  };
+
+  const handlePostOwner = () => {
+    navigate(`/profiles/${post.publisher._id}`, {
+      state: { postOwner: post.publisher },
+    });
+  };
+
+  return (
+    <>
+      <NavbarMain />
+      <div className="bg-gray-100 dark:bg-gray-900 py-[8rem]">
+        <div className="container mx-auto px-4 flex flex-col items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 col-span-2">
+              <h1 className="text-3xl text-center md:text-4xl mb-8 mt-4 text-gray-800 dark:text-gray-100">
+                {post.from} - {post.to}
+              </h1>
+              <div className="px-6 py-3 col-span-2">
+                <h2 className="text-xl md:text-2xl mb-4 text-gray-800 dark:text-gray-100">
+                  Trip Information
+                </h2>
+                <div className="flex justify-between items-center mb-4">
+                  <div className="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 mr-2 text-gray-700 dark:text-gray-300"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01"
+                      />
+                    </svg>
+                    <p className="text-lg text-gray-700 dark:text-gray-300">
+                      Date:
+                    </p>
+                  </div>
+                  <p className="text-lg text-gray-900 dark:text-gray-200">
+                    {formatDate(post.date)}
+                  </p>
                 </div>
+                <div className="flex justify-between items-center mb-4">
+                  <div className="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 mr-2 text-gray-700 dark:text-gray-300"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01"
+                      />
+                    </svg>
+                    <p className="text-lg text-gray-700 dark:text-gray-300">
+                      Departure Time:
+                    </p>
+                  </div>
+                  <p className="text-lg text-gray-900 dark:text-gray-200">
+                    {post.time}
+                  </p>
+                </div>
+                <div className="flex justify-between items-center mb-4">
+                  <div className="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 mr-2 text-gray-700 dark:text-gray-300"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4m0 4h.01"
+                      />
+                    </svg>
+                    <p className="text-lg text-gray-700 dark:text-gray-300">
+                      Available Seats:
+                    </p>
+                  </div>
+                  <p className="text-lg text-gray-900 dark:text-gray-200">
+                    {post.capacity - post.reservations.length}
+                  </p>
+                </div>
+                <div className="mt-6">
+                  <h2 className="text-xl md:text-2xl mb-4 text-gray-800 dark:text-gray-100">
+                    Additional Information
+                  </h2>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 mr-2 text-gray-700 dark:text-gray-300"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 8v4m0 4h.01"
+                        />
+                      </svg>
+                      <p className="text-lg text-gray-700 dark:text-gray-300">
+                        Smoking Allowed:
+                      </p>
+                    </div>
+                    <p className="text-lg text-gray-900 dark:text-gray-200">
+                      {post.smoking ? "Yes" : "No"}
+                    </p>
+                  </div>
+                  <div className="flex justify-between items-center mt-2">
+                    <div className="flex items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6 mr-2 text-gray-700 dark:text-gray-300"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 8v4m0 4h.01"
+                        />
+                      </svg>
+                      <p className="text-lg text-gray-700 dark:text-gray-300">
+                        Pets Allowed:
+                      </p>
+                    </div>
+                    <p className="text-lg text-gray-900 dark:text-gray-200">
+                      {post.pets ? "Yes" : "No"}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-        </>
-    );  
+            <div className="rounded-lg col-span-1">
+              <div className="flex flex-col items-center bg-white dark:bg-gray-800 border border-transparent rounded-lg shadow-lg p-8">
+                <div className="w-full mb-4">
+                  <p className="text-lg text-gray-700 dark:text-gray-300 mb-2">
+                    Total Price:
+                  </p>
+                  <p className="text-3xl text-gray-900 dark:text-gray-200">
+                    {post.price} MKD
+                  </p>
+                </div>
+                <button
+                  onClick={handlePayment}
+                  className={`w-full py-3 rounded-lg text-lg transition duration-300 ease-in-out ${
+                    post.reservations.length >= post.capacity
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-blue-500 hover:bg-blue-600 text-white"
+                  }`}
+                  disabled={post.reservations.length >= post.capacity}
+                >
+                  {post.reservations.length >= post.capacity
+                    ? "Fully Booked"
+                    : "Request a reservation"}
+                </button>
+                <div className="mt-6 w-full">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    For inquiries, please contact:
+                  </p>
+                  <p className="text-lg font-medium text-gray-900 dark:text-gray-200">
+                    {post.publisher.email}
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white dark:bg-gray-800 border border-transparent rounded-lg shadow-lg p-8 mt-5 w-full">
+                <h2 className="text-xl md:text-2xl mb-4 text-gray-800 dark:text-gray-100">
+                  Car Details
+                </h2>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 mr-2 text-gray-700 dark:text-gray-300"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                      />
+                    </svg>
+                    <div>
+                      <p className="text-lg text-gray-700 dark:text-gray-300">
+                        Model
+                      </p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        {post.carModel}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 mr-2 text-gray-700 dark:text-gray-300"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                      />
+                    </svg>
+                    <div>
+                      <p className="text-lg text-gray-700 dark:text-gray-300 ">
+                      Color
+                      </p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {post.carColor}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mt-8 w-full">
+            <h2 className="text-xl md:text-2xl mb-2 text-gray-800 dark:text-gray-100">
+              {`Go to ${post.publisher.name}'s profile`}
+            </h2>
+            <div
+              className="flex items-center p-3 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
+              onClick={handlePostOwner}
+            >
+              <div className="flex justify-center items-center w-[50px] h-[50px] bg-blue-600 rounded-full">
+                      <div className=" px-4 py-3 capitalized">{userInfo.name.slice(0,1)}{userInfo.surname.slice(0,1)}</div>
+                    </div>
+              <div className="ml-5">
+                <p className="text-lg text-gray-700 dark:text-gray-300">
+                  {post.publisher.name} {post.publisher.surname}
+                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {post.publisher.email}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default PostInfo;

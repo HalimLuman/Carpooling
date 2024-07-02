@@ -66,7 +66,7 @@ const NavbarExplore = () => {
         <div className="fixed top-0 left-0 w-full z-50 border-b border-n-2 flex flex-col bg-n-1 pb-5">
             <div className={`lg:bg-n-1 lg:backdrop-blur-sm ${openNavigation ? "bg-n-1" : "bg-n-1/90 backdrop-blur-sm"} container`}>
                 <div className="flex items-center px-5 lg:px-7.5 xl:px-10 max-lg:py-4">
-                    <a className="w-[12rem] xl:mr-8 flex items-center" href="#hero">
+                    <a className="w-[12rem] xl:mr-8 flex items-center" href="/">
                         <img src='../../public/vite.svg' width={40} height={40} alt="Brainwave" />
                         <span className="ml-3 text-2xl font-semibold tracking-wider text-n-8">TRAVEL</span>
                     </a>

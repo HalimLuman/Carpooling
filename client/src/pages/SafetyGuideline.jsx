@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaHandHoldingHeart, FaShieldAlt, FaGavel, FaStar, FaUsers, FaCar, FaExclamationTriangle, FaSyncAlt } from 'react-icons/fa';
+import { FaHandHoldingHeart, FaShieldAlt, FaGavel, FaStar, FaUsers } from 'react-icons/fa';
 
 const SafetyGuideline = () => {
   return (

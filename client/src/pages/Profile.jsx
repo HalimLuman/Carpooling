@@ -1,144 +1,301 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { CiCalendarDate, CiMapPin, CiPhone } from "react-icons/ci";
-import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
-import { LiaCitySolid } from "react-icons/lia";
-import EditProfile from '../components/sidebar-components/EditProfile';
-import { useSelector, useDispatch } from 'react-redux';
-import { useDeleteUserMutation, useLogoutMutation } from '../slices/usersApiSlice';
-import { logout } from '../slices/authSlice';
-import { toast } from 'react-toastify';
-import { profile, registration } from '../assets';
-import MenuSvg from '../assets/svg/MenuSvg';
+import React, { useState } from "react";
+import NavbarMain from "../components/NavbarMain";
+import { useSelector } from "react-redux";
+import {
+  useCreateCommentMutation,
+  useFetchCommentsQuery,
+  useFetchPostsQuery,
+} from "../slices/usersApiSlice";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Profile = () => {
-  const [isClicked, setIsClicked] = useState(false);
-  const [deleteValidation, setDeleteValidation] = useState('');
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const location = useLocation();
+  const postOwner = location.state?.postOwner;
+  const { data: posts, isLoading, isError, refetch } = useFetchPostsQuery();
+  const {
+    data: comments,
+    isLoading: commentsLoading,
+    isError: commentsError,
+    refetch: refetchComments,
+  } = useFetchCommentsQuery(postOwner?._id);
   const { userInfo } = useSelector((state) => state.auth);
-  const [deleteUser] = useDeleteUserMutation();
-  const [logoutApiCall] = useLogoutMutation();
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0);
+  const [createCommentMutation] = useCreateCommentMutation();
 
-  const handleDelete = async (e) => {
+  const userComments =
+    comments?.filter((comment) => comment.commentedTo === postOwner._id) || [];
+  let totalRating = 0;
+  userComments.forEach(comment => {
+    totalRating += comment.rating;
+  });
+  let averageRating = (totalRating / userComments.length).toFixed(1) || 'Not any rating';
+  const userPosts =
+    posts?.filter((post) => post.publisher._id === postOwner._id) || [];
+
+  const calculateAge = (dateOfBirth) => {
+    const today = new Date();
+    const birthDate = new Date(dateOfBirth);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
+ 
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await logoutApiCall().unwrap();
-      dispatch(logout());
-      await deleteUser(userInfo._id).unwrap();
-      navigate('/register');
-      toast.success('Profile Deleted successfully', { autoClose: 1500, pauseOnHover: false });
-    } catch (err) {
-      console.error(err);
-      toast.error(err.message || 'An error occurred while deleting user');
+      await createCommentMutation({
+        commentedTo: postOwner._id,
+        context: comment,
+        rating: rating,
+      });
+
+      refetch(); // Refetch posts or user data as needed
+
+      setComment("");
+      setRating(0);
+
+      toast.success("Comment added successfully");
+    } catch (error) {
+      console.error("Error adding comment:", error);
+      toast.error("Failed to add comment");
     }
   };
 
   return (
-    <div className='flex flex-col items-center lg:items-start w-full'>
-      {/* User Information */}
-      <div className='flex flex-col xl:flex-row justify-between items-center w-full my-4'>
-        <div className='p-4 pb-0 bg-n-1 my-5 rounded-xl w-full md:w-[100%] xl:w-[60%] shadow h-max'>
-          {/* Profile Image */}
-          <div className='h-[230px]'>
-            <img src={profile} alt="UserBackground" className='w-full object-cover h-[230px] rounded-xl'/>
-          </div>
-          {/* Profile Details */}
-          <div className='flex flex-col md:flex-row items-center justify-between p-4 relative bottom-[2.5rem] w-[95%] mx-auto rounded-2xl shadow-md backdrop-blur-xl bg-white/70 '>
-            {/* Profile Picture and Name */}
-            <div className='flex w-full justify-around md:justify-start'>
-              <img src={registration} alt="" className='w-[80px] h-[80px] rounded-lg'/>
-              <div className='flex flex-col md:ml-5 text-n-8 self-end py-1 wrap'>
-                <h1 className='h5 mb-1 ml-2 md:ml-0 font-bold max-w-[100%] md:max-w-[80%] xl:max-w-[100%] w-max overflow-hidden'>{userInfo.name}&nbsp;{userInfo.surname}</h1>
-                <p className='text-n-8/80 ml-2 text-sm'>{userInfo.email}</p>
+    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
+      <NavbarMain />
+
+      <main className="max-w-7xl mx-auto py-6 pt-15 sm:px-6 lg:px-8">
+        <div className="px-4 pt-10 sm:px-0">
+          <section className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg mb-8">
+            <div className="px-4 py-5 sm:px-6 flex items-center justify-between">
+              <h3 className="text-xl leading-6 font-medium text-gray-900 dark:text-gray-200 flex flex-col">
+                <span>Profile</span>
+                <span>Information</span>
+              </h3>
+              <img src={postOwner.profilePic} width={60}/>
+            </div>
+            <div className="border-t border-gray-200 dark:border-gray-700">
+              <dl className="divide-y divide-gray-200 dark:divide-gray-700">
+                <div className="py-4 px-6">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    Name
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                    {postOwner.name} {postOwner.surname}
+                  </dd>
+                </div>
+                <div className="py-4 px-6">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    Email address
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                    {postOwner.email}
+                  </dd>
+                </div>
+                <div className="py-4 px-6">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    City
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                    {postOwner.city}
+                  </dd>
+                </div>
+                <div className="py-4 px-6">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    Gender
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                    {postOwner.gender}
+                  </dd>
+                </div>
+                <div className="py-4 px-6">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    Age
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                    {calculateAge(postOwner.dateOfBirth)}
+                  </dd>
+                </div>
+                <div className="py-4 px-6">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    Average Rating
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                    {averageRating} / 5.0
+                  </dd>
+                </div>
+                <div className="py-4 px-6">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    Created Travels:{" "}
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                    {postOwner.createdPosts}
+                  </dd>
+                </div>
+                <div className="py-4 px-6">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    Joined Travels:{" "}
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                    {postOwner.joinedPosts.length}
+                  </dd>
+                </div>
+                <div className="py-4 px-6">
+                  <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                    Total Travels Canceled
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                    {postOwner.deletedPosts}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </section>
+
+          <section className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg mb-8">
+            <div className="px-4 py-5 sm:px-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+                Comments and Ratings
+              </h3>
+            </div>
+            <div className="border-t border-gray-200 dark:border-gray-700">
+              <div className="px-6">
+                {userComments.map((comment) => (
+                  <div key={comment.id} className="flex items-center my-6">
+                    <img src={postOwner.profilePic} width={45}/>
+                    <div className="ml-3">
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-200">
+                        {comment.commentedFrom}
+                      </p>
+                      <div className="flex items-center mt-1">
+                        {/* Star Rating */}
+                        <div className="flex">
+                          {[1, 2, 3, 4, 5].map((index) => (
+                            <svg
+                              key={index}
+                              className={`h-4 w-4 fill-current ${
+                                index <= comment.rating
+                                  ? "text-yellow-400 dark:text-yellow-300"
+                                  : "text-gray-400 dark:text-gray-600"
+                              }`}
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M10 1l2.583 6.639H18.89l-5.527 4.278 2.084 7.083L10 14.899 5.553 19l2.084-7.083L1.11 7.639H8.417L10 1z"
+                              />
+                            </svg>
+                          ))}
+                        </div>
+                      </div>
+                      <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                        {comment.context}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <form
+                onSubmit={handleSubmit}
+                className="px-6 py-4 border-t border-gray-200 dark:border-gray-700"
+              >
+                <div className="flex items-center mb-4">
+                  <textarea
+                    className="resize-none w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-n-1 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                    placeholder="Write your comment..."
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex">
+                    {[1, 2, 3, 4, 5].map((value, index) => (
+                      <svg
+                        key={index}
+                        className={`h-5 w-5 fill-current ${
+                          value <= rating
+                            ? "text-yellow-400 dark:text-yellow-300"
+                            : "text-gray-400 dark:text-gray-600"
+                        } cursor-pointer`}
+                        onClick={() => setRating(value)}
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M10 1l2.583 6.639H18.89l-5.527 4.278 2.084 7.083L10 14.899 5.553 19l2.084-7.083L1.11 7.639H8.417L10 1z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <button
+                    type="submit"
+                    className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100"
+                  >
+                    Add Comment
+                  </button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <section className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg mb-8">
+            <div className="px-4 py-5 sm:px-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+                Recent Posts and Travel Statistics
+              </h3>
+            </div>
+            <div className="border-t border-gray-200 dark:border-gray-700">
+              <div className="px-6 py-4">
+                {isLoading ? (
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Loading posts...
+                  </p>
+                ) : isError ? (
+                  <p className="text-sm text-red-600 dark:text-red-400">
+                    Error loading posts
+                  </p>
+                ) : userPosts.length > 0 ? (
+                  userPosts.map((post) => (
+                    <div key={post.id} className="flex items-center mb-4">
+                      <div className="ml-3 flex items-center">
+                        <p className="text-md font-medium text-gray-900 dark:text-gray-200">
+                          {post.from}
+                        </p>
+                        &nbsp;
+                        <span>-</span>&nbsp;
+                        <p className="text-md text-gray-600 dark:text-gray-300">
+                          {post.to}
+                        </p>
+                      </div>
+                      <div className="ml-3 flex items-center">
+                        <p className="text-md font-medium text-gray-900 dark:text-gray-200">{`${new Date(
+                          post.date
+                        ).getDay()}/${new Date(
+                          post.date
+                        ).getMonth()}/${new Date(post.date).getFullYear()}`}</p>
+                        &nbsp;
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <h1>No Recent Posts</h1>
+                )}
               </div>
             </div>
-            {/* Profile Buttons */}
-            <div className='text-n-8 flex flex-row-reverse mt-5 md:mt-0 w-full md:w-[450px] justify-around'>
-              <button className='text-xs lg:text-sm px-3 py-2 mx-1 hover:text-sky-700 hover:font-bold w-[125px]'>View Profile</button>
-              <button className='text-xs lg:text-sm border border-n-8/90 px-3 py-2 mx-1 hover:border-sky-700 hover:bg-sky-700 hover:text-n-1 rounded-md'>Change Picture</button>
-            </div>
-          </div>
+          </section>
         </div>
-        {/* More Details */}
-        <div className='py-7 px-5 bg-n-1 my-1 rounded-xl text-n-8 w-[100%] xl:w-[39%] shadow'>
-          <h2 className='text-lg pl-2'>More details</h2>
-          {/* User Details */}
-          <div className='flex flex-col md:flex-row w-[100%] justify-between'>
-            {/* Details Group 1 */}
-            <div className='flex flex-wrap w-full justify-between'>
-              {renderUserDetail('Date of Birth', userInfo.dateOfBirth, <CiCalendarDate size={30}/>)}
-              {renderUserDetail('Gender', userInfo.gender, userInfo.gender === 'male' ? <BsGenderMale size={25}/> : <BsGenderFemale size={25} />, true)}
-              {renderUserDetail('City', userInfo.city, <LiaCitySolid size={30}/>)}
-              {renderUserDetail('Address', userInfo.address, <CiMapPin size={30}/>)}
-              {renderUserDetail('Phone Number', `+389 ${userInfo.phone}`, <CiPhone size={30}/>)}
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* Edit Profile Component */}
-      <div className='px-10 bg-n-1 my-1 rounded-xl text-n-8 shadow w-full self-center'>
-        <EditProfile />
-      </div>
-      {/* Delete Account Button */}
-      <div className='flex justify-start bg-n-1 py-5 px-5 my-4 shadow rounded-xl w-full self-center'>
-        <button className='px-3 py-2 bg-red-600 text-n-1 border border-red-600 rounded-md text-sm hover:bg-n-1 hover:text-red-700 hover:font-bold' onClick={() => setIsClicked(true)}>Delete account</button>
-      </div>
-      {/* Delete Account Confirmation */}
-      {isClicked && (
-        <div className='fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-3'>
-          <div className='fixed my-auto mx-auto bg-n-1 text-n-8 w-[90%] lg:w-[500px] shadow rounded-xl flex flex-col'>
-            {/* Delete Account Header */}
-            <div className='flex items-center justify-between px-4 py-4'>
-              <h3>Delete the account {userInfo.name}&nbsp;{userInfo.surname}</h3>
-              <button onClick={() => setIsClicked(false)}>
-                <MenuSvg openNavigation={true} />
-              </button>
-            </div>
-            <hr />
-            {/* Delete Account Info */}
-            <div className='self-center py-4 flex'>
-              <img src="../../public/vite.svg" alt="" />
-              <h1 className='h5 ml-5'>{userInfo.name}&nbsp;{userInfo.surname}</h1>
-            </div>
-            {/* Warning Message */}
-            <div className='self-center py-4 w-[80%] text-center'>
-              <div className='bg-[rgba(238,210,2,0.5)] p-3 border border-yellow-600 rounded-md text-sm'>
-                <p className='text-n-8'>Unexpected things will happen if you don't read this!</p>
-              </div>
-            </div>
-            {/* Delete Account Confirmation */}
-            <div className='text-left w-[80%] mx-auto'>
-              <p className='body-2 text-sm pt-4'>This will permanently delete the HalimLuman/Cs_skins repository, wiki, issues, comments, packages, secrets, workflow runs, and remove all collaborator associations.</p>
-            </div>
-            <hr />
-            {/* Input for Confirmation */}
-            <div className='self-center py-5 flex flex-col items-center'>
-              <p className='text-center'>Type ' <span className=''>{userInfo.name}{userInfo.surname}/delete</span> ' to delete permanently</p>
-              <input type="text" className={`bg-n-1 border w-[80%] md:w-full outline-none  border-n-8/50 py-1 rounded-md px-3 mt-2 ${deleteValidation === `${userInfo.name}${userInfo.surname}/delete` ? 'focus:border-green-700' : 'focus:border-red-600'}`} onChange={(e) => setDeleteValidation(e.target.value)} />
-            </div>
-            {/* Delete Button */}
-            <div className='pb-5 flex justify-center'>
-              <button disabled={deleteValidation !== `${userInfo.name}${userInfo.surname}/delete`} className={`w-[90%] px-3 py-2 bg-red-600 text-n-1 border border-red-600 rounded-md text-sm ${deleteValidation === `${userInfo.name}${userInfo.surname}/delete` ? 'hover:bg-n-1 hover:text-red-600 hover:font-bold' : 'opacity-[0.5]'} `} onClick={handleDelete}>I am aware and I want to delete</button>
-            </div>
-          </div>
-        </div>
-      )}
+      </main>
     </div>
   );
 };
-
-// Helper function to render user detail
-const renderUserDetail = (label, value, icon) => (
-  <div className='w-[100%] lg:w-[49%]'>
-    <div className='flex items-center mt-7 mx-1 shadow rounded-md px-4 py-2 w-full h-[64px] overflow-hidden'>
-      {icon}
-      <div className='ml-2'>
-        <h3 className='font-bold'>{label}</h3>
-        <span className={`text-sky-600 text-sm `}>{value}</span>
-      </div>
-    </div>
-  </div>
-);
 
 export default Profile;

@@ -49,7 +49,7 @@ import {
 export const navigation = [
     {
       id: "0",
-      title: "Home  ",
+      title: "Home",
       url: "/",
     },
     {
@@ -103,22 +103,17 @@ export const navigation = [
         {
           name: 'Settings',
           icon: CiSettings,
-          to: '/settings',
+          to: '/account/settings',
         },
         {
           name: 'Account',
           icon: CiUser,
-          to: '/dashboard/:id',
+          to: '/account',
         },
         {
           name: 'Payment',
           icon: CiMoneyBill,
-          to: 'subscription',
-        },
-        {
-          name: 'Statistics',
-          icon: TfiStatsUp ,
-          to: '/dashboard/statistics',
+          to: '/account/payments-payouts',
         },
       ],
     },

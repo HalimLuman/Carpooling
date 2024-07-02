@@ -1,5 +1,22 @@
 {
     "translation": {
+        "GENERAL": {
+            "Navbar": {
+                "Home": "Home",
+                "Guideline": "Safety Guideline",
+                "profile": "Profile",
+                "account": "Account",
+                "notification": "Notifications",
+                "explore": "Explore",
+                "create": "Create Travel",
+                "travels": "My Travels",
+                "settings": "Settings",
+                "dark": "Dark Mode",
+                "light": "Light Mode",
+                "support": "Support",
+                "logout": "Logout"
+            }
+        },
         "HOME": {
             "Hero": {
               "header": "Explore affordable and accessible carpooling for exciting travel adventures.",
@@ -69,6 +86,42 @@
             "Footer": {
                 "rights": "All rights reserved"
               }
+        },
+        "ACCOUNT": {
+            "Title": "Account",
+            "Links": {
+                "home": "HOME",
+                "account": "ACCOUNT",
+                "goto": "Go to profile"
+            },
+            "Pages": {
+                "personalInfo" : {
+                    "title": "Personal Information",
+                    "description": "Provide or update your personal information for a better profile"
+                },
+                "security" : {
+                    "title": "Security",
+                    "description": "Manage your security settings including password"
+                },
+                "payment" : {
+                    "title": "Payment & Tokens",
+                    "description": "View and manage your payment method and buy tokens"
+                },
+                "stats" : {
+                    "title": "Account Stats",
+                    "description": "Analyze your account statistics and performance metrics"
+                },
+                "deactivate" : {
+                    "title": "Deactivate Account",
+                    "description": "Permanently deactivate your account if you no longer need it"
+                },
+                "settings" : {
+                    "title": "Settings",
+                    "description": "Manage features of the website such as theme, language etc."
+                }
+
+            }
         }
+
     }
 }

@@ -18,6 +18,20 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 body: data,
             })
         }),
+        forgotPassword: builder.mutation({
+            query: (email) => ({
+                url: `${USERS_URL}/forgot-password`,
+                method: 'POST',
+                body: email,
+            }),
+        }),
+        resetPassword: builder.mutation({
+            query: ({ token, password }) => ({
+                url: `${USERS_URL}/resetpassword/${token}`,
+                method: 'PUT',
+                body: { password },
+            }),
+        }),
         logout: builder.mutation({
             query: () => ({
                 url: `${USERS_URL}/logout`,
@@ -44,7 +58,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 method: 'DELETE',
             })
         }),
-        veriyfUser: builder.mutation({
+        verifyUser: builder.mutation({
             query: (data) => ({
                 url: `${USERS_URL}/verify-user`,
                 method: 'POST',
@@ -78,8 +92,19 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         fetchPendingRequests: builder.query({
             query: () => `${USERS_URL}/pending-requests`,
         }),
+        createComment: builder.mutation({
+            query: ({ commentedTo, context, rating }) => ({
+                url: `${USERS_URL}/create-comment`, // Adjust the endpoint as per your backend
+                method: 'POST',
+                body: { commentedTo, context, rating },
+            }),
+        }),
+        fetchComments: builder.query({
+            query: () => `${USERS_URL}/comments`, // Adjust endpoint as per your backend
+            providesTags: ['Comment'], // Optional: tags for caching or invalidation
+        }),
     })
 })
 
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation, useUpdateUserMutation, useDeleteUserMutation, useVeriyfUserMutation, useCreatePostMutation, useFetchPostsQuery, useDeletePostMutation, useReservePostMutation, useFetchPendingRequestsQuery, useHandleReservationRequestMutation} = usersApiSlice;
+export const { useLoginMutation, useRegisterMutation, useForgotPasswordMutation, useResetPasswordMutation, useLogoutMutation, useUpdateUserMutation, useDeleteUserMutation, useVerifyUserMutation, useCreatePostMutation, useFetchPostsQuery, useDeletePostMutation, useReservePostMutation, useFetchPendingRequestsQuery, useHandleReservationRequestMutation, useCreateCommentMutation, useFetchCommentsQuery} = usersApiSlice;

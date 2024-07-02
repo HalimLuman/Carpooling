@@ -1,29 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import Section from '../components/design/Section';
-import { Link, NavLink } from 'react-router-dom';
+import Section from '../../components/design/Section';
+import { useNavigate } from 'react-router-dom';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import { useSelector } from 'react-redux';
 import { FaInfoCircle, FaShieldAlt, FaSyncAlt } from 'react-icons/fa';
-import '../css/form.css';
-import AccountHeader from '../components/AccountHeader';
+import '../../css/form.css';
+import AccountHeader from '../../components/AccountHeader';
 
 const AccountPayment = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const [editState, setEditState] = useState({});
   const [formData, setFormData] = useState({
     paymentMethod: '',
-    payoutMethod: '',
-    cardNumber: '',
-    bankAccount: '',
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setFormData((prevData) => ({
       ...prevData,
       paymentMethod: userInfo.paymentMethod || '',
-      payoutMethod: userInfo.payoutMethod || '',
-      cardNumber: userInfo.cardNumber || '',
-      bankAccount: userInfo.bankAccount || '',
     }));
   }, [userInfo]);
 
@@ -50,15 +46,18 @@ const AccountPayment = () => {
   const headerElements = [
     { label: 'Home', link: '/' },
     { label: 'Account', link: '/account' },
-    { label: 'Payments & Payouts' }
+    { label: 'Payment & tokens' }
   ];
+  const handleGoToProfile = () => {
+    navigate(`/profiles/${userInfo._id}`, { state: { postOwner: userInfo } });
+  }
 
   return (
     <Section>
-      <div className='container mx-auto px-4 text-n-8'>
-        <AccountHeader elements={headerElements}/>
+      <div className='container mx-auto px-4 text-n-8 dark:text-white min-h-[72vh]'>
+        <AccountHeader elements={headerElements} handleGoToProfile={handleGoToProfile}/>
         <div className='flex flex-wrap container'>
-          <div className='w-full lg:w-3/5'>
+          <div className='w-full xl:w-3/5'>
             <PaymentsForm
               formData={formData}
               editState={editState}
@@ -70,7 +69,7 @@ const AccountPayment = () => {
               <BuyTokensSection />
             </div>
           </div>
-          <div className='w-full lg:w-2/5 lg:pl-15 mt-10 lg:mt-0'>
+          <div className='w-full xl:w-2/5 xl:pl-15 mt-10 xl:mt-0'>
             <ExplanatoryBoxes />
           </div>
         </div>
@@ -79,26 +78,9 @@ const AccountPayment = () => {
   );
 };
 
-// const Breadcrumbs = () => (
-//   <div className='text-n-8 container w-full mb-5'>
-//     <div className='flex items-center'>
-//       <NavLink to="/" className='text-n-8 hover:text-sky-600'>Home</NavLink>
-//       <MdOutlineKeyboardArrowRight className='mx-2' size={20} color='#5b5c5e' />
-//       <NavLink to="/account" className='text-n-8 hover:text-sky-600'>Account</NavLink>
-//       <MdOutlineKeyboardArrowRight className='mx-2' size={20} color='#5b5c5e' />
-//       <span>Payments & Payouts</span>
-//     </div>
-//     <h1 className="text-4xl mt-5 mb-2">Payments & Payouts</h1>
-//     <Link to="/profile" className="underline text-md font-bold">Go to profile</Link>
-//   </div>
-// );
-
 const PaymentsForm = ({ formData, editState, toggleEdit, handleChange, handleSubmit }) => {
   const fields = [
     { name: 'paymentMethod', label: 'Payment Method', description: 'Choose your preferred method for payments.' },
-    { name: 'payoutMethod', label: 'Payout Method', description: 'Choose your preferred method for payouts.' },
-    { name: 'cardNumber', label: 'Card Number', description: 'Enter your card number for payment processing.' },
-    { name: 'bankAccount', label: 'Bank Account', description: 'Enter your bank account details for payouts.' },
   ];
 
   return (
@@ -119,7 +101,7 @@ const PaymentsForm = ({ formData, editState, toggleEdit, handleChange, handleSub
 };
 
 const ProfileField = ({ field, value, editState, toggleEdit, handleChange, handleSubmit }) => (
-  <div className='border-b pb-2 mt-10'>
+  <div className='border-b pb-2 mt-10 border-gray-300 dark:border-gray-700'>
     <div className='flex justify-between'>
       <h2>{field.label}</h2>
       <span className='underline cursor-pointer' onClick={toggleEdit}>
@@ -135,11 +117,11 @@ const ProfileField = ({ field, value, editState, toggleEdit, handleChange, handl
             name={field.name}
             value={value}
             onChange={handleChange}
-            className='bg-n-1 border outline-none hover:border-sky-700 focus:border-sky-700 border-n-8/50 py-3 rounded-md px-3 h-[50px] w-full'
+            className='bg-white dark:bg-gray-800 border outline-none hover:border-sky-700 focus:border-sky-700 border-gray-300 dark:border-gray-700 py-3 rounded-md px-3 h-[50px] w-full'
           />
           <button
             type='button'
-            className='border px-5 py-3 rounded-lg border-sky-600 text-sky-600 hover:text-n-1 hover:bg-sky-600 ml-3'
+            className='border px-5 py-3 rounded-lg border-sky-600 text-sky-600 hover:text-white hover:bg-sky-600 ml-3'
             onClick={handleSubmit}
           >
             Save
@@ -173,13 +155,13 @@ const ExplanatoryBoxes = () => (
 );
 
 const ExplanatoryBox = ({ title, content, icon }) => (
-  <div className='p-5 border rounded-lg shadow-lg flex items-center text-n-8'>
-    <div className='mr-4 p-4 rounded-full bg-white text-2xl text-gray-800'>
+  <div className='p-5 lg:px-7 border dark:border-gray-700 dark:bg-gray-800 rounded-lg shadow-lg flex flex-col items-start text-n-8 dark:text-n-1'>
+    <div className='mr-4 rounded-full bg-n-1 dark:bg-gray-800 text-2xl text-gray-800 dark:text-n-1'>
       {icon}
     </div>
-    <div>
+    <div className='pt-3'>
       <h2 className='text-lg font-bold mb-2'>{title}</h2>
-      <p>{content}</p>
+      <p className='text-sm'>{content}</p>
     </div>
   </div>
 );
@@ -219,15 +201,12 @@ const BuyTokensSection = () => {
   };
 
   return (
-    <div className='p-5 border rounded-lg shadow-lg text-n-8'>
-      <div className='flex items-center'>
-        <div className='mr-4 p-4 rounded-full bg-white text-2xl text-gray-800'>
-          {/* Icon for payment */}
-        </div>
-        <div>
+    <div className='p-5 py-10 w-full border rounded-lg shadow-lg text-n-8 dark:text-white dark:bg-gray-800'>
+      <div className='flex justify-center w-full'>
+        <div className='w-full'>
           <h2 className='text-lg font-bold mb-2'>Buy Tokens</h2>
           <p className='mb-2'>Enter your payment details to buy tokens.</p>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4 w-full">
             <div className="grid grid-cols-1 gap-y-2">
               <label htmlFor="cardNumber" className="sr-only">Card Number</label>
               <input
@@ -236,10 +215,10 @@ const BuyTokensSection = () => {
                 id="cardNumber"
                 placeholder="Card Number"
                 onChange={handleInputChange}
-                className="bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500"
+                className="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-300"
               />
             </div>
-            <div className="grid grid-cols-2 gap-x-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
                 <label htmlFor="expiryDate" className="sr-only">Expiry Date</label>
                 <input
@@ -248,7 +227,7 @@ const BuyTokensSection = () => {
                   id="expiryDate"
                   placeholder="MM/YY"
                   onChange={handleInputChange}
-                  className="bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500"
+                  className="bg-white dark:bg-gray-700 border w-full border-gray-300 dark:border-gray-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-300"
                 />
               </div>
               <div>
@@ -259,12 +238,11 @@ const BuyTokensSection = () => {
                   id="cvv"
                   placeholder="CVV"
                   onChange={handleInputChange}
-                  className="bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500"
+                  className="bg-white dark:bg-gray-700 border w-full border-gray-300 dark:border-gray-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-300"
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-x-4">
-
+            <div className="grid grid-cols-2 gap-2">
               <div>
                 <label htmlFor="amount" className="sr-only">Amount</label>
                 <input
@@ -273,18 +251,18 @@ const BuyTokensSection = () => {
                   id="amount"
                   placeholder="Amount"
                   onChange={handleInputChange}
-                  className="bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500"
+                  className="bg-white dark:bg-gray-700 border w-full border-gray-300 dark:border-gray-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-300"
                 />
               </div>
               <div>
-                <label htmlFor="amount" className="sr-only">Card Holder</label>
+                <label htmlFor="cardHolder" className="sr-only">Card Holder</label>
                 <input
-                  type="number"
+                  type="text"
                   name="cardHolder"
                   id="cardHolder"
                   placeholder="Card Holder"
                   onChange={handleInputChange}
-                  className="bg-white border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500"
+                  className="bg-white dark:bg-gray-700 border w-full border-gray-300 dark:border-gray-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-300"
                 />
               </div>
             </div>

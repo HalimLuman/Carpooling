@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { registration } from '../assets';
 import AccountHeader from '../components/AccountHeader';
-import { FaQuestionCircle, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { FaQuestionCircle, FaCheckCircle } from 'react-icons/fa';
 import { useFetchPostsQuery } from '../slices/apiSlice';
 
 const ExplanatoryBox = ({ title, content, icon }) => (
-  <div className='p-5 border rounded-lg shadow-lg flex items-center text-n-8'>
-    <div className='mr-4 p-4 rounded-full bg-white text-2xl text-gray-800'>
+  <div className='p-5 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg flex items-center bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200'>
+    <div className='mr-4 p-4 rounded-full bg-white dark:bg-gray-700 text-2xl text-gray-800 dark:text-gray-200'>
       {icon}
     </div>
     <div>
@@ -88,22 +88,22 @@ const AccountHistoryJoin = () => {
   ];
 
   return (
-    <div className="w-full min-h-screen text-n-8">
+    <div className="w-full min-h-screen text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-900">
       <div className="flex flex-col items-center">
-        <div className='container mx-auto px-4 text-n-8 mt-15'>
+        <div className="container mx-auto px-4 mt-15">
           <AccountHeader elements={headerElements} />
           <div className="flex flex-col lg:flex-row my-10">
             <div className="w-full lg:w-[75%] flex flex-wrap">
               <div className="flex flex-col justify-between items-center w-full relative">
                 {/* Sort bar */}
-                <div className="container w-[90%] rounded-lg mb-5 bg-gray-800 p-4 flex items-center justify-between">
-                  <label htmlFor="sortBy" className="text-white font-medium mr-2 hidden lg:block">Sort By:</label>
+                <div className="container w-[90%] rounded-lg mb-5 bg-gray-200 dark:bg-gray-800 p-4 flex items-center justify-between">
+                  <label htmlFor="sortBy" className="text-gray-800 dark:text-gray-200 font-medium mr-2 hidden lg:block">Sort By:</label>
                   <div className="flex items-center mx-auto lg:mx-0">
                     <select
                       id="sortBy"
                       value={sortBy}
                       onChange={(e) => handleSortByChange(e.target.value)}
-                      className="px-4 py-2 border text-sm lg:text-md border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 bg-gray-700 text-white font-medium"
+                      className="px-4 py-2 border text-sm lg:text-md border-gray-400 dark:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-medium"
                     >
                       <option value="date-added">Date Added</option>
                       <option value="price">Price</option>
@@ -118,14 +118,14 @@ const AccountHistoryJoin = () => {
                   </div>
                 </div>
                 {isLoading && <p className="text-lg">Loading...</p>}
-                {isError && <p className="text-lg text-red-500">Error fetching pending requests</p>}
+                {isError && <p className="text-lg text-red-500">Error fetching posts</p>}
                 {sortedPosts?.length === 0 && !isLoading && !isError && (
-                  <h1 className="text-n-8 text-2xl font-bold py-2">No Pending Requests</h1>
+                  <h1 className="text-2xl font-bold py-2">No Joined Trips</h1>
                 )}
                 {sortedPosts.length > 0 && (
                   <div className="container grid grid-cols-1 gap-10">
                     {sortedPosts.map((post) => (
-                      <div key={post._id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                      <div key={post._id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
                         <div className="relative">
                           <img
                             src={registration} // Assuming you have an image URL
@@ -137,15 +137,15 @@ const AccountHistoryJoin = () => {
                           </div>
                         </div>
                         <div className="p-6">
-                          <h3 className="text-lg font-semibold mb-2">{post.from} - {post.to}</h3>
+                          <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">{post.from} - {post.to}</h3>
                           <div className="space-y-2">
                             <div>
-                              <p className="text-gray-600"><strong>Name:</strong> {post.publisher.name} {post.publisher.surname}</p>
-                              <p className="text-gray-600"><strong>Email:</strong> {post.publisher.email}</p>
+                              <p className="text-gray-800 dark:text-gray-200"><strong>Name:</strong> {post.publisher.name} {post.publisher.surname}</p>
+                              <p className="text-gray-800 dark:text-gray-200"><strong>Email:</strong> {post.publisher.email}</p>
                             </div>
-                            <p className="text-gray-600"><strong>Capacity:</strong> {post.capacity}</p>
-                            <p className="text-gray-600"><strong>Price:</strong> {post.price}</p>
-                            <p className="text-gray-600"><strong>Reservations:</strong> {post.reservations.length}</p>
+                            <p className="text-gray-800 dark:text-gray-200"><strong>Capacity:</strong> {post.capacity}</p>
+                            <p className="text-gray-800 dark:text-gray-200"><strong>Price:</strong> {post.price}</p>
+                            <p className="text-gray-800 dark:text-gray-200"><strong>Reservations:</strong> {post.reservations.length}</p>
                           </div>
                         </div>
                       </div>

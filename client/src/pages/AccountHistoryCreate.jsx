@@ -7,8 +7,8 @@ import { FaQuestionCircle, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import { useFetchPostsQuery, useDeletePostMutation } from '../slices/usersApiSlice';
 
 const ExplanatoryBox = ({ title, content, icon }) => (
-  <div className='p-5 border rounded-lg shadow-lg flex items-center text-n-8'>
-    <div className='mr-4 p-4 rounded-full bg-white text-2xl text-gray-800'>
+  <div className='p-5 border rounded-lg shadow-lg flex items-center bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200'>
+    <div className='mr-4 p-4 rounded-full bg-white dark:bg-gray-700 text-2xl text-gray-800 dark:text-gray-200'>
       {icon}
     </div>
     <div>
@@ -106,9 +106,9 @@ const AccountHistoryCreate = () => {
   ];
 
   return (
-    <div className="w-full min-h-screen text-n-8">
+    <div className="w-full min-h-screen text-gray-800 dark:text-gray-200">
       <div className="flex flex-col items-center">
-        <div className='container mx-auto px-4 text-n-8 mt-15'>
+        <div className='container mx-auto px-4 text-gray-800 dark:text-gray-200 mt-15'>
           <AccountHeader elements={headerElements} />
           <div className="flex flex-col lg:flex-row my-10">
             <div className="w-full lg:w-[75%] flex flex-wrap">
@@ -136,32 +136,25 @@ const AccountHistoryCreate = () => {
                   </div>
                 </div>
                 {isLoading && <p className="text-lg">Loading...</p>}
-                {isError && <p className="text-lg text-red-500">Error fetching pending requests</p>}
+                {isError && <p className="text-lg text-red-500">Error fetching posts</p>}
                 {sortedPosts?.length === 0 && !isLoading && !isError && (
-                  <h1 className="text-n-8 text-2xl font-bold py-2">No Pending Requests</h1>
+                  <h1 className="text-2xl font-bold py-2">No Created Trips</h1>
                 )}
                 {sortedPosts.length > 0 && (
                   <div className="lg:container grid grid-cols-1 gap-10 w-full">
                     {sortedPosts.map((post) => (
-                      <div key={post._id} className="bg-white rounded-xl shadow-md overflow-hidden">
-                        <div className="relative">
+                      <div key={post._id} className="bg-white p-2 dark:bg-slate-800 rounded-xl shadow-md dark:shadow-white/20 overflow-hidden">
+                        <div className="relative rounded-lg">
                           <img
                             src={registration} // Assuming you have an image URL
                             alt="Reservation"
-                            className="w-full h-40 object-cover"
+                            className="w-full h-40 object-cover rounded-xl"
                           />
-                          <div className="absolute top-2 left-2 bg-black shadow text-white px-2 py-1 rounded-lg text-sm">
-                            {new Date(post.date).toLocaleDateString()}
-                          </div>
-                        </div>
-                        <div className="px-6 py-4">
-                          <h3 className="text-lg font-semibold mb-2">{post.from} - {post.to}</h3>
-                          <div className="space-y-1">
-                            <p className="text-gray-600"><strong>Capacity:</strong> {post.capacity}</p>
-                            <p className="text-gray-600"><strong>Price:</strong> {post.price}</p>
-                            <p className="text-gray-600"><strong>Reservations:</strong> {post.reservations.length}</p>
-                          </div>
-                          <div className="flex justify-end">
+                          <div className="absolute flex justify-between items-center w-full top-0 px-2 shadow text-whiterounded-lg text-sm">
+                            <div className=' bg-black px-3 py-2 text-md tracking-wider'>
+                              {new Date(post.date).toLocaleDateString()}
+                            </div>
+                            <div className="flex justify-end">
                             <button
                               onClick={() => handleDelete(post._id)}
                               className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:bg-red-600 transition-colors duration-300 ease-in-out"
@@ -169,6 +162,16 @@ const AccountHistoryCreate = () => {
                               Delete
                             </button>
                           </div>
+                          </div>
+                        </div>
+                        <div className="px-6 py-4">
+                          <h3 className="text-lg font-semibold mb-2">{post.from} - {post.to}</h3>
+                          <div className="space-y-1">
+                            <p className="text-gray-600 dark:text-gray-300"><strong>Capacity:</strong> {post.capacity}</p>
+                            <p className="text-gray-600 dark:text-gray-300"><strong>Price:</strong> {post.price}</p>
+                            <p className="text-gray-600 dark:text-gray-300"><strong>Reservations:</strong> {post.reservations.length}</p>
+                          </div>
+
                         </div>
                       </div>
                     ))}

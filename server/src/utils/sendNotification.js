@@ -24,7 +24,7 @@ export const sendNotification = async (email, userName) => {
                     <p style="font-size: 16px;">We are pleased to inform you that <strong>${userName}</strong> has sent a request for your reservation.</p>
                     <p style="font-size: 16px;">Thank you for using our service. If you have any questions or need further assistance, please feel free to contact us.</p>
                     <p style="font-size: 16px;">Best regards,</p>
-                    <p style="font-size: 16px;">Your Company Team</p>
+                    <p style="font-size: 16px;">TRAVEL</p>
                     <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
                     <p style="font-size: 12px; color: #777;">This is an automated message, please do not reply directly to this email.</p>
                 </div>

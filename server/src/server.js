@@ -5,6 +5,7 @@ import i18n from 'i18n';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
+import messageRoutes from './routes/messageRoutes.js';
 
 dotenv.config();
 connectDB();
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/users', userRoutes);
+app.use('/api/messages', messageRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello');

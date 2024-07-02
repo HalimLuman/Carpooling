@@ -8,6 +8,10 @@ const postSchema = mongoose.Schema({
     time: { type: String, required: true },
     capacity: { type: Number, required: true },
     price: { type: Number, required: true },
+    carModel: {type: String, required: true},
+    carColor: {type: String, required: true},
+    pets: {type: Boolean, required: true},
+    smoking: {type: Boolean, required: true},
     reservations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     pendingRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 }, {

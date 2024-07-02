@@ -6,7 +6,11 @@ import {
     getUserProfile,
     updateUserProfile,
     deleteUser,
-    verifyUser
+    verifyUser,
+    createComment,
+    resetPassword,
+    forgotPassword,
+    getComments
 } from '../controllers/userController.js';
 import {
     createPost,
@@ -14,7 +18,7 @@ import {
     deletePost,
     reservePost,
     handleRequest, // Import the new handleRequest function
-    getPendingRequests
+    getPendingRequests,
 } from '../controllers/postController.js';
 import { protect } from '../middleware/authMiddleware.js';
 
@@ -26,6 +30,10 @@ router.post('/logout', logoutUser);
 router.route('/profile').get(protect, getUserProfile).put(protect, updateUserProfile);
 router.delete('/delete/:id', deleteUser);
 router.post('/verify-user', verifyUser);
+router.post('/create-comment', createComment);
+router.post('/forgot-password', forgotPassword);
+router.put('/resetpassword/:resettoken', resetPassword);
+router.get('/comments', getComments);
 
 router.post('/create-post', createPost);
 router.get('/posts', getPosts);
