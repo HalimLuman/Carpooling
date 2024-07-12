@@ -36,7 +36,7 @@ const NavbarSettings = () => {
   };
 
   return (
-    <div className='fixed top-0 left-0 w-full z-50 shadow bg-n-1 dark:bg-[#1A202C] transition duration-300'>
+    <div className='fixed top-0 left-0 w-full z-50 shadow dark:shadow-white/10 bg-n-1 dark:bg-neutral-950'>
       <div className="flex items-center justify-between px-5 lg:px-10 py-3">
         <a className="w-[12rem] xl:mr-8 flex items-center" href="/">
           <div className="hidden dark:block transition duration-300">

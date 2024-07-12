@@ -420,7 +420,7 @@ const SignupForm = () => {
                     <input
                       key={index}
                       type="number"
-                      className="bg-n-1 text-n-8 border h-[75px] w-[70px] rounded-md mx-3 text-center text-3xl outline-none focus:border-sky-700"
+                      className="bg-n-1 text-n-8 border h-[55px] w-[50px] lg:w-[70px] lg:h-[75px] rounded-md mx-1 lg:mx-3 text-center text-3xl outline-none focus:border-sky-700"
                       maxLength="1"
                       onKeyDown={(e) => {
                         if (

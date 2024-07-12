@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 
 const Support = () => {
   return (
-    <div className='dark:bg-gray-900 pt-20 border-r transition duration-300'>
+    <div className='dark:bg-neutral-950 pt-20 border-r transition duration-300'>
       <NavbarMain />
       <div className='w-full lg:w-[90%] xl:w-[80%] mx-auto py-[4rem] px-4 sm:px-6 md:px-8 flex flex-col lg:flex-row justify-between gap-6'>
         <div className='w-full md:w-1/2 text-n-8 dark:text-n-1 transition duration-300'>

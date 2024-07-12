@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPostInfo } from '../slices/postSlice';
+import { setPostInfo } from '../../slices/postSlice';
 import { toast } from 'react-toastify';
-import '../css/form.css';
-import { useCreatePostMutation } from '../slices/usersApiSlice';
-import { setCredentials } from '../slices/authSlice';
+import '../../css/form.css';
+import { useCreatePostMutation } from '../../slices/usersApiSlice';
+import { setCredentials } from '../../slices/authSlice';
+import { useTranslation } from 'react-i18next';
 
 const CreatePost = () => {
     const initialData = {
@@ -24,6 +25,7 @@ const CreatePost = () => {
     const dispatch = useDispatch();
     const [createPost] = useCreatePostMutation();
     const { userInfo } = useSelector((state) => state.auth);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setData(initialData);
@@ -83,101 +85,102 @@ const CreatePost = () => {
     };
 
     return (
-        <div className="flex flex-col bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-8 py-10 rounded-xl">
+        <div className="flex flex-col w-full my-5  text-gray-800 dark:text-gray-200 px-8 py-10 rounded-xl">
             <div className="flex flex-col w-full">
                 <form onSubmit={submitHandler}>
                     <div className="flex justify-between items-center mb-6">
                         <div className="text-center md:text-left">
-                            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">Create Travel</h2>
-                            <p className="text-gray-500 dark:text-gray-400">Use the form below to create a new travel.</p>
+                            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">{t("DASHBOARD.CreateTravel.title")}</h2>
+                            <p className="text-gray-500 dark:text-gray-400">{t("DASHBOARD.CreateTravel.desc")}</p>
                         </div>
-                        <button className="hidden md:block bg-sky-600 text-white text-lg px-8 py-3 rounded-lg hover:bg-sky-700 transition-colors duration-300">Create</button>
+                        <button className="hidden md:block bg-sky-600 text-white text-lg px-8 py-3 rounded-lg hover:bg-sky-700">{t("DASHBOARD.CreateTravel.create")}</button>
                     </div>
                     <div className="flex flex-col md:flex-row justify-between gap-4">
                         <div className="flex flex-col md:w-[49%]">
-                            <label className="text-gray-600 dark:text-gray-400 mb-1">Location:</label>
+                            <label className="text-gray-600 dark:text-gray-400 mb-1">{t("DASHBOARD.CreateTravel.location")}:</label>
                             <input
                                 type="text"
                                 name="from"
-                                placeholder='Enter the location you will start'
-                                className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                                placeholder={t("DASHBOARD.CreateTravel.locationPlaceholder")}
+                                className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500"
                                 onChange={handleChange}
                                 required
                             />
                         </div>
                         <div className="flex flex-col md:w-[49%]">
-                            <label className="text-gray-600 dark:text-gray-400 mb-1">Destination:</label>
+                            <label className="text-gray-600 dark:text-gray-400 mb-1">{t("DASHBOARD.CreateTravel.destination")}:</label>
                             <input
                                 type="text"
                                 name="to"
-                                placeholder='Enter the destination you will reach'
-                                className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                                placeholder={t("DASHBOARD.CreateTravel.destinationPlaceholder")}
+                                className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 "
                                 onChange={handleChange}
                                 required
                             />
                         </div>
                     </div>
-                    <div className="flex flex-col mt-6">
-                        <label className="text-gray-600 dark:text-gray-400 mb-1">Date:</label>
+                    <div className="flex flex-col mt-6 w-full">
+                        <label className="text-gray-600 dark:text-gray-400 mb-1">{t("DASHBOARD.CreateTravel.date")}:</label>
                         <input
                             type="date"
                             name="date"
-                            className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                            className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500"
                             onChange={handleChange}
                             required
                         />
                     </div>
                     <div className="flex flex-col mt-6">
-                        <label className="text-gray-600 dark:text-gray-400 mb-1">Time:</label>
+                        <label className="text-gray-600 dark:text-gray-400 mb-1">{t("DASHBOARD.CreateTravel.time")}:</label>
                         <input
                             type="time"
                             name="time"
-                            className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                            className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500"
                             onChange={handleChange}
                             required
                         />
                     </div>
                     <div className="flex flex-col mt-6">
-                        <label className="text-gray-600 dark:text-gray-400 mb-1">Capacity:</label>
+                        <label className="text-gray-600 dark:text-gray-400 mb-1">{t("DASHBOARD.CreateTravel.capacity")}:</label>
                         <input
                             type="number"
                             name="capacity"
-                            placeholder='Number of passengers you accept'
-                            className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                            placeholder={t("DASHBOARD.CreateTravel.capacityPlaceholder")}
+                            className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500"
                             onChange={handleChange}
                             required
                         />
                     </div>
                     <div className="flex flex-col mt-6">
-                        <label className="text-gray-600 dark:text-gray-400 mb-1">Price:</label>
+                        <label className="text-gray-600 dark:text-gray-400 mb-1">{t("DASHBOARD.CreateTravel.price")}:</label>
                         <input
                             type="number"
                             name="price"
-                            className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                            placeholder={t("DASHBOARD.CreateTravel.pricePlaceholder")}
+                            className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500"
                             onChange={handleChange}
                             required
                         />
                     </div>
                     <div className="flex flex-col mt-6">
-                        <label className="text-gray-600 dark:text-gray-400 mb-1">Car Model:</label>
+                        <label className="text-gray-600 dark:text-gray-400 mb-1">{t("DASHBOARD.CreateTravel.carModel")}:</label>
                         <input
                             type="text"
                             name="carModel"
-                            className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                            className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500"
                             onChange={handleChange}
                         />
                     </div>
                     <div className="flex flex-col mt-6">
-                        <label className="text-gray-600 dark:text-gray-400 mb-1">Car Color:</label>
+                        <label className="text-gray-600 dark:text-gray-400 mb-1">{t("DASHBOARD.CreateTravel.carColor")}:</label>
                         <input
                             type="text"
                             name="carColor"
-                            className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500 transition-colors duration-300"
+                            className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md py-2 px-3 focus:outline-none focus:border-sky-500"
                             onChange={handleChange}
                         />
                     </div>
                     <div className="flex flex-col mt-6">
-                        <label className="text-gray-600 dark:text-gray-400 mb-1">Allow Pets:</label>
+                        <label className="text-gray-600 dark:text-gray-400 mb-1">{t("DASHBOARD.CreateTravel.allowPets")}:</label>
                         <div className="flex justify-start gap-5 items-center mt-2">
                             <input
                                 type="radio"
@@ -187,7 +190,7 @@ const CreatePost = () => {
                                 className="hidden"
                                 onChange={handleToggleChange}
                             />
-                            <label htmlFor="petsAllowedYes" className={`cursor-pointer px-5 py-2 rounded-lg border border-green-500 ${data.petsAllowed === true ? 'bg-green-500 text-white' : 'bg-green-500/20'}`}>Yes</label>
+                            <label htmlFor="petsAllowedYes" className={`cursor-pointer px-5 py-2 rounded-lg border border-green-500 ${data.petsAllowed === true ? 'bg-green-500 text-white' : 'bg-green-500/20'}`}>{t("DASHBOARD.CreateTravel.yes")}</label>
                             <input
                                 type="radio"
                                 id="petsAllowedNo"
@@ -196,11 +199,11 @@ const CreatePost = () => {
                                 className="hidden"
                                 onChange={handleToggleChange}
                             />
-                            <label htmlFor="petsAllowedNo" className={`cursor-pointer px-5 py-2 rounded-lg border border-red-500 ${data.petsAllowed === false ? 'bg-red-500 text-white' : 'bg-red-200/20'}`}>No</label>
+                            <label htmlFor="petsAllowedNo" className={`cursor-pointer px-5 py-2 rounded-lg border border-red-500 ${data.petsAllowed === false ? 'bg-red-500 text-white' : 'bg-red-200/20'}`}>{t("DASHBOARD.CreateTravel.no")}</label>
                         </div>
                     </div>
                     <div className="flex flex-col mt-6">
-                        <label className="text-gray-600 dark:text-gray-400 mb-1">Allow Smoking:</label>
+                        <label className="text-gray-600 dark:text-gray-400 mb-1">{t("DASHBOARD.CreateTravel.allowSmoking")}:</label>
                         <div className="flex justify-start gap-5 items-center mt-2">
                             <input
                                 type="radio"
@@ -210,7 +213,7 @@ const CreatePost = () => {
                                 className="hidden"
                                 onChange={handleToggleChange}
                             />
-                            <label htmlFor="smokingAllowedYes" className={`cursor-pointer px-5 py-2 rounded-lg border border-green-500 ${data.smokingAllowed === true ? 'bg-green-500 text-white' : 'bg-green-500/20'}`}>Yes</label>
+                            <label htmlFor="smokingAllowedYes" className={`cursor-pointer px-5 py-2 rounded-lg border border-green-500 ${data.smokingAllowed === true ? 'bg-green-500 text-white' : 'bg-green-500/20'}`}>{t("DASHBOARD.CreateTravel.yes")}</label>
                             <input
                                 type="radio"
                                 id="smokingAllowedNo"
@@ -219,10 +222,10 @@ const CreatePost = () => {
                                 className="hidden"
                                 onChange={handleToggleChange}
                             />
-                            <label htmlFor="smokingAllowedNo" className={`cursor-pointer px-5 py-2 rounded-lg border border-red-500 ${data.smokingAllowed === false ? 'bg-red-500 text-white' : 'bg-red-200/20'}`}>No</label>
+                            <label htmlFor="smokingAllowedNo" className={`cursor-pointer px-5 py-2 rounded-lg border border-red-500 ${data.smokingAllowed === false ? 'bg-red-500 text-white' : 'bg-red-200/20'}`}>{t("DASHBOARD.CreateTravel.no")}</label>
                         </div>
                     </div>
-                    <button className="md:hidden mt-6 w-full bg-sky-600 text-white px-5 py-3 rounded-lg hover:bg-sky-700 transition-colors duration-300" type="submit">Create</button>
+                    <button className="md:hidden mt-6 w-full bg-sky-600 text-white px-5 py-3 rounded-lg hover:bg-sky-700" type="submit">Create</button>
                 </form>
             </div>
         </div>

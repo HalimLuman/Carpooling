@@ -1,75 +1,194 @@
 {
     "translation": {
-        "HOME":{
-            "Hero": {
-              "header": "Përdorni covoiturazhin për të gjetur aventura udhëtimi të përballueshme.",
-              "description": "Bashkohuni me komunitetin tonë të covoitur për opsionet e udhëtimit eko-miqësore dhe me kosto efektive në Maqedoninë e Veriut.",
-              "button": "Fillo"
-            },
-            "Benefits": {
-                "tag": "PËRFITIMET E PËRDORIMIT TË TRAVEL",
-                "header": "Çfarë do të merrni gjatë përdorimit të TRAVEL",
-                "benefits": {
-                    "benefit1": {
-                        "title": "Mundësitë e kursimit të kostos",
-                        "description": "Kurseni para në kostot e transportit duke ndarë udhëtimet, duke ndarë shpenzimet e karburantit, pagesat dhe tarifat e parkimit me udhëtarët e tjerë, duke e bërë udhëtimin më të përballueshëm për të gjithë."
-                    },
-                    "benefit2": {
-                        "title": "Lidhjet shoqërore",
-                        "description": "Lidhuni me individë me mendje të ngjashme dhe zgjeroni rrjetin tuaj social nëpërmjet udhëtimeve të përbashkëta, duke nxitur marrëdhënie kuptimplota dhe përvoja të paharrueshme gjatë rrugës."
-                    },
-                    "benefit3": {
-                        "title": "Planifikimi fleksibël",
-                        "description": "Shijoni fleksibilitetin për të planifikuar udhëtime sipas orarit dhe preferencave tuaja, duke ofruar mundësi të volitshme transporti që përshtaten me stilin e jetesës dhe angazhimet tuaja."
-                    },
-                    "benefit4": {
-                        "title": "Eko-miqësore Travel",
-                        "description": "Nxitni qëndrueshmërinë e mjedisit duke udhëtuar me automjete eko-miqësore, duke reduktuar ndotjen dhe gjurmën e karbonit, duke shkurtuar gjithashtu kostot e udhëtimit për përdoruesit."
-                    }
-                }
-            },
-            "Safety": {
-                "header": "Siguria juaj është prioriteti ynë",
-                "description": "Lexoni udhëzimet më poshtë për të siguruar sigurinë tuaj",
-                "safety": {
-                    "safety1": {
-                        "title": "Verifikoni informacionin e shoferit",
-                        "description": "Para se të pranoni një udhëtim, verifikoni informacionin e shoferit duke përfshirë emrin, fotografinë dhe numrin e targës së tyre.",
-                        "icon": ""
-                    },
-                    "safety2": {
-                        "title": "Ndani detajet e udhëtimit",
-                        "description": "Ndani detajet e udhëtimit me një kontakt të besuar, duke përfshirë informacionin e shoferit dhe kohën e llogaritur të mbërritjes.",
-                        "icon": ""
-                    },
-                    "safety3": {
-                        "title": "Takoheni në vende publike",
-                        "description": "Gjithmonë njihuni me shoferin në një zonë publike, të ndriçuar mirë, dhe mos hyni në automjet nëse ndiheni të parehatshëm.",
-                        "icon": ""
-                    },
-                    "safety4": {
-                        "title": "Lidhu",
-                        "description": "Vishni rripin e sigurimit gjatë gjithë udhëtimit, pavarësisht nga distanca ose kohëzgjatja.",
-                        "icon": ""
-                    },
-                    "safety5": {
-                        "title": "Qëndroni vigjilentë",
-                        "description": "Qëndroni vigjilentë gjatë udhëtimit dhe kini besim tek instinktet tuaja. Nëse diçka ndihet keq, mos ngurro të flasësh ose të kërkosh t'i japësh fund udhëtimit.",
-                        "icon": ""
-                    },
-                    "safety6": {
-                        "title": "Norma dhe shqyrtimi",
-                        "description": "Pas udhëtimit, tarifoni dhe rishikoni shoferin në bazë të përvojës suaj. Kjo ndihmon në ruajtjen e përgjegjshmërisë brenda komunitetit.",
-                        "icon": ""
-                    }
-                },
-                "link": "EKSPLORO MË SHUMË"
-
-            },
-            "Footer": {
-              "rights": "Të gjitha të drejtat e rezervuara"
-            }
+      "GENERAL": {
+        "Navbar": {
+          "Home": "Home",
+          "Guideline": "Safety Guideline",
+          "profile": "Profile",
+          "account": "Account",
+          "notification": "Notifications",
+          "explore": "Explore",
+          "create": "Create Travel",
+          "travels": "My Travels",
+          "settings": "Settings",
+          "dark": "Dark Mode",
+          "light": "Light Mode",
+          "support": "Support",
+          "logout": "Logout"
         }
+      },
+      "HOME": {
+        "Hero": {
+          "header": "Explore affordable and accessible carpooling for exciting travel adventures.",
+          "description": "Join our carpool community for eco-friendly, cost-effective travel options in North Macedonia.",
+          "button": "Get Started"
+        },
+        "Benefits": {
+          "tag": "BENEFITS OF USING TRAVEL",
+          "header": "What you will get while using TRAVEL",
+          "benefits": {
+            "benefit1": {
+              "title": "Cost-saving Opportunities",
+              "description": "Save money on transportation costs by sharing rides, splitting fuel expenses, tolls, and parking fees with fellow travelers, making travel more affordable for everyone."
+            },
+            "benefit2": {
+              "title": "Social Connections",
+              "description": "Connect with like-minded individuals and expand your social network through shared rides, fostering meaningful relationships and memorable experiences along the way."
+            },
+            "benefit3": {
+              "title": "Flexible Scheduling",
+              "description": "Enjoy the flexibility to plan rides according to your schedule and preferences, offering convenient transportation options that adapt to your lifestyle and commitments."
+            },
+            "benefit4": {
+              "title": "Eco-friendly Travel",
+              "description": "Promote environmental sustainability by traveling with eco-friendly vehicles, reducing pollution and carbon footprint while also cutting down travel costs for users."
+            }
+          }
+        },
+        "Safety": {
+          "header": "Your Safety is Our Priority",
+          "description": "Read the guidelines below to ensure your safety",
+          "safety": {
+            "safety1": {
+              "title": "Verify Driver Information",
+              "description": "Before accepting a ride, verify the driver's information including their name, photo, and license plate number.",
+              "icon": ""
+            },
+            "safety2": {
+              "title": "Share Trip Details",
+              "description": "Share trip details with a trusted contact, including the driver's information and estimated time of arrival.",
+              "icon": ""
+            },
+            "safety3": {
+              "title": "Meet in Public Locations",
+              "description": "Always meet the driver in a public, well-lit area, and avoid getting into the vehicle if you feel uncomfortable.",
+              "icon": ""
+            },
+            "safety4": {
+              "title": "Buckle Up",
+              "description": "Wear your seatbelt during the entire ride, regardless of the distance or duration.",
+              "icon": ""
+            },
+            "safety5": {
+              "title": "Stay Alert",
+              "description": "Stay alert during the ride and trust your instincts. If something feels off, don't hesitate to speak up or request to end the trip.",
+              "icon": ""
+            },
+            "safety6": {
+              "title": "Rate and Review",
+              "description": "After the ride, rate and review the driver based on your experience. This helps maintain accountability within the community.",
+              "icon": ""
+            }
+          },
+          "link": "EXPLORE MORE"
+        },
+        "Footer": {
+          "rights": "All rights reserved"
+        }
+      },
+      "ACCOUNT": {
+        "Title": "Account",
+        "Links": {
+          "home": "HOME",
+          "homeSM": "Home",
+          "account": "ACCOUNT",
+          "accountSM": "Account",
+          "goto": "Go to profile"
+        },
+        "Pages": {
+          "personalInfo": {
+            "title": "Personal Information",
+            "description": "Provide or update your personal information for a better profile",
+            "name": "Name",
+            "surname": "Surname",
+            "email": "E-mail",
+            "phone": "Phone Number",
+            "phoneDesc": "Enter a valid phone number and verify for better safety experience.",
+            "city": "City",
+            "cityDesc": "Please make sure to enter the current city you live in.",
+            "address": "Address",
+            "addressDesc": "Please make sure to enter a valid address.",
+            "birth": "Date of Birth",
+            "edit": "Edit",
+            "cancel": "Cancel",
+            "save": "Save",
+            "firstBox": "Why Valid Information is Important",
+            "firstBoxDesc": "Providing accurate information ensures your profile is verified and secure. It helps in seamless communication and service delivery.",
+            "secondBox": "Safety First",
+            "secondBoxDesc": "For safety reasons, your name and surname should match your government ID. This helps in verifying your identity and protects your account.",
+            "thirdBox": "Stay Updated",
+            "thirdBoxDesc": "Keeping your contact details up-to-date ensures you receive important notifications and can recover your account if needed."
+          },
+          "security": {
+            "title": "Security",
+            "description": "Manage your security settings including password",
+            "password": "Password",
+            "passwordDesc": "To change your password, please enter your current password and your new password twice.",
+            "currentPass": "Current Password",
+            "newPass": "New Password",
+            "confirmPass": "Confirm New Password",
+            "save": "Save",
+            "change": "Change",
+            "cancel": "Cancel",
+            "firstBox": "Change Password Regularly",
+            "firstBoxDesc": "Changing your password regularly adds an extra layer of security to your account and helps protect your information.",
+            "secondBox": "Stay Secure",
+            "secondBoxDesc": "Ensure your password is unique and not used for any other accounts. Use a combination of letters, numbers, and special characters.",
+            "thirdBox": "Keep it Private",
+            "thirdBoxDesc": "Never share your password with anyone. No legitimate organization will ask you for your password via email or phone."
+          },
+          "payment": {
+            "title": "Payment & Tokens",
+            "description": "View and manage your payment method and buy tokens",
+            "buy": "Buy Tokens",
+            "buyDesc": "Enter your payment details to buy tokens.",
+            "cardNumber": "Card Number",
+            "mm/yy": "MM/YY",
+            "cvv": "CVV",
+            "amount": "Amount",
+            "holder": "Card Holder",
+            "proceed": "Proceed",
+            "firstBox": "Why Valid Payment Information is Important",
+            "firstBoxDesc": "Providing accurate payment information ensures timely transactions and prevents issues with payments and payouts.",
+            "secondBox": "Safety First",
+            "secondBoxDesc": "Ensure your payment details are up-to-date to protect your account from unauthorized transactions.",
+            "thirdBox": "Stay Updated",
+            "thirdBoxDesc": "Keeping your payment information current ensures you receive payments and payouts without any delays."
+          },
+          "stats": {
+            "title": "Account Stats",
+            "description": "Analyze your account statistics and performance metrics",
+            "travelsOverview": "Travels Overview",
+            "financialOverview": "Financial Overview",
+            "numberOfTravels": "Number Of Travels",
+            "created": "Created",
+            "joined": "Joined",
+            "earned": "Earned",
+            "spent": "Spent",
+            "travelsCreated": "Travels Created",
+            "travelsJoined": "Travels Joined",
+            "moneyEarned": "Money Earned",
+            "moneySpent": "Money Spent"
+          },
+          "deactivate": {
+            "title": "Deactivate Account",
+            "description": "Permanently deactivate your account if you no longer need it"
+          },
+          "settings": {
+            "title": "Settings",
+            "description": "Manage features of the website such as theme, language etc.",
+            "general": "General",
+            "account": "Account",
+            "generalSettings": "General Settings",
+            "darkMode": "Dark Mode",
+            "language": "Language",
+            "turkish": "Turkish",
+            "macedonian": "Macedonian",
+            "albanian": "Albanian",
+            "english": "English"
+          }
+        }
+      }
     }
-}
+  }
   

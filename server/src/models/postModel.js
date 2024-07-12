@@ -12,8 +12,8 @@ const postSchema = mongoose.Schema({
     carColor: {type: String, required: true},
     pets: {type: Boolean, required: true},
     smoking: {type: Boolean, required: true},
-    reservations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    pendingRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    reservations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', default: []}],
+    pendingRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', default: [] }],
 }, {
     timestamps: true
 });

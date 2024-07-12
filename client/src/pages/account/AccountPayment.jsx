@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { FaInfoCircle, FaShieldAlt, FaSyncAlt } from 'react-icons/fa';
 import '../../css/form.css';
 import AccountHeader from '../../components/AccountHeader';
+import { useTranslation } from 'react-i18next';
 
 const AccountPayment = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -15,6 +16,7 @@ const AccountPayment = () => {
   });
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setFormData((prevData) => ({
@@ -44,9 +46,9 @@ const AccountPayment = () => {
   };
 
   const headerElements = [
-    { label: 'Home', link: '/' },
-    { label: 'Account', link: '/account' },
-    { label: 'Payment & tokens' }
+    { label: `${t("ACCOUNT.Links.homeSM")}`, link: '/' },
+    { label: `${t("ACCOUNT.Links.accountSM")}`, link: '/account' },
+    { label: `${t("ACCOUNT.Pages.payment.title")}` }
   ];
   const handleGoToProfile = () => {
     navigate(`/profiles/${userInfo._id}`, { state: { postOwner: userInfo } });
@@ -54,23 +56,23 @@ const AccountPayment = () => {
 
   return (
     <Section>
-      <div className='container mx-auto px-4 text-n-8 dark:text-white min-h-[72vh]'>
+      <div className='container mx-auto px-5 text-n-8 dark:text-white min-h-[72vh]'>
         <AccountHeader elements={headerElements} handleGoToProfile={handleGoToProfile}/>
         <div className='flex flex-wrap container'>
           <div className='w-full xl:w-3/5'>
-            <PaymentsForm
+            {/* <PaymentsForm
               formData={formData}
               editState={editState}
               toggleEdit={toggleEdit}
               handleChange={handleChange}
               handleSubmit={handleSubmit}
-            />
-            <div className="mt-10">
-              <BuyTokensSection />
+            /> */}
+            <div className="mt-0">
+              <BuyTokensSection t={t}/>
             </div>
           </div>
           <div className='w-full xl:w-2/5 xl:pl-15 mt-10 xl:mt-0'>
-            <ExplanatoryBoxes />
+            <ExplanatoryBoxes t ={t}/>
           </div>
         </div>
       </div>
@@ -78,84 +80,29 @@ const AccountPayment = () => {
   );
 };
 
-const PaymentsForm = ({ formData, editState, toggleEdit, handleChange, handleSubmit }) => {
-  const fields = [
-    { name: 'paymentMethod', label: 'Payment Method', description: 'Choose your preferred method for payments.' },
-  ];
 
-  return (
-    <form>
-      {fields.map((field, index) => (
-        <ProfileField
-          key={index}
-          field={field}
-          value={formData[field.name]}
-          editState={editState[field.name]}
-          toggleEdit={() => toggleEdit(field.name)}
-          handleChange={handleChange}
-          handleSubmit={(e) => handleSubmit(e, field.name)}
-        />
-      ))}
-    </form>
-  );
-};
-
-const ProfileField = ({ field, value, editState, toggleEdit, handleChange, handleSubmit }) => (
-  <div className='border-b pb-2 mt-10 border-gray-300 dark:border-gray-700'>
-    <div className='flex justify-between'>
-      <h2>{field.label}</h2>
-      <span className='underline cursor-pointer' onClick={toggleEdit}>
-        {editState ? 'Cancel' : 'Edit'}
-      </span>
-    </div>
-    {editState ? (
-      <div>
-        <h3 className='body-2 mt-1 text-sm'>{field.description}</h3>
-        <div className={`flex items-center py-5 transition-all duration-300 ease-in-out ${editState ? 'opacity-100' : 'opacity-0'}`}>
-          <input
-            type='text'
-            name={field.name}
-            value={value}
-            onChange={handleChange}
-            className='bg-white dark:bg-gray-800 border outline-none hover:border-sky-700 focus:border-sky-700 border-gray-300 dark:border-gray-700 py-3 rounded-md px-3 h-[50px] w-full'
-          />
-          <button
-            type='button'
-            className='border px-5 py-3 rounded-lg border-sky-600 text-sky-600 hover:text-white hover:bg-sky-600 ml-3'
-            onClick={handleSubmit}
-          >
-            Save
-          </button>
-        </div>
-      </div>
-    ) : (
-      <h3 className='body-2 text-sm'>{value}</h3>
-    )}
-  </div>
-);
-
-const ExplanatoryBoxes = () => (
+const ExplanatoryBoxes = ({t}) => (
   <div className='grid grid-cols-1 gap-10'>
     <ExplanatoryBox
-      title="Why Valid Payment Information is Important"
-      content="Providing accurate payment information ensures timely transactions and prevents issues with payments and payouts."
+      title={`${t("ACCOUNT.Pages.payment.firstBox")}`}
+      content={`${t("ACCOUNT.Pages.payment.firstBoxDesc")}`}
       icon={<FaInfoCircle />}
     />
     <ExplanatoryBox
-      title="Safety First"
-      content="Ensure your payment details are up-to-date to protect your account from unauthorized transactions."
+      title={`${t("ACCOUNT.Pages.payment.secondBox")}`}
+      content={`${t("ACCOUNT.Pages.payment.secondBoxDesc")}`}
       icon={<FaShieldAlt />}
     />
     <ExplanatoryBox
-      title="Stay Updated"
-      content="Keeping your payment information current ensures you receive payments and payouts without any delays."
+      title={`${t("ACCOUNT.Pages.payment.thirdBox")}`}
+      content={`${t("ACCOUNT.Pages.payment.thirdBoxDesc")}`}
       icon={<FaSyncAlt />}
     />
   </div>
 );
 
 const ExplanatoryBox = ({ title, content, icon }) => (
-  <div className='p-5 lg:px-7 border dark:border-gray-700 dark:bg-gray-800 rounded-lg shadow-lg flex flex-col items-start text-n-8 dark:text-n-1'>
+  <div className='p-5 lg:px-7 border dark:border-neutral-800 dark:bg-neutral-800 rounded-lg shadow-lg flex flex-col items-start text-n-8 dark:text-n-1'>
     <div className='mr-4 rounded-full bg-n-1 dark:bg-gray-800 text-2xl text-gray-800 dark:text-n-1'>
       {icon}
     </div>
@@ -166,7 +113,7 @@ const ExplanatoryBox = ({ title, content, icon }) => (
   </div>
 );
 
-const BuyTokensSection = () => {
+const BuyTokensSection = ({t}) => {
   const [paymentData, setPaymentData] = useState({
     cardNumber: '',
     expiryDate: '',
@@ -201,73 +148,73 @@ const BuyTokensSection = () => {
   };
 
   return (
-    <div className='p-5 py-10 w-full border rounded-lg shadow-lg text-n-8 dark:text-white dark:bg-gray-800'>
+    <div className='p-5 py-10 w-full border dark:border-neutral-800 rounded-lg shadow-lg text-n-8 dark:text-white dark:bg-neutral-900'>
       <div className='flex justify-center w-full'>
         <div className='w-full'>
-          <h2 className='text-lg font-bold mb-2'>Buy Tokens</h2>
-          <p className='mb-2'>Enter your payment details to buy tokens.</p>
+          <h2 className='text-lg font-bold mb-2'>{`${t("ACCOUNT.Pages.payment.buy")}`}</h2>
+          <p className='mb-2'>{`${t("ACCOUNT.Pages.payment.buyDesc")}`}</p>
           <form onSubmit={handleSubmit} className="space-y-4 w-full">
             <div className="grid grid-cols-1 gap-y-2">
-              <label htmlFor="cardNumber" className="sr-only">Card Number</label>
+              <label htmlFor="cardNumber" className="sr-only">{`${t("ACCOUNT.Pages.payment.cardNumber")}`}</label>
               <input
                 type="text"
                 name="cardNumber"
                 id="cardNumber"
-                placeholder="Card Number"
+                placeholder={`${t("ACCOUNT.Pages.payment.cardNumber")}`}
                 onChange={handleInputChange}
-                className="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-300"
+                className="bg-white dark:bg-neutral-700 border border-gray-300 dark:border-neutral-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-600"
               />
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label htmlFor="expiryDate" className="sr-only">Expiry Date</label>
+                <label htmlFor="expiryDate" className="sr-only">{`${t("ACCOUNT.Pages.payment.mm/yy")}`}</label>
                 <input
                   type="text"
                   name="expiryDate"
                   id="expiryDate"
-                  placeholder="MM/YY"
+                  placeholder={`${t("ACCOUNT.Pages.payment.mm/yy")}`}
                   onChange={handleInputChange}
-                  className="bg-white dark:bg-gray-700 border w-full border-gray-300 dark:border-gray-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-300"
+                  className="bg-white dark:bg-neutral-700 border w-full border-gray-300 dark:border-neutral-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-600"
                 />
               </div>
               <div>
-                <label htmlFor="cvv" className="sr-only">CVV</label>
+                <label htmlFor="cvv" className="sr-only">{`${t("ACCOUNT.Pages.payment.cvv")}`}</label>
                 <input
                   type="text"
                   name="cvv"
                   id="cvv"
-                  placeholder="CVV"
+                  placeholder={`${t("ACCOUNT.Pages.payment.cvv")}`}
                   onChange={handleInputChange}
-                  className="bg-white dark:bg-gray-700 border w-full border-gray-300 dark:border-gray-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-300"
+                  className="bg-white dark:bg-neutral-700 border w-full border-gray-300 dark:border-neutral-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-600"
                 />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label htmlFor="amount" className="sr-only">Amount</label>
+                <label htmlFor="amount" className="sr-only">{`${t("ACCOUNT.Pages.payment.amount")}`}</label>
                 <input
                   type="number"
                   name="amount"
                   id="amount"
-                  placeholder="Amount"
+                  placeholder={`${t("ACCOUNT.Pages.payment.amount")}`}
                   onChange={handleInputChange}
-                  className="bg-white dark:bg-gray-700 border w-full border-gray-300 dark:border-gray-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-300"
+                  className="bg-white dark:bg-neutral-700 border w-full border-gray-300 dark:border-neutral-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-600"
                 />
               </div>
               <div>
-                <label htmlFor="cardHolder" className="sr-only">Card Holder</label>
+                <label htmlFor="cardHolder" className="sr-only">{`${t("ACCOUNT.Pages.payment.holder")}`}</label>
                 <input
                   type="text"
                   name="cardHolder"
                   id="cardHolder"
-                  placeholder="Card Holder"
+                  placeholder={`${t("ACCOUNT.Pages.payment.holder")}`}
                   onChange={handleInputChange}
-                  className="bg-white dark:bg-gray-700 border w-full border-gray-300 dark:border-gray-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-300"
+                  className="bg-white dark:bg-neutral-700 border w-full border-gray-300 dark:border-neutral-700 rounded-md py-2 px-4 focus:outline-none focus:border-sky-500 dark:focus:border-sky-600"
                 />
               </div>
             </div>
             <button type="submit" className='bg-sky-600 text-white py-2 px-4 rounded-md hover:bg-sky-700'>
-              Buy Tokens
+            {`${t("ACCOUNT.Pages.payment.proceed")}`}
             </button>
           </form>
         </div>

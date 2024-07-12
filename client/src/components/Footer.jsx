@@ -7,7 +7,7 @@ const Footer = () => {
   const { t } = useTranslation();
 
   return (
-    <Section className="px-0 py-10 bg-n-1 dark:bg-[#1A202C] transition duration-300">
+    <Section className="px-0 py-10 bg-n-1 dark:bg-neutral-900 transition duration-300">
       <div className="container flex sm:justify-between justify-center items-center gap-10 max-sm:flex-col w-[95%]">
         <p className="caption lg:block text-center lg:text-left text-n-8 dark:text-gray-300 transition duration-300">
           © {new Date().getFullYear()}. {t('HOME.Footer.rights')}

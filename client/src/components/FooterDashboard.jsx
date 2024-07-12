@@ -1,5 +1,4 @@
 import React from "react";
-import Section from "./design/Section";
 import { socials } from "../constants";
 
 const FooterDashboard = () => {

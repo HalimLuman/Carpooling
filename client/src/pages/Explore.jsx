@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useFetchPostsQuery } from "../slices/usersApiSlice";
 import Post from "../components/Post";
-import NavbarMain from "../components/NavbarMain";
-import Filter from "../components/Filter";
+import Filter from '../components/Filter'
 import { FaSearch, FaSortAmountDown } from "react-icons/fa";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+import { debounce } from "lodash";
+import NavbarMain from "../components/NavbarMain";
 
 const Explore = () => {
   const { data: posts, refetch } = useFetchPostsQuery();
   const [filters, setFilters] = useState({
     min: 0,
     max: 0,
-    cigaretteAllowed: false,
-    petsAllowed: false,
+    smoking: false,
+    pets: false,
     sortOrder: "",
+    capacity: 1,
   });
   const [sortLabel, setSortLabel] = useState("Select");
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -33,65 +35,77 @@ const Explore = () => {
     setCurrentPage(1); // Reset to the first page when filters change
   };
 
+  const debouncedSearchChange = useCallback(
+    debounce((name, value) => {
+      setTempSearch((prev) => ({ ...prev, [name]: value }));
+    }, 50),
+    []
+  );
+
   const handleSearchChange = (e) => {
     const { name, value } = e.target;
-    setTempSearch({ ...tempSearch, [name]: value });
+    debouncedSearchChange(name, value);
   };
 
   const handleSortChange = (sortOrder) => {
-    setFilters({ ...filters, sortOrder });
+    setFilters((prev) => ({ ...prev, sortOrder }));
     setDropdownVisible(false);
-    if (sortOrder === "asc") {
-      setSortLabel("Low to High");
-    } else if (sortOrder === "desc") {
-      setSortLabel("High to Low");
-    } else {
-      setSortLabel("Select");
-    }
+    setSortLabel(sortOrder === "asc" ? "Low to High" : "High to Low");
   };
 
   const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
+    setDropdownVisible((prev) => !prev);
   };
 
   const applyFiltersAndSearch = () => {
     setSearch(tempSearch);
   };
 
-  const filteredPosts = posts
-    ? posts.filter((post) => {
-        const { from, to, date } = search;
-        const { min, max, cigaretteAllowed, petsAllowed } = filters;
+  const filteredPosts = useMemo(() => {
+    if (!posts) return [];
+  
+    const currentDateTime = new Date();
+    return posts.filter((post) => {
+      const { from, to, date } = search;
+      const { min, max, smoking, pets, capacity } = filters;
+  
+      const postDate = new Date(post.date);
+      if (postDate < currentDateTime.setHours(0, 0, 0, 0)) return false; // Filter out past dates
 
-        const matchesSearchCriteria =
-          post.from.toLowerCase().includes(from.toLowerCase()) &&
-          post.to.toLowerCase().includes(to.toLowerCase()) &&
-          post.date.includes(date);
+      const matchesSearchCriteria =
+        post.from.toLowerCase().includes(from.toLowerCase()) &&
+        post.to.toLowerCase().includes(to.toLowerCase()) &&
+        post.date.includes(date);
+  
+      const matchesPriceRange =
+        (!min || post.price >= min) && (!max || post.price <= max);
+  
+      const matchesCigaretteAllowed =
+        !smoking || post.smoking === smoking;
+  
+      const matchesPetsAllowed =
+        !pets || post.pets === pets;
+  
+      const matchesCapacity =
+        post.capacity >= capacity; // Assuming post.capacity is the actual capacity of the post
+  
+      return (
+        matchesSearchCriteria &&
+        matchesPriceRange &&
+        matchesCigaretteAllowed &&
+        matchesPetsAllowed &&
+        matchesCapacity
+      );
+    });
+  }, [posts, search, filters]);
 
-        const matchesPriceRange =
-          (!min || post.price >= min) && (!max || post.price <= max);
-
-        const matchesCigaretteAllowed =
-          !cigaretteAllowed || post.cigaretteAllowed === cigaretteAllowed;
-
-        const matchesPetsAllowed =
-          !petsAllowed || post.petsAllowed === petsAllowed;
-
-        return (
-          matchesSearchCriteria &&
-          matchesPriceRange &&
-          matchesCigaretteAllowed &&
-          matchesPetsAllowed
-        );
-      })
-    : [];
-
-  const sortedPosts =
-    filters.sortOrder === "asc"
+  const sortedPosts = useMemo(() => {
+    return filters.sortOrder === "asc"
       ? filteredPosts.sort((a, b) => a.price - b.price)
       : filters.sortOrder === "desc"
       ? filteredPosts.sort((a, b) => b.price - a.price)
       : filteredPosts;
+  }, [filteredPosts, filters.sortOrder]);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -104,25 +118,21 @@ const Explore = () => {
   };
 
   const goToPreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
 
   const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
   return (
     <>
       <NavbarMain />
-      <div className="w-full bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <div className="w-full bg-gray-50 dark:bg-neutral-950 min-h-screen">
         <div className="flex flex-col items-center pt-[6rem] container">
           <div className="flex flex-col md:flex-row mt-5 w-full">
             <div className="w-full md:w-1/3 mb-4">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-5">
+              <div className="bg-white dark:bg-neutral-900 rounded-lg shadow p-4 mb-5 w-[90%] lg:w-full mx-auto">
                 <div className="flex items-center mb-4">
                   <div className="relative w-full">
                     <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-300" />
@@ -132,7 +142,7 @@ const Explore = () => {
                       value={tempSearch.from}
                       onChange={handleSearchChange}
                       placeholder="Location"
-                      className="border border-gray-300 dark:border-gray-700 bg-n-1 dark:bg-gray-700 text-gray-700 dark:text-gray-100 rounded-md pl-10 pr-3 py-2 w-full focus:outline-none focus:border-blue-500 dark:focus:border-blue-400"
+                      className="border border-gray-300 dark:border-neutral-800 bg-n-1 dark:bg-neutral-800 text-gray-700 dark:text-gray-100 rounded-md pl-10 pr-3 py-2 w-full focus:outline-none focus:border-blue-500 dark:focus:border-blue-400"
                     />
                   </div>
                 </div>
@@ -145,7 +155,7 @@ const Explore = () => {
                       value={tempSearch.to}
                       onChange={handleSearchChange}
                       placeholder="Destination"
-                      className="border border-gray-300 dark:border-gray-700 bg-n-1 dark:bg-gray-700 text-gray-700 dark:text-gray-100 rounded-md pl-10 pr-3 py-2 w-full focus:outline-none focus:border-blue-500 dark:focus:border-blue-400"
+                      className="border border-gray-300 dark:border-neutral-800 bg-n-1 dark:bg-neutral-800 text-gray-700 dark:text-gray-100 rounded-md pl-10 pr-3 py-2 w-full focus:outline-none focus:border-blue-500 dark:focus:border-blue-400"
                     />
                   </div>
                 </div>
@@ -158,13 +168,13 @@ const Explore = () => {
                       value={tempSearch.date}
                       onChange={handleSearchChange}
                       placeholder="Date"
-                      className="border border-gray-300 dark:border-gray-700 bg-n-1 dark:bg-gray-700 text-gray-700 dark:text-gray-100 rounded-md pl-10 pr-3 py-2 w-full focus:outline-none focus:border-blue-500 dark:focus:border-blue-400"
+                      className="border border-gray-300 dark:border-neutral-800 bg-n-1 dark:bg-neutral-800 text-gray-700 dark:text-gray-100 rounded-md pl-10 pr-3 py-2 w-full focus:outline-none focus:border-blue-500 dark:focus:border-blue-400"
                     />
                   </div>
                 </div>
                 <button
                   onClick={applyFiltersAndSearch}
-                  className="bg-black dark:bg-gray-700 text-white px-4 py-2 rounded-lg transition duration-300 ease-in-out mr-2 hover:bg-sky-600 w-full"
+                  className="bg-black dark:bg-neutral-500 text-n-1 dark:text-n-1 px-4 py-2 dark:hover:bg-sky-700 hover:bg-sky-700 rounded-lg w-full"
                 >
                   Submit
                 </button>
@@ -175,37 +185,37 @@ const Explore = () => {
             </div>
 
             <div className="w-full md:w-2/3 flex flex-col items-center justify-center md:ml-7">
-              <div className={`flex flex-col lg:flex-row w-full ${sortedPosts.length > 0 ? 'justify-between' : 'justify-end'} items-center mb-4 relative right-0`}>
+              <div className={`flex flex-col lg:flex-row w-full justify-between gap-3 items-center mb-4 relative right-0`}>
                 {sortedPosts.length > 0 && (
                   <h1 className="text-n-8 dark:text-gray-100 text-2xl font-bold px-4 py-2">
                     Search Results: {sortedPosts.length}
                   </h1>
                 )}
-                <div className="relative text-n-8 dark:text-gray-100 min-w-[300px] flex gap-2">
+                <div className="relative text-n-8 dark:text-gray-100 flex gap-2">
                   <button
                     onClick={toggleDropdown}
-                    className="flex items-center justify-center rounded px-2 py-1 w-full shadow dark:bg-gray-700 bg-n-1 border border-transparent transform hover:shadow-md dark:hover:shadow-white/50 dark:shadow-sm duration-500"
+                    className="flex items-center justify-center rounded px-6 py-1 w-full shadow dark:bg-neutral-800 bg-n-1 border border-transparent hover:shadow-md dark:hover:shadow-white/30 dark:shadow-sm"
                   >
                     <FaSortAmountDown className="mr-2" color="gray" />
-                    <h3 className="text-sm flex flex-col">
+                    <h3 className="text-xs flex flex-col">
                       Sort:{" "}
-                      <span className="text-sm font-bold">{sortLabel}</span>
+                      <span className="text-xs font-bold">{sortLabel}</span>
                     </h3>
                   </button>
                   <button
                     onClick={() => setFilter(!filter)}
-                    className="flex items-center justify-center rounded px-2 py-1 w-full shadow dark:bg-gray-700 bg-n-1 border border-transparent transform hover:shadow-md dark:hover:shadow-white/50 dark:shadow-sm duration-500"
+                    className="flex items-center justify-center rounded px-6 py-1 w-full shadow dark:bg-neutral-800 bg-n-1 border border-transparent hover:shadow-md dark:hover:shadow-white/30 dark:shadow-sm"
                   >
                     <FaSortAmountDown className="mr-2" color="gray" />
-                    <h3 className="text-sm">Filters</h3>
+                    <h3 className="text-xs">Filters</h3>
                   </button>
                   {dropdownVisible && (
-                    <div className="absolute bg-white dark:bg-gray-800 mt-15 w-1/2 border rounded-md text-center z-10 border-gray-300 dark:border-gray-700">
+                    <div className="absolute bg-white dark:bg-neutral-800 mt-15 w-1/2 border rounded-md text-center z-10 border-gray-300 dark:border-neutral-700">
                       <div
                         className="flex items-center hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer w-full justify-center py-2 pt-3"
                         onClick={() => handleSortChange("asc")}
                       >
-                        <h3 className="text-sm text-gray-700 dark:text-gray-100">
+                        <h3 className="text-xs text-gray-700 dark:text-gray-100">
                           Low to High
                         </h3>
                       </div>
@@ -242,9 +252,9 @@ const Explore = () => {
                         <button
                           key={index}
                           onClick={() => handlePageChange(index + 1)}
-                          className={`w-[40px] h-[40px] mx-1 border rounded-full ${
+                          className={`w-[40px] h-[40px] mx-1 border rounded-lg ${
                             currentPage === index + 1
-                              ? "bg-n-8 dark:bg-gray-700 text-white"
+                              ? "bg-n-8 dark:bg-neutral-700 dark:border-neutral-600 text-white"
                               : "text-n-8 dark:text-gray-100 hover:border-n-8 dark:hover:border-gray-700"
                           }`}
                         >

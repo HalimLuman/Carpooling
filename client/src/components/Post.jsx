@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaRegUser } from 'react-icons/fa';
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 
@@ -25,7 +24,7 @@ const Post = ({ post }) => {
 
     return (
         <div 
-            className={`w-full h-auto bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-4 transition duration-300 transform ${
+            className={`w-[90%] lg:w-full h-auto bg-white dark:bg-neutral-900 rounded-xl shadow-md p-6 my-4 hover:transition hover:duration-200 hover:transform ${
                 post.reservations.length < post.capacity 
                     ? 'hover:shadow-lg hover:-translate-y-1 hover:cursor-pointer' 
                     : 'cursor-not-allowed opacity-50'
@@ -34,16 +33,13 @@ const Post = ({ post }) => {
         >
             <div className='flex justify-between items-center'>
                 <div className='flex items-center'>
-                    <div className='bg-gray-200 dark:bg-gray-700 w-16 h-16 flex justify-center items-center rounded-full'>
-                        <FaRegUser size={32} color='gray'/>
+                    <div className='bg-gray-200 dark:bg-gray-700 flex justify-center items-center rounded-full'>
+                        <img src={post.publisher.profilePic} width={50} height={50}/>
                     </div>
                     <div className='ml-4'>
                         <h1 className='text-gray-800 dark:text-gray-100 text-lg font-semibold'>
                             {post.publisher.name} {post.publisher.surname}
                         </h1>
-                        <p className='text-gray-600 dark:text-gray-400 text-sm'>
-                            {post.carModel} - {post.carYear}
-                        </p>
                     </div>
                 </div>
                 <div className='bg-blue-500 p-3 rounded-full'>

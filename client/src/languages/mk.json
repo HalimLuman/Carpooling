@@ -1,74 +1,194 @@
 {
-  "translation": {
-    "HOME": {
-      "Hero": {
-        "header": "Истражувајте достапни и достапни карпули за возбудливи патни авантури.",
-        "description": "Придружете се на нашата заедница на карпули за еколошки, исплатливи опции за патување во Македонија.",
-        "button": "Почнувај."
+    "translation": {
+      "GENERAL": {
+        "Navbar": {
+          "Home": "Home",
+          "Guideline": "Safety Guideline",
+          "profile": "Profile",
+          "account": "Account",
+          "notification": "Notifications",
+          "explore": "Explore",
+          "create": "Create Travel",
+          "travels": "My Travels",
+          "settings": "Settings",
+          "dark": "Dark Mode",
+          "light": "Light Mode",
+          "support": "Support",
+          "logout": "Logout"
+        }
       },
-      "Benefits": {
-        "tag": "БЕНЕФИЦИИ ОД КОРИСТЕЊЕ НА `TRAVEL`",
-        "header": "Она што ќе го добиете додека користете TRAVEL",
-        "benefits": {
+      "HOME": {
+        "Hero": {
+          "header": "Explore affordable and accessible carpooling for exciting travel adventures.",
+          "description": "Join our carpool community for eco-friendly, cost-effective travel options in North Macedonia.",
+          "button": "Get Started"
+        },
+        "Benefits": {
+          "tag": "BENEFITS OF USING TRAVEL",
+          "header": "What you will get while using TRAVEL",
+          "benefits": {
             "benefit1": {
-                "title": "Можности за заштеда на трошоци",
-                "description": "Заштедете пари од трошоците за превоз со споделување на возењата, поделба на трошоците за гориво, патарините и таксите за паркирање со колегите патници, правејќи го патувањето попристапно за сите."
+              "title": "Cost-saving Opportunities",
+              "description": "Save money on transportation costs by sharing rides, splitting fuel expenses, tolls, and parking fees with fellow travelers, making travel more affordable for everyone."
             },
             "benefit2": {
-                "title": "Социјални врски",
-                "description": "Поврзете се со истомисленици и проширете ја вашата социјална мрежа преку заеднички возења, поттикнувајќи значајни врски и незаборавни искуства по патот."
+              "title": "Social Connections",
+              "description": "Connect with like-minded individuals and expand your social network through shared rides, fostering meaningful relationships and memorable experiences along the way."
             },
             "benefit3": {
-                "title": "Флексибилно распоредување",
-                "description": "Уживајте во флексибилноста за планирање на возењата според вашиот распоред и претпочитања, нудејќи погодни опции за транспорт кои се прилагодуваат на вашиот животен стил и обврски."
+              "title": "Flexible Scheduling",
+              "description": "Enjoy the flexibility to plan rides according to your schedule and preferences, offering convenient transportation options that adapt to your lifestyle and commitments."
             },
             "benefit4": {
-                "title": "Еколошки патување",
-                "description": "Промовирајте еколошка одржливост со патување со еколошки возила, намалување на загадувањето и јаглеродниот отпечаток, истовремено намалувајќи ги патните трошоци за корисниците."
+              "title": "Eco-friendly Travel",
+              "description": "Promote environmental sustainability by traveling with eco-friendly vehicles, reducing pollution and carbon footprint while also cutting down travel costs for users."
             }
-        }
-    },
-    "Safety": {
-        "header": "Вашата безбедност е наш приоритет.",
-        "description": "Прочитајте ги насоките подолу за да ја осигурате вашата безбедностy",
-        "safety": {
+          }
+        },
+        "Safety": {
+          "header": "Your Safety is Our Priority",
+          "description": "Read the guidelines below to ensure your safety",
+          "safety": {
             "safety1": {
-                "title": "Потврдете ги информациите за возачот",
-                "description": "Пред да прифатите возење, проверете ги информациите на возачот вклучувајќи ги нивното име, фотографија и регистарски број.",
-                "icon": ""
+              "title": "Verify Driver Information",
+              "description": "Before accepting a ride, verify the driver's information including their name, photo, and license plate number.",
+              "icon": ""
             },
             "safety2": {
-                "title": "Сподели детали за патување",
-                "description": "Споделете детали за патување со доверлив контакт, вклучувајќи ги информациите на возачот и проценетото време на пристигнување.",
-                "icon": ""
+              "title": "Share Trip Details",
+              "description": "Share trip details with a trusted contact, including the driver's information and estimated time of arrival.",
+              "icon": ""
             },
             "safety3": {
-                "title": "Средба на јавни локации",
-                "description": "Секогаш запознајте го возачот во јавна, добро осветлена област и избегнувајте да влезете во возилото ако се чувствувате непријатно.",
-                "icon": ""
+              "title": "Meet in Public Locations",
+              "description": "Always meet the driver in a public, well-lit area, and avoid getting into the vehicle if you feel uncomfortable.",
+              "icon": ""
             },
             "safety4": {
-                "title": "Закопчи се.",
-                "description": "Носете го вашиот појас за време на целото возење, без оглед на растојанието или времетраењето.",
-                "icon": ""
+              "title": "Buckle Up",
+              "description": "Wear your seatbelt during the entire ride, regardless of the distance or duration.",
+              "icon": ""
             },
             "safety5": {
-                "title": "Останете предупредување.",
-                "description": "Бидете на стравот за време на возењето и верувајте на вашите инстинкти. Ако нешто се чувствува, не се двоумете да зборувате или барајте да го завршите патувањето.",
-                "icon": ""
+              "title": "Stay Alert",
+              "description": "Stay alert during the ride and trust your instincts. If something feels off, don't hesitate to speak up or request to end the trip.",
+              "icon": ""
             },
             "safety6": {
-                "title": "Стапка и преглед",
-                "description": "По возењето, оценете и прегледајте го возачот врз основа на вашето искуство. Ова помага во одржувањето на одговорноста во рамките на заедницата.",
-                "icon": ""
+              "title": "Rate and Review",
+              "description": "After the ride, rate and review the driver based on your experience. This helps maintain accountability within the community.",
+              "icon": ""
             }
+          },
+          "link": "EXPLORE MORE"
         },
-        "link": "Истражувај повеќе"
-
-    },
-    "Footer": {
-        "rights": "Сите права се задржани."
+        "Footer": {
+          "rights": "All rights reserved"
+        }
+      },
+      "ACCOUNT": {
+        "Title": "Account",
+        "Links": {
+          "home": "HOME",
+          "homeSM": "Home",
+          "account": "ACCOUNT",
+          "accountSM": "Account",
+          "goto": "Go to profile"
+        },
+        "Pages": {
+          "personalInfo": {
+            "title": "Personal Information",
+            "description": "Provide or update your personal information for a better profile",
+            "name": "Name",
+            "surname": "Surname",
+            "email": "E-mail",
+            "phone": "Phone Number",
+            "phoneDesc": "Enter a valid phone number and verify for better safety experience.",
+            "city": "City",
+            "cityDesc": "Please make sure to enter the current city you live in.",
+            "address": "Address",
+            "addressDesc": "Please make sure to enter a valid address.",
+            "birth": "Date of Birth",
+            "edit": "Edit",
+            "cancel": "Cancel",
+            "save": "Save",
+            "firstBox": "Why Valid Information is Important",
+            "firstBoxDesc": "Providing accurate information ensures your profile is verified and secure. It helps in seamless communication and service delivery.",
+            "secondBox": "Safety First",
+            "secondBoxDesc": "For safety reasons, your name and surname should match your government ID. This helps in verifying your identity and protects your account.",
+            "thirdBox": "Stay Updated",
+            "thirdBoxDesc": "Keeping your contact details up-to-date ensures you receive important notifications and can recover your account if needed."
+          },
+          "security": {
+            "title": "Security",
+            "description": "Manage your security settings including password",
+            "password": "Password",
+            "passwordDesc": "To change your password, please enter your current password and your new password twice.",
+            "currentPass": "Current Password",
+            "newPass": "New Password",
+            "confirmPass": "Confirm New Password",
+            "save": "Save",
+            "change": "Change",
+            "cancel": "Cancel",
+            "firstBox": "Change Password Regularly",
+            "firstBoxDesc": "Changing your password regularly adds an extra layer of security to your account and helps protect your information.",
+            "secondBox": "Stay Secure",
+            "secondBoxDesc": "Ensure your password is unique and not used for any other accounts. Use a combination of letters, numbers, and special characters.",
+            "thirdBox": "Keep it Private",
+            "thirdBoxDesc": "Never share your password with anyone. No legitimate organization will ask you for your password via email or phone."
+          },
+          "payment": {
+            "title": "Payment & Tokens",
+            "description": "View and manage your payment method and buy tokens",
+            "buy": "Buy Tokens",
+            "buyDesc": "Enter your payment details to buy tokens.",
+            "cardNumber": "Card Number",
+            "mm/yy": "MM/YY",
+            "cvv": "CVV",
+            "amount": "Amount",
+            "holder": "Card Holder",
+            "proceed": "Proceed",
+            "firstBox": "Why Valid Payment Information is Important",
+            "firstBoxDesc": "Providing accurate payment information ensures timely transactions and prevents issues with payments and payouts.",
+            "secondBox": "Safety First",
+            "secondBoxDesc": "Ensure your payment details are up-to-date to protect your account from unauthorized transactions.",
+            "thirdBox": "Stay Updated",
+            "thirdBoxDesc": "Keeping your payment information current ensures you receive payments and payouts without any delays."
+          },
+          "stats": {
+            "title": "Account Stats",
+            "description": "Analyze your account statistics and performance metrics",
+            "travelsOverview": "Travels Overview",
+            "financialOverview": "Financial Overview",
+            "numberOfTravels": "Number Of Travels",
+            "created": "Created",
+            "joined": "Joined",
+            "earned": "Earned",
+            "spent": "Spent",
+            "travelsCreated": "Travels Created",
+            "travelsJoined": "Travels Joined",
+            "moneyEarned": "Money Earned",
+            "moneySpent": "Money Spent"
+          },
+          "deactivate": {
+            "title": "Deactivate Account",
+            "description": "Permanently deactivate your account if you no longer need it"
+          },
+          "settings": {
+            "title": "Settings",
+            "description": "Manage features of the website such as theme, language etc.",
+            "general": "General",
+            "account": "Account",
+            "generalSettings": "General Settings",
+            "darkMode": "Dark Mode",
+            "language": "Language",
+            "turkish": "Turkish",
+            "macedonian": "Macedonian",
+            "albanian": "Albanian",
+            "english": "English"
+          }
+        }
       }
     }
   }
-}
+  

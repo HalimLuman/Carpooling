@@ -7,13 +7,15 @@ import { sendOTPByEmail } from "../utils/sendOTP.js";
 import bcrypt from "bcryptjs";
 import Comment from "../models/commentModel.js";
 import { sendResetPassword } from "../utils/sendResetPassword.js";
-import crypto from 'crypto';
+import crypto from "crypto";
 
+// Password validation function
 const validatePassword = (password) => {
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&:])[A-Za-z\d$@$!%*#?&:]{8,}$/;
   return passwordRegex.test(password);
 };
 
+// Validate required fields in the request body
 const validateRequiredFields = (fields, body) => {
   for (const field of fields) {
     if (!body[field]) {
@@ -22,6 +24,7 @@ const validateRequiredFields = (fields, body) => {
   }
 };
 
+// Generate a response object for a user
 const generateUserResponse = (user) => ({
   _id: user._id,
   profilePic: user.profilePic,
@@ -42,6 +45,7 @@ const generateUserResponse = (user) => ({
   comments: user.comments,
 });
 
+// Authenticate user and generate a token
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -55,6 +59,7 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
+// Register a new user
 const registerUser = asyncHandler(async (req, res) => {
   const { name, surname, email, password, city, address, dateOfBirth, gender, phone } = req.body;
 
@@ -72,6 +77,7 @@ const registerUser = asyncHandler(async (req, res) => {
   if (userExists) {
     throw new Error("User already exists.");
   }
+
   const profilePic = `https://avatar.iran.liara.run/username?username=${name}+${surname}`;
 
   const user = await User.create({ name, surname, email, password, city, address, dateOfBirth, gender, phone, profilePic });
@@ -84,9 +90,9 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+// Handle forgot password by generating a reset token and sending it via email
 const forgotPassword = asyncHandler(async (req, res) => {
   const { email } = req.body;
-
   const user = await User.findOne({ email });
 
   if (!user) {
@@ -94,24 +100,21 @@ const forgotPassword = asyncHandler(async (req, res) => {
     throw new Error("Email is not registered");
   }
 
-  const resetToken = crypto.randomBytes(20).toString('hex');
+  const resetToken = crypto.randomBytes(20).toString("hex");
 
-  user.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+  user.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
   user.resetPasswordExpire = Date.now() + 10 * 60 * 1000; // 10 minutes
 
   await user.save();
 
   const resetUrl = `${req.protocol}://localhost:3000/resetpassword/${resetToken}`;
-  //  const resetUrl = `${req.protocol}://${req.get('host')}/resetpassword/${resetToken}`;
 
   try {
     await sendResetPassword(email, resetUrl);
-
-    res.status(200).json({ success: true, data: 'Email sent' });
+    res.status(200).json({ success: true, data: "Email sent" });
   } catch (error) {
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
-
     await user.save();
 
     res.status(500);
@@ -119,17 +122,15 @@ const forgotPassword = asyncHandler(async (req, res) => {
   }
 });
 
+// Reset password using the reset token
 const resetPassword = asyncHandler(async (req, res) => {
-  const resetPasswordToken = crypto.createHash('sha256').update(req.params.resettoken).digest('hex');
+  const resetPasswordToken = crypto.createHash("sha256").update(req.params.resettoken).digest("hex");
 
-  const user = await User.findOne({
-    resetPasswordToken,
-    resetPasswordExpire: { $gt: Date.now() },
-  });
+  const user = await User.findOne({ resetPasswordToken, resetPasswordExpire: { $gt: Date.now() } });
 
   if (!user) {
     res.status(400);
-    throw new Error('Invalid token');
+    throw new Error("Invalid token");
   }
 
   user.password = req.body.password;
@@ -138,21 +139,21 @@ const resetPassword = asyncHandler(async (req, res) => {
 
   await user.save();
 
-  res.status(200).json({
-    success: true,
-    data: 'Password updated successfully',
-  });
+  res.status(200).json({ success: true, data: "Password updated successfully" });
 });
 
+// Log out the user
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
   res.status(200).json({ message: "User logged out" });
 });
 
+// Get the logged-in user's profile
 const getUserProfile = asyncHandler(async (req, res) => {
   res.status(200).json({ user: generateUserResponse(req.user) });
 });
 
+// Update the user's profile
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
@@ -166,7 +167,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.gender = gender || user.gender;
 
     if (newPassword) {
-      if (!await bcrypt.compare(password, user.password)) {
+      if (!(await bcrypt.compare(password, user.password))) {
         res.status(401);
         throw new Error("Invalid current password");
       }
@@ -181,6 +182,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+// Delete a user and their posts
 const deleteUser = asyncHandler(async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
@@ -192,8 +194,9 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
+// Verify user by sending an OTP to their email
 const verifyUser = asyncHandler(async (req, res) => {
-  const { name, surname, email, password, city, address, dateOfBirth, gender, phone } = req.body;
+  const { name, surname, email } = req.body;
 
   validateRequiredFields(["name", "surname", "email", "password", "city", "address", "dateOfBirth", "gender", "phone"], req.body);
 
@@ -216,18 +219,16 @@ const verifyUser = asyncHandler(async (req, res) => {
   }
 });
 
+// Create a comment and associate it with a user
 const createComment = asyncHandler(async (req, res) => {
-  const { commentedTo, context, rating } = req.body;
-
+  const { commentedPic, commentedTo, commentedFromName, commentedFrom, context, rating } = req.body;
   try {
     const userToUpdate = await User.findById(commentedTo);
     if (!userToUpdate) {
       return res.status(404).json({ message: "User not found" });
     }
-
-    const comment = new Comment({ commentedTo, context, rating });
+    const comment = new Comment({ commentedPic, commentedTo, commentedFromName, commentedFrom, context, rating });
     await comment.save();
-
     userToUpdate.comments.push(comment);
     await userToUpdate.save();
 
@@ -237,6 +238,7 @@ const createComment = asyncHandler(async (req, res) => {
   }
 });
 
+// Get all comments
 const getComments = asyncHandler(async (req, res) => {
   try {
     const comments = await Comment.find();
@@ -246,47 +248,57 @@ const getComments = asyncHandler(async (req, res) => {
   }
 });
 
-const getUsersForSidebar = async (req, res) => {
+// Get users for the sidebar based on joined posts and reservations
+const getUsersForSidebar = asyncHandler(async (req, res) => {
   try {
     const loggedInUserId = req.user._id;
 
     // Fetch posts that the logged-in user has joined
-    const user = await User.findById(loggedInUserId).populate({
-      path: 'joinedPosts',
-      populate: {
-        path: 'publisher',
-        select: '-password'
-      }
-    }).populate({
-      path: 'posts',
-      populate: {
-        path: 'reservations',
-        select: '-password'
-      }
-    });
+    const user = await User.findById(loggedInUserId)
+      .populate({
+        path: "joinedPosts",
+        populate: {
+          path: "publisher",
+          select: "-password",
+        },
+      })
+      .populate({
+        path: "posts",
+        populate: {
+          path: "reservations",
+          select: "-password",
+        },
+      });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
 
     // Extract users from joined posts and user's posts reservations
-    const usersFromJoinedPosts = user.joinedPosts.map(post => post.publisher);
-    const usersFromUserPosts = user.posts.flatMap(post => post.reservations);
+    const usersFromJoinedPosts = user.joinedPosts.map((post) => post.publisher);
+    const usersFromUserPosts = user.posts.flatMap((post) => post.reservations);
+
+    // Use a Set to keep track of unique users
+    const userSet = new Set();
+    const uniqueUsers = [];
 
     // Combine users and remove duplicates
-    const allUsers = [...new Set([...usersFromJoinedPosts, ...usersFromUserPosts])];
+    [...usersFromJoinedPosts, ...usersFromUserPosts].forEach((user) => {
+      if (!userSet.has(user._id.toString())) {
+        userSet.add(user._id.toString());
+        uniqueUsers.push(user);
+      }
+    });
 
     // Filter out the logged-in user
-    const filteredUsers = allUsers.filter(user => user._id.toString() !== loggedInUserId.toString());
+    const filteredUsers = uniqueUsers.filter((user) => user._id.toString() !== loggedInUserId.toString());
 
     res.status(200).json(filteredUsers);
   } catch (error) {
-    console.error('Error in getUsersForSidebar: ', error.message);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error in getUsersForSidebar: ", error.message);
+    res.status(500).json({ error: "Internal server error" });
   }
-};
-
-
+});
 
 export {
   authUser,
@@ -300,5 +312,5 @@ export {
   verifyUser,
   createComment,
   getComments,
-  getUsersForSidebar
+  getUsersForSidebar,
 };

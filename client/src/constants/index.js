@@ -68,12 +68,12 @@ export const navigation = [
     {
       links: [
         {
-          name: 'Home',
+          name: 'home',
           icon: CiHome,
           to: '/',
         },
         {
-          name: 'Explore',
+          name: 'explore',
           icon: CiMap ,
           to: '/explore',
         },
@@ -82,17 +82,17 @@ export const navigation = [
     {
       links: [
         {
-          name: 'Create Travel',
+          name: 'create',
           icon: CiCirclePlus,
           to: 'create-post',
         },
         {
-          name: 'History',
+          name: 'history',
           icon: CiViewList ,
           to: '/dashboard/history',
         },
         {
-          name: 'Reservation',
+          name: 'travels',
           icon: CiClock2 ,
           to: '/dashboard/reservation',
         },
@@ -101,26 +101,26 @@ export const navigation = [
     {
       links: [
         {
-          name: 'Settings',
+          name: 'settings',
           icon: CiSettings,
           to: '/account/settings',
         },
         {
-          name: 'Account',
+          name: 'account',
           icon: CiUser,
           to: '/account',
         },
         {
-          name: 'Payment',
+          name: 'payment',
           icon: CiMoneyBill,
-          to: '/account/payments-payouts',
+          to: '/account/payments',
         },
       ],
     },
     {
       links: [
         {
-          name: 'Support',
+          name: 'support',
           icon: IoIosHelpCircleOutline,
           to: '/support',
         },

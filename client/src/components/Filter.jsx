@@ -7,13 +7,13 @@ import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 
 const Filter = ({ onFilterChange, filter }) => {
     const [priceRange, setPriceRange] = useState([0, 1000]);
-    const [cigaretteAllowed, setCigaretteAllowed] = useState(false);
+    const [smoking, setSmoking] = useState(false);
     const [petsAllowed, setPetsAllowed] = useState(false);
     const [capacity, setCapacity] = useState(1);
     const [openFilter, setOpenFilter] = useState(filter);
 
     const [tempPriceRange, setTempPriceRange] = useState([0, 1000]);
-    const [tempCigaretteAllowed, setTempCigaretteAllowed] = useState(false);
+    const [tempSmoking, setTempSmoking] = useState(false);
     const [tempPetsAllowed, setTempPetsAllowed] = useState(false);
     const [tempCapacity, setTempCapacity] = useState(1);
 
@@ -45,7 +45,7 @@ const Filter = ({ onFilterChange, filter }) => {
 
     const handleCigaretteChange = (e) => {
         const isChecked = e.target.checked;
-        setTempCigaretteAllowed(isChecked);
+        setTempSmoking(isChecked);
     };
 
     const handlePetsChange = (e) => {
@@ -55,18 +55,19 @@ const Filter = ({ onFilterChange, filter }) => {
 
     const handleCapacityChange = (newCapacity) => {
         setTempCapacity(newCapacity);
+        console.log(tempCapacity);
     };
 
     const applyFilters = () => {
         setPriceRange(tempPriceRange);
-        setCigaretteAllowed(tempCigaretteAllowed);
+        setSmoking(tempSmoking);
         setPetsAllowed(tempPetsAllowed);
         setCapacity(tempCapacity);
         updateFilters({ 
             min: tempPriceRange[0], 
             max: tempPriceRange[1], 
-            cigaretteAllowed: tempCigaretteAllowed, 
-            petsAllowed: tempPetsAllowed, 
+            smoking: tempSmoking, 
+            pets: tempPetsAllowed,   
             capacity: tempCapacity 
         });
         setOpenFilter(false);
@@ -79,7 +80,7 @@ const Filter = ({ onFilterChange, filter }) => {
 
     return (
         <div className={`${openFilter ? "block" : "hidden"} custom-scrollbar fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 dark:bg-opacity-80 z-[51] py-5`}>
-            <div className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 w-[90%] max-w-lg lg:max-w-3xl h-auto max-h-full overflow-y-auto shadow-xl rounded-lg p-8">
+            <div className="bg-white dark:bg-neutral-900 text-gray-800 dark:text-gray-200 w-[90%] max-w-lg lg:max-w-3xl h-auto max-h-full overflow-y-auto shadow-xl rounded-lg p-8">
                 <div className='flex justify-between items-center mb-6'>
                     <h2 className="text-3xl font-bold">Filters</h2>
                     <button className='underline h-max self-start cursor-pointer' onClick={handleCancel}>Cancel</button>
@@ -103,7 +104,7 @@ const Filter = ({ onFilterChange, filter }) => {
                             type="number"
                             value={tempPriceRange[0]}
                             onChange={handleMinPriceChange}
-                            className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-300"
+                            className="border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-200 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-300"
                             aria-label="Minimum Price"
                         />
                         <span className="text-gray-600 dark:text-gray-400">-</span>
@@ -111,7 +112,7 @@ const Filter = ({ onFilterChange, filter }) => {
                             type="number"
                             value={tempPriceRange[1]}
                             onChange={handleMaxPriceChange}
-                            className="border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-300"
+                            className="border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-200 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-300"
                             aria-label="Maximum Price"
                         />
                     </div>
@@ -123,7 +124,7 @@ const Filter = ({ onFilterChange, filter }) => {
                     <FormControlLabel
                         control={
                             <Checkbox
-                                checked={tempCigaretteAllowed}
+                                checked={tempSmoking}
                                 onChange={handleCigaretteChange}
                                 color="primary"
                                 aria-label="Cigarettes Allowed"

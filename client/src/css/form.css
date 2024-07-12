@@ -8,20 +8,20 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     font-size: 20px;
     cursor: pointer;
 }
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 5px;
     background-color: white;
-}
+} */
 
 /* Track */
   
 /* Handle */
-::-webkit-scrollbar-thumb {
+/* ::-webkit-scrollbar-thumb {
   background: #0284c7; 
-}
+} */
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+/* ::-webkit-scrollbar-thumb:hover {
   background: #0369a1; 
 }
 
@@ -40,4 +40,23 @@ input:-webkit-autofill:active{
 }
 input:-webkit-autofill:hover{
   background: #fff;
+} */
+
+.custom-scrollbar {
+  max-height: calc(100vh - 60px);
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  display: none; 
+}
+.custom-scrollbar-2 {
+  max-height: calc(100vh); 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.custom-scrollbar-2::-webkit-scrollbar {
+  display: none;
 }

@@ -21,7 +21,7 @@ import costSaving from './roadmap/costsaving.svg'
 import ecoFriendly from './roadmap/ecofriendly.svg'
 import schedule from './roadmap/schedule.svg'
 import socialConnection from './roadmap/socialconnection.svg'
-
+    
 import registration from './Registration.png'
 import notFound from './notFoundAlternative1.jpg'
 import fullLogo1Black from './Logo1BlackFull.svg'

@@ -26,7 +26,7 @@ const AccountPages = () => {
             {
               name: t('ACCOUNT.Pages.payment.title'),
               icon: CiMoneyCheck1,
-              to: '/account/payments-payouts',
+              to: '/account/payments',
               description: t('ACCOUNT.Pages.payment.description')
             },
             {
@@ -58,7 +58,7 @@ const AccountPages = () => {
                     <Link
                         to={link.name === 'Profile' ? `/dashboard/${userInfo._id}` : link.to}
                         key={linkIndex}
-                        className="flex flex-col dark:bg-gray-800 mt-1 lg:mt-2 rounded-md text-n-8 dark:text-n-1 shadow-lg p-6 transition-transform duration-300 transform hover:-translate-y-1 hover:shadow-xl border border-transparent dark:border-gray-700"
+                        className="flex flex-col dark:bg-neutral-900 mt-1 lg:mt-2 rounded-md text-n-8 dark:text-n-1 shadow-lg p-6 transition-transform transform hover:-translate-y-1 hover:shadow-xl border border-transparent dark:border-neutral-800"
                         aria-label={link.name}
                     >
                         {link.icon && React.createElement(link.icon, { size: 30, className:"text-n-8 dark:text-n-1" })}

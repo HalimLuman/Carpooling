@@ -9,7 +9,7 @@ const Roadmap = () => {
   const { t } = useTranslation();
 
   return (
-    <Section className="overflow-hidden dark:bg-gray-900" id="roadmap">
+    <Section className="overflow-hidden dark:bg-neutral-950" id="roadmap">
       <div className="container md:mb-[-5rem]">
         <Heading
           tag={t('HOME.Benefits.tag')}
@@ -20,10 +20,10 @@ const Roadmap = () => {
         <div className="relative grid gap-6 md:grid-cols-2 md:gap-8 md:pb-[7rem] w-[95%] mx-auto">
           {roadmap.map((item, index) => (
             <div
-              className="md:flex border border-n-2/40 rounded-[1.5rem] shadow-lg hover:shadow-xl dark:border-gray-700"
+              className="md:flex border border-n-2/40 rounded-[1.5rem] shadow-lg hover:shadow-xl dark:border-neutral-800"
               key={item.id}
             >
-              <div className="relative p-8 rounded-[1.5rem] overflow-hidden bg-white dark:bg-gray-800">
+              <div className="relative p-8 rounded-[1.5rem] overflow-hidden bg-white dark:bg-neutral-900">
                 <div className="absolute inset-0 flex justify-center items-center">
                   <img
                     className="w-full opacity-10"

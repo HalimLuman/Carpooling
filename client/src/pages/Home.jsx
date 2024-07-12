@@ -18,21 +18,21 @@ const Home = () => {
       </div>
 
       <ButtonGradient />
-      <div className="border-t dark:border-gray-600 mb-[4.5rem] lg:mb-0">
+      <div className="border-t dark:border-gray-600">
         <Footer />
       </div>
-      <div className='lg:hidden'>
-          <div className='w-full border-t dark:border-gray-700 lg:hidden bottom-0 fixed z-10 bg-n-1 dark:bg-gray-900'>
+      {/* <div className='lg:hidden'>
+          <div className='w-full border-t dark:border-neutral-700 lg:hidden bottom-0 fixed z-10 bg-n-1 dark:bg-neutral-900'>
               <div className="flex justify-around md:pt-6 md:pb-4 items-center pt-4 pb-2 px-1 text-n-8 dark:text-n-1">
                   <Link to="/" className=" flex flex-col items-center justify-center w-[19%]" aria-label="Home">
                       <CiHome className="dark:text-[#d1d5db] text-3xl md:text-5xl" />
                       <span className="text-[0.65rem]">Home</span>
                   </Link>
-                  <Link to="/my-travels" className=" flex flex-col items-center justify-center w-[19%]" aria-label="Explore">
+                  <Link to="/explore" className=" flex flex-col items-center justify-center w-[19%]" aria-label="Explore">
                       <CiSearch className="dark:text-[#d1d5db] text-3xl md:text-5xl" />
                       <span className="text-[0.65rem]">Explore</span>
                   </Link>
-                  <Link to="/create" className=" flex flex-col items-center justify-center w-[19%]" aria-label="Create">
+                  <Link to="/dashboard/create-post" className=" flex flex-col items-center justify-center w-[19%]" aria-label="Create">
                       <CiCirclePlus className="dark:text-[#d1d5db] text-3xl md:text-5xl" />
                       <span className="text-[0.65rem]">Create</span>
                   </Link>
@@ -46,7 +46,7 @@ const Home = () => {
                   </Link>
               </div>
           </div>
-        </div>
+        </div> */}
     </>
   );
 };

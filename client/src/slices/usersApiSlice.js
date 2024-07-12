@@ -1,6 +1,7 @@
 import { apiSlice } from "./apiSlice";
 
 const USERS_URL = '/api/users';
+const POSTS_URL = '/api/posts';
 
 export const usersApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -47,7 +48,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         }),
         reservePost: builder.mutation({
             query: ({ postId, userId }) => ({
-                url: `${USERS_URL}/reserve`,
+                url: `${POSTS_URL}/reserve`,
                 method: 'POST',
                 body: { postId, userId },
             }),
@@ -67,36 +68,43 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         }),
         createPost: builder.mutation({
             query: (data) => ({
-                url: `${USERS_URL}/create-post`,
+                url: `${POSTS_URL}/create-post`,
                 method: 'POST',
                 body:data,
             })
         }),
-        fetchPost: builder.mutation({
-            query: () => 'posts',
+        fetchPost: builder.query({
+            query: () => `${POSTS_URL}/posts`,
             providesTags: ['Post'],
         }),
         deletePost: builder.mutation({
             query: (id) => ({
-                url: `${USERS_URL}/delete-post/${id}`, // Update to match backend endpoint URL
+                url: `${POSTS_URL}/delete-post/${id}`, // Update to match backend endpoint URL
                 method: 'DELETE',
             })
         }),
+        leavePost: builder.mutation({
+            query: ({ postId, userId }) => ({
+                url: `${POSTS_URL}/leave-post`,
+                method: 'POST',
+                body: { postId, userId },
+            }),
+        }),
         handleReservationRequest: builder.mutation({
             query: ({ postId, userId, action }) => ({
-                url: `${USERS_URL}/handle-request`,
+                url: `${POSTS_URL}/handle-request`,
                 method: 'POST',
                 body: { postId, userId, action },
             }),
         }),
         fetchPendingRequests: builder.query({
-            query: () => `${USERS_URL}/pending-requests`,
+            query: () => `${POSTS_URL}/pending-requests`,
         }),
         createComment: builder.mutation({
-            query: ({ commentedTo, context, rating }) => ({
+            query: ({commentedPic, commentedFrom, commentedFromName, commentedTo, context, rating }) => ({
                 url: `${USERS_URL}/create-comment`, // Adjust the endpoint as per your backend
                 method: 'POST',
-                body: { commentedTo, context, rating },
+                body: {commentedPic, commentedFrom, commentedFromName, commentedTo, context, rating },
             }),
         }),
         fetchComments: builder.query({
@@ -107,4 +115,4 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 })
 
 
-export const { useLoginMutation, useRegisterMutation, useForgotPasswordMutation, useResetPasswordMutation, useLogoutMutation, useUpdateUserMutation, useDeleteUserMutation, useVerifyUserMutation, useCreatePostMutation, useFetchPostsQuery, useDeletePostMutation, useReservePostMutation, useFetchPendingRequestsQuery, useHandleReservationRequestMutation, useCreateCommentMutation, useFetchCommentsQuery} = usersApiSlice;
+export const { useLoginMutation, useRegisterMutation, useLeavePostMutation, useForgotPasswordMutation, useResetPasswordMutation, useLogoutMutation, useUpdateUserMutation, useDeleteUserMutation, useVerifyUserMutation, useCreatePostMutation, useFetchPostsQuery, useDeletePostMutation, useReservePostMutation, useFetchPendingRequestsQuery, useHandleReservationRequestMutation, useCreateCommentMutation, useFetchCommentsQuery} = usersApiSlice;

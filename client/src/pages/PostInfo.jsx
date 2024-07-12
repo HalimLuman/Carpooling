@@ -43,6 +43,9 @@ const PostInfo = () => {
   const handlePayment = async (e) => {
     e.preventDefault();
     try {
+      if(!userInfo){
+        navigate("/login");
+      }
       const reservationRes = await reservePost({
         postId: post._id,
         userId: userInfo._id,
@@ -57,93 +60,45 @@ const PostInfo = () => {
   };
 
   const handlePostOwner = () => {
-    navigate(`/profiles/${post.publisher._id}`, {
-      state: { postOwner: post.publisher },
-    });
+      navigate(`/profiles/${post.publisher._id}`, {
+        state: { postOwner: post.publisher },
+      });
   };
 
   return (
     <>
       <NavbarMain />
-      <div className="bg-gray-100 dark:bg-gray-900 py-[8rem]">
+      <div className="bg-gray-100 dark:bg-neutral-950 pt-[7rem] pb-[4rem] min-h-screen">
         <div className="container mx-auto px-4 flex flex-col items-center">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 col-span-2">
+            <div className="bg-white dark:bg-neutral-900 dark:shadow-white/20 rounded-lg shadow-md p-6 col-span-2">
               <h1 className="text-3xl text-center md:text-4xl mb-8 mt-4 text-gray-800 dark:text-gray-100">
                 {post.from} - {post.to}
               </h1>
-              <div className="px-6 py-3 col-span-2">
+              <div className="px-3 lg:px-6 py-3 col-span-2">
                 <h2 className="text-xl md:text-2xl mb-4 text-gray-800 dark:text-gray-100">
                   Trip Information
                 </h2>
                 <div className="flex justify-between items-center mb-4">
-                  <div className="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 mr-2 text-gray-700 dark:text-gray-300"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v4m0 4h.01"
-                      />
-                    </svg>
-                    <p className="text-lg text-gray-700 dark:text-gray-300">
-                      Date:
-                    </p>
-                  </div>
+                  <p className="text-lg text-gray-700 dark:text-gray-300">
+                    Date:
+                  </p>
                   <p className="text-lg text-gray-900 dark:text-gray-200">
                     {formatDate(post.date)}
                   </p>
                 </div>
                 <div className="flex justify-between items-center mb-4">
-                  <div className="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 mr-2 text-gray-700 dark:text-gray-300"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v4m0 4h.01"
-                      />
-                    </svg>
-                    <p className="text-lg text-gray-700 dark:text-gray-300">
-                      Departure Time:
-                    </p>
-                  </div>
+                  <p className="text-lg text-gray-700 dark:text-gray-300">
+                    Departure Time:
+                  </p>
                   <p className="text-lg text-gray-900 dark:text-gray-200">
                     {post.time}
                   </p>
                 </div>
                 <div className="flex justify-between items-center mb-4">
-                  <div className="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 mr-2 text-gray-700 dark:text-gray-300"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v4m0 4h.01"
-                      />
-                    </svg>
-                    <p className="text-lg text-gray-700 dark:text-gray-300">
-                      Available Seats:
-                    </p>
-                  </div>
+                  <p className="text-lg text-gray-700 dark:text-gray-300">
+                    Available Seats:
+                  </p>
                   <p className="text-lg text-gray-900 dark:text-gray-200">
                     {post.capacity - post.reservations.length}
                   </p>
@@ -153,49 +108,17 @@ const PostInfo = () => {
                     Additional Information
                   </h2>
                   <div className="flex justify-between items-center">
-                    <div className="flex items-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 mr-2 text-gray-700 dark:text-gray-300"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 8v4m0 4h.01"
-                        />
-                      </svg>
-                      <p className="text-lg text-gray-700 dark:text-gray-300">
-                        Smoking Allowed:
-                      </p>
-                    </div>
+                    <p className="text-lg text-gray-700 dark:text-gray-300">
+                      Smoking Allowed:
+                    </p>
                     <p className="text-lg text-gray-900 dark:text-gray-200">
                       {post.smoking ? "Yes" : "No"}
                     </p>
                   </div>
                   <div className="flex justify-between items-center mt-2">
-                    <div className="flex items-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 mr-2 text-gray-700 dark:text-gray-300"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 8v4m0 4h.01"
-                        />
-                      </svg>
-                      <p className="text-lg text-gray-700 dark:text-gray-300">
-                        Pets Allowed:
-                      </p>
-                    </div>
+                    <p className="text-lg text-gray-700 dark:text-gray-300">
+                      Pets Allowed:
+                    </p>
                     <p className="text-lg text-gray-900 dark:text-gray-200">
                       {post.pets ? "Yes" : "No"}
                     </p>
@@ -203,8 +126,8 @@ const PostInfo = () => {
                 </div>
               </div>
             </div>
-            <div className="rounded-lg col-span-1">
-              <div className="flex flex-col items-center bg-white dark:bg-gray-800 border border-transparent rounded-lg shadow-lg p-8">
+            <div className="rounded-lg col-span-2 lg:col-span-1">
+              <div className="flex flex-col items-center bg-white dark:bg-neutral-800 border border-transparent rounded-lg shadow-lg p-8">
                 <div className="w-full mb-4">
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-2">
                     Total Price:
@@ -235,7 +158,7 @@ const PostInfo = () => {
                   </p>
                 </div>
               </div>
-              <div className="bg-white dark:bg-gray-800 border border-transparent rounded-lg shadow-lg p-8 mt-5 w-full">
+              <div className="bg-white dark:bg-neutral-800 border border-transparent rounded-lg shadow-lg p-8 mt-5 w-full">
                 <h2 className="text-xl md:text-2xl mb-4 text-gray-800 dark:text-gray-100">
                   Car Details
                 </h2>
@@ -281,10 +204,10 @@ const PostInfo = () => {
                     </svg>
                     <div>
                       <p className="text-lg text-gray-700 dark:text-gray-300 ">
-                      Color
+                        Color
                       </p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {post.carColor}
+                        {post.carColor}
                       </p>
                     </div>
                   </div>
@@ -293,7 +216,7 @@ const PostInfo = () => {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mt-8 w-full">
+          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-md p-6 mt-8 w-full">
             <h2 className="text-xl md:text-2xl mb-2 text-gray-800 dark:text-gray-100">
               {`Go to ${post.publisher.name}'s profile`}
             </h2>
@@ -302,8 +225,8 @@ const PostInfo = () => {
               onClick={handlePostOwner}
             >
               <div className="flex justify-center items-center w-[50px] h-[50px] bg-blue-600 rounded-full">
-                      <div className=" px-4 py-3 capitalized">{userInfo.name.slice(0,1)}{userInfo.surname.slice(0,1)}</div>
-                    </div>
+                <img src={post.publisher.profilePic}/>
+              </div>
               <div className="ml-5">
                 <p className="text-lg text-gray-700 dark:text-gray-300">
                   {post.publisher.name} {post.publisher.surname}

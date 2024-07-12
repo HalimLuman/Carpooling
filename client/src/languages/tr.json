@@ -1,127 +1,251 @@
 {
-    "translation": {
-        "GENERAL": {
-            "Navbar": {
-                "Home": "Ana Sayfa",
-                "Guideline": "Güvenlik Kılavuzu",
-                "profile": "Profil",
-                "account": "Hesap",
-                "notification": "Bildirimler",
-                "explore": "Kesfet",
-                "create": "Yolculuk Paylaş",
-                "travels": "Yolculuklarım",
-                "settings": "Ayarlar",
-                "dark": "Gece Modu",
-                "light": "Gündüz Modu",
-                "support": "Yardım",
-                "logout": "Çıkış"
-            }
-        },
-        "HOME" : {
-            "Hero": {
-              "header": "Uygun fiyatlı ve erişilebilir araç paylaşımıyla heyecan verici seyahat maceraları keşfedin.",
-              "description": "Kuzey Makedonya'da çevre dostu, uygun maliyetli seyahat seçenekleri için araç paylaşımı topluluğumuza katılın.",
-              "button": "Başlayın"
-            },
-            "Benefits": {
-                "tag": "`TRAVEL` KULLANMANIN FAYDALARI",
-                "header": "TRAVEL'ı kullanırken ne kazanacaksınız?",
-                "benefits": {
-                    "benefit1": {
-                        "title": "Maliyet Tasarrufu Fırsatları",
-                        "description": "Yolculukları paylaşarak, yakıt giderlerini, geçiş ücretlerini ve park ücretlerini diğer gezginlerle paylaşarak ulaşım maliyetlerinden tasarruf edin ve seyahati herkes için daha uygun hale getirin."
-                    },
-                    "benefit2": {
-                        "title": "Sosyal Bağlantılar",
-                        "description": "Benzer düşünen kişilerle bağlantı kurun ve paylaşılan yolculuklar aracılığıyla sosyal ağınızı genişletin, yol boyunca anlamlı ilişkiler ve unutulmaz deneyimler geliştirin."
-                    },
-                    "benefit3": {
-                        "title": "Esnek Zamanlama",
-                        "description": "Yaşam tarzınıza ve taahhütlerinize uyum sağlayan uygun ulaşım seçenekleri sunarak yolculukları programınıza ve tercihlerinize göre planlama esnekliğinin keyfini çıkarın."
-                    },
-                    "benefit4": {
-                        "title": "Çevre Dostu Seyahat",
-                        "description": "Çevre dostu araçlarla seyahat ederek, kirliliği ve karbon ayak izini azaltarak ve aynı zamanda kullanıcılar için seyahat maliyetlerini azaltarak çevresel sürdürülebilirliği teşvik edin."
-                    }
-                }
-            },
-            "Safety": {
-                "header": "Güvenliğiniz Önceliğimizdir",
-                "description": "Güvenliğinizi sağlamak için aşağıdaki yönergeleri okuyun",
-                "safety": {
-                    "safety1": {
-                        "title": "Sürücü Bilgilerini Doğrulayın",
-                        "description": "Bir yolculuğu kabul etmeden önce sürücünün adı, fotoğrafı ve plaka numarası gibi bilgilerini doğrulayın.",
-                        "icon": ""
-                    },
-                    "safety2": {
-                        "title": "Gezi Ayrıntılarını Paylaşın",
-                        "description": "Sürücü bilgileri ve tahmini varış zamanı da dahil olmak üzere yolculuk ayrıntılarını güvenilir bir kişiyle paylaşın.",
-                        "icon": ""
-                    },
-                    "safety3": {
-                        "title": "Halka Açık Yerlerde Buluşun",
-                        "description": "Sürücüyle her zaman halka açık, iyi aydınlatılmış bir alanda buluşun ve kendinizi rahatsız hissediyorsanız araca binmekten kaçının.",
-                        "icon": ""
-                    },
-                    "safety4": {
-                        "title": "Kemerinizi Takınız",
-                        "description": "Mesafe veya süre ne olursa olsun tüm sürüş boyunca emniyet kemerinizi takın.",
-                        "icon": ""
-                    },
-                    "safety5": {
-                        "title": "Tetikte Olun",
-                        "description": "Sürüş sırasında tetikte olun ve içgüdülerinize güvenin. Bir şey ters geliyorsa, konuşmaktan veya yolculuğu sonlandırmak için talepte bulunmaktan çekinmeyin.",
-                        "icon": ""
-                    },
-                    "safety6": {
-                        "title": "Değerlendir ve Gözden Geçir",
-                        "description": "Sürüşten sonra, deneyiminize göre sürücüyü derecelendirin ve inceleyin. Bu, topluluk içinde hesap verebilirliğin korunmasına yardımcı olur.",
-                        "icon": ""
-                    }
-                },
-                "link": "KEŞFEDİN"
-
-            },
-            "Footer": {
-              "rights": "Tüm hakları saklıdır"
-            }
-        },
-        "ACCOUNT": {
-            "Title": "Hesap",
-            "Links": {
-                "home": "ANA SAYFA",
-                "account": "HESAP",
-                "goto": "Hesabıma git"
-            },
-            "Pages": {
-                "personalInfo" : {
-                    "title": "Kişisel Bilgiler",
-                    "description": "Daha iyi bir profil için kişisel bilgilerinizi ekleyin veya güncelleyin"
-                },
-                "security" : {
-                    "title": "Güvenlik",
-                    "description": "Parola dahil güvenlik ayarlarınızı yönetin"
-                },
-                "payment" : {
-                    "title": "Ödeme & Tokenlar",
-                    "description": "Ödeme yönteminizi görüntüleyin, yönetin ve token satın alın"
-                },
-                "stats" : {
-                    "title": "Hesap İstatistikleri",
-                    "description": "Hesap istatistiklerinizi ve performans metriklerinizi analiz edin"
-                },
-                "deactivate" : {
-                    "title": "Hesap Etkisizleştirme",
-                    "description": "Artık ihtiyacınız yoksa hesabınızı kalıcı olarak devre dışı bırakın"
-                },
-                "settings" : {
-                    "title": "Ayarlar",
-                    "description": "Web sitesinin tema, dil vb. özelliklerini yönetin. "
-                }
-            }
+  "translation": {
+    "GENERAL": {
+      "Navbar": {
+        "Home": "Ana Sayfa",
+        "Guideline": "Güvenlik Kılavuzu",
+        "profile": "Profil",
+        "account": "Hesap",
+        "messages": "Mesajlar",
+        "explore": "KeŞfet",
+        "create": "Yolculuk Paylaş",
+        "travels": "Yolculuklarım",
+        "settings": "Ayarlar",
+        "dark": "Gece Modu",
+        "light": "Gündüz Modu",
+        "support": "Yardım",
+        "logout": "Çıkış"
+      },
+      "Sidebar": {
+        "home": "Ana Sayfa",
+        "explore": "KeŞfet",
+        "create": "Yolculuk Paylaş",
+        "history": "Arşiv",
+        "travels": "Yolculuk & Talep",
+        "account": "Hesap",
+        "settings": "Ayarlar",
+        "payment": "Ödeme",
+        "support": "Yardım"
+      }
+    },
+    "HOME": {
+      "Hero": {
+        "header": "Uygun fiyatlı ve erişilebilir araç paylaşımıyla heyecan verici seyahat maceraları keşfedin.",
+        "description": "Kuzey Makedonya'da çevre dostu, uygun maliyetli seyahat seçenekleri için araç paylaşımı topluluğumuza katılın.",
+        "button": "Başlayın"
+      },
+      "Benefits": {
+        "tag": "`TRAVEL` KULLANMANIN FAYDALARI",
+        "header": "TRAVEL'ı kullanırken ne kazanacaksınız?",
+        "benefits": {
+          "benefit1": {
+            "title": "Maliyet Tasarrufu Fırsatları",
+            "description": "Yolculukları paylaşarak, yakıt giderlerini, geçiş ücretlerini ve park ücretlerini diğer gezginlerle paylaşarak ulaşım maliyetlerinden tasarruf edin ve seyahati herkes için daha uygun hale getirin."
+          },
+          "benefit2": {
+            "title": "Sosyal Bağlantılar",
+            "description": "Benzer düşünen kişilerle bağlantı kurun ve paylaşılan yolculuklar aracılığıyla sosyal ağınızı genişletin, yol boyunca anlamlı ilişkiler ve unutulmaz deneyimler geliştirin."
+          },
+          "benefit3": {
+            "title": "Esnek Zamanlama",
+            "description": "Yaşam tarzınıza ve taahhütlerinize uyum sağlayan uygun ulaşım seçenekleri sunarak yolculukları programınıza ve tercihlerinize göre planlama esnekliğinin keyfini çıkarın."
+          },
+          "benefit4": {
+            "title": "Çevre Dostu Seyahat",
+            "description": "Çevre dostu araçlarla seyahat ederek, kirliliği ve karbon ayak izini azaltarak ve aynı zamanda kullanıcılar için seyahat maliyetlerini azaltarak çevresel sürdürülebilirliği teşvik edin."
+          }
         }
-
+      },
+      "Safety": {
+        "header": "Güvenliğiniz Önceliğimizdir",
+        "description": "Güvenliğinizi sağlamak için aşağıdaki yönergeleri okuyun",
+        "safety": {
+          "safety1": {
+            "title": "Sürücü Bilgilerini Doğrulayın",
+            "description": "Bir yolculuğu kabul etmeden önce sürücünün adı, fotoğrafı ve plaka numarası gibi bilgilerini doğrulayın.",
+            "icon": ""
+          },
+          "safety2": {
+            "title": "Gezi Ayrıntılarını Paylaşın",
+            "description": "Sürücü bilgileri ve tahmini varış zamanı da dahil olmak üzere yolculuk ayrıntılarını güvenilir bir kişiyle paylaşın.",
+            "icon": ""
+          },
+          "safety3": {
+            "title": "Halka Açık Yerlerde Buluşun",
+            "description": "Sürücüyle her zaman halka açık, iyi aydınlatılmış bir alanda buluşun ve kendinizi rahatsız hissediyorsanız araca binmekten kaçının.",
+            "icon": ""
+          },
+          "safety4": {
+            "title": "Kemerinizi Takınız",
+            "description": "Mesafe veya süre ne olursa olsun tüm sürüş boyunca emniyet kemerinizi takın.",
+            "icon": ""
+          },
+          "safety5": {
+            "title": "Tetikte Olun",
+            "description": "Sürüş sırasında tetikte olun ve içgüdülerinize güvenin. Bir şey ters geliyorsa, konuşmaktan veya yolculuğu sonlandırmak için talepte bulunmaktan çekinmeyin.",
+            "icon": ""
+          },
+          "safety6": {
+            "title": "Değerlendir ve Gözden Geçir",
+            "description": "Sürüşten sonra, deneyiminize göre sürücüyü derecelendirin ve inceleyin. Bu, topluluk içinde hesap verebilirliğin korunmasına yardımcı olur.",
+            "icon": ""
+          }
+        },
+        "link": "KEŞFEDİN"
+      },
+      "Footer": {
+        "rights": "Tüm hakları saklıdır"
+      }
+    },
+    "ACCOUNT": {
+      "Title": "Hesap",
+      "Links": {
+        "home": "ANA SAYFA",
+        "homeSM": "Ana Sayfa",
+        "account": "HESAP",
+        "accountSM": "Hesap",
+        "goto": "Hesabıma git"
+      },
+      "Pages": {
+        "personalInfo": {
+          "title": "Kişisel Bilgiler",
+          "description": "Daha iyi bir profil için kişisel bilgilerinizi ekleyin veya güncelleyin",
+          "name": "",
+          "surname": "",
+          "email": "",
+          "phone": "",
+          "phoneDesc": "",
+          "city": "",
+          "cityDesc": "",
+          "address": "",
+          "addressDesc": "",
+          "birth": "",
+          "edit": "",
+          "cancel": "",
+          "save": "",
+          "firstBox": "",
+          "firstBoxDesc": "",
+          "secondBox": "",
+          "secondBoxDesc": "",
+          "thirdBox": "",
+          "thirdBoxDesc": ""
+        },
+        "security": {
+          "title": "Güvenlik",
+          "description": "Parola dahil güvenlik ayarlarınızı yönetin",
+          "password": "",
+          "passwordDesc": "",
+          "currentPass": "",
+          "newPass": "",
+          "confirmPass": "",
+          "save": "",
+          "change": "",
+          "cancel": "",
+          "firstBox": "",
+          "firstBoxDesc": "",
+          "secondBox": "",
+          "secondBoxDesc": "",
+          "thirdBox": "",
+          "thirdBoxDesc": ""
+        },
+        "payment": {
+          "title": "Ödeme & Tokenlar",
+          "description": "Ödeme yönteminizi görüntüleyin, yönetin ve token satın alın",
+          "buy": "",
+          "buyDesc": "",
+          "cardNumber": "",
+          "mm/yy": "MM/YY",
+          "cvv": "CVV",
+          "amount": "",
+          "holder": "",
+          "proceed": "",
+          "firstBox": "",
+          "firstBoxDesc": "",
+          "secondBox": "",
+          "secondBoxDesc": "",
+          "thirdBox": "",
+          "thirdBoxDesc": ""
+        },
+        "stats": {
+          "title": "Hesap İstatistikleri",
+          "description": "Hesap istatistiklerinizi ve performans metriklerinizi analiz edin",
+          "travelsOverview": "",
+          "financialOverview": "",
+          "numberOfTravels": "",
+          "created": "",
+          "joined": "",
+          "earned": "",
+          "spent": "",
+          "travelsCreated": "",
+          "travelsJoined": "",
+          "moneyEarned": "",
+          "moneySpent": ""
+        },
+        "deactivate": {
+          "title": "Hesap Etkisizleştirme",
+          "description": "Artık ihtiyacınız yoksa hesabınızı kalıcı olarak devre dışı bırakın"
+        },
+        "settings": {
+          "title": "Ayarlar",
+          "description": "Web sitesinin tema, dil vb. özelliklerini yönetin.",
+          "general": "",
+          "account": "",
+          "generalSettings": "",
+          "darkMode": "",
+          "language": "",
+          "turkish": "",
+          "macedonian": "",
+          "albanian": "",
+          "english": ""
+        }
+      }
+    },
+    "DASHBOARD": {
+      "History": {
+        "completed": "",
+        "joined": "",
+        "notFoundCreatedTitle": "",
+        "notFoundCreatedText": "",
+        "notFoundCreatedButton": "",
+        "notFoundJoinedTitle": "",
+        "notFoundJoinedText": "",
+        "notFoundJoinedButton": ""
+      },
+      "Travels": {
+        "notFoundOngoingTitle": "",
+        "notFoundOngoingText": "",
+        "notFoundOngoingButton": "",
+        "ongoing": "",
+        "notFoundPendingTitle": "",
+        "notFoundPendingText": "",
+        "pending": "",
+        "from": "",
+        "to": "",
+        "date": "",
+        "accept": "",
+        "reject": ""
+      },
+      "CreateTravel": {
+        "title":"",
+        "desc": "",
+        "create": "",
+        "location": "",
+        "locationPlaceholder": "",
+        "destination": "",
+        "destinationPlaceholder": "",
+        "date": "",
+        "time": "",
+        "capacity": "",
+        "capacityPlaceholder": "",
+        "price": "",
+        "pricePlaceholder": "",
+        "carModel": "",
+        "carColor": "",
+        "allowPets": "",
+        "allowSmoking": "",
+        "yes": "Evet",
+        "no": "Hayır"
+      }
     }
+  }
 }
-  

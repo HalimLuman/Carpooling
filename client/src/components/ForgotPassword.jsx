@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
 import { useForgotPasswordMutation } from '../slices/usersApiSlice';
 import { fullLogo2Black } from "../assets";
 import { toast } from 'react-toastify';
@@ -8,7 +7,6 @@ import { toast } from 'react-toastify';
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [forgotPassword] = useForgotPasswordMutation();
 

@@ -2,12 +2,13 @@ import mongoose from 'mongoose';
 
 const commentSchema = mongoose.Schema(
   {
-    commentedFrom: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    commentedPic: {type: String, default: ""},
+    commentedFrom: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    commentedFromName: {type: String, required: true},
     commentedTo: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     context: { type: String, required: true },
     rating: { type: Number, default: 0, required: true }, // Add the stars attribute
-    createdAt: { type: Date, default: Date.now }
-  }
+  },{timestamps: true},
 );
 
 const Comment = mongoose.model('Comment', commentSchema);
