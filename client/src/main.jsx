@@ -27,7 +27,7 @@ import Reservations from './pages/dashboard/Reservations.jsx';
 import { AccountLayout, AccountMain, AccountProfile, AccountSecurity, AccountPayment, AccountStatistics, AccountDeactivation, AccountSettings} from './pages/account/exports.js'
 import './i18n';
 import ForgotPassword from './components/ForgotPassword.jsx';
-import PasswordReset from './pages/PasswordReset.jsx';
+import PasswordReset from './_auth/PasswordReset.jsx';
 import LiveChatMain from './pages/LiveChatMain.jsx';
 import { SocketContextProvider } from './context/SocketContext.jsx';
 

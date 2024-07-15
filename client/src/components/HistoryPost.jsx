@@ -82,6 +82,10 @@ const HistoryPost = ({ post, isOngoing, joined }) => {
     navigate(`/profiles/${user._id}`, { state: { postOwner: user } });
   };
 
+  const handleGoToPostOwnerProfile = () => {
+    navigate(`/profiles/${post.publisher._id}`, { state: { postOwner: post.publisher } });
+  };
+
   const confirmDelete = () => {
     setShowConfirm(true);
   };
@@ -103,24 +107,24 @@ const HistoryPost = ({ post, isOngoing, joined }) => {
   return (
     <div className="flex flex-col mx-auto lg:w-full bg-white dark:bg-neutral-900 my-8 shadow-md dark:shadow-white/10 rounded-lg border border-gray-200 dark:border-neutral-800">
       <div className="w-full flex flex-col lg:flex-row p-6 pb-3 lg:pb-6 justify-between items-start lg:items-center">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center lg:w-[80%]">
-          <div className="flex text-n-8 dark:text-n-1 text-left lg:w-[30%] mb-2 lg:mb-0 items-center gap-2 lg:gap-5">
+        <div className="flex flex-col lg:flex-row w-full">
+          <div className="flex text-n-8 dark:text-n-1 text-left lg:w-[30%] mb-2 lg:mb-0 items-center gap-3">
             <FaMapMarkerAlt className="text-indigo-500 dark:text-indigo-400" />
-            <h2 className="text-lg font-semibold">
+            <h2 className="text-md font-semibold">
               {post.from}&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;{post.to}
             </h2>
           </div>
-          <div className="flex flex-col lg:flex-row w-full lg:w-[70%] justify-between text-n-8 dark:text-n-1">
-            <div className="flex items-center gap-3 lg:gap-5 mb-3 lg:mb-0">
+          <div className="flex flex-col lg:flex-row w-full lg:w-[70%] justify-between text-n-8 dark:text-n-1 lg:mx-2">
+            <div className="flex items-center gap-3 mb-3 lg:mb-0">
               <FaCalendarAlt className="text-indigo-500 dark:text-indigo-400" />
               <h2 className="text-base text-gray-600 dark:text-gray-400">
                 {date}
               </h2>
             </div>
-            <h2 className="text-lg mb-3 lg:mb-0 lg:mx-2">
+            <h2 className="text-md mb-3 lg:mb-0 lg:mx-2">
               <span className="font-bold">Price:</span>&nbsp;{post.price}
             </h2>
-            <h2 className="text-lg mb-3 lg:mb-0 lg:mx-2">
+            <h2 className="text-md mb-3 lg:mb-0 lg:mx-2">
               <span className="font-bold">Travelers:</span>&nbsp;{post.reservations.length}/{post.capacity}
             </h2>
           </div>
@@ -136,6 +140,7 @@ const HistoryPost = ({ post, isOngoing, joined }) => {
           </div>
         )}
       </div>
+      
       {isOngoing && post.reservations?.length > 0 && !joined && (
         <div className="w-full px-6 pb-5">
           <h3 className="text-md pl-3 font-semibold text-n-8 dark:text-n-1">Reserved List:</h3>
@@ -163,7 +168,7 @@ const HistoryPost = ({ post, isOngoing, joined }) => {
         </div>
       )}
       {!isOngoing && post.reservations?.length > 0 && (
-        <div className="w-full px-6 pb-5">
+        <div className="w-full px-6">
           <h3 className="text-md pl-3 font-semibold text-n-8 dark:text-n-1">Reserved List:</h3>
           <ul className="list-disc lg:px-5 py-2">
             {post.reservations.map((reservation) => (
@@ -188,6 +193,14 @@ const HistoryPost = ({ post, isOngoing, joined }) => {
           </ul>
         </div>
       )}
+      <div className="w-full px-6 pb-5 flex justify-end">
+        <button
+          className="flex items-center justify-end text-sm text-indigo-500 hover:text-indigo-700 transition duration-200"
+          onClick={handleGoToPostOwnerProfile}
+        >
+          View Post Owner Profile
+        </button>
+      </div>
 
       {showConfirm && (
         <div className="fixed inset-0 z-10 bg-black bg-opacity-50 flex justify-center items-center">

@@ -5,9 +5,10 @@ import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { fullLogo2Black, registration } from "../assets";
 import { toast } from 'react-toastify';
-import { FcGoogle } from "react-icons/fc";
+import { useTranslation } from "react-i18next";
 
 const SigninForm = () => {
+  const { t } = useTranslation();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -32,7 +33,7 @@ const SigninForm = () => {
       const res = await login({ email: data.email, password: data.password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate('/');
-      toast.success('Signed in successfully', { autoClose: 1500, pauseOnHover: false });
+      toast.success(`${t("SIGNIN.signedIn")}`, { autoClose: 1500, pauseOnHover: false });
     } catch (error) {
       toast.error(error?.data?.message || error.error, { autoClose: 1500, pauseOnHover: false });
     }
@@ -47,24 +48,24 @@ const SigninForm = () => {
           </div>
         </Link>
         <div className="flex flex-col w-[80%] lg:w-[60%]">
-          <h3 className="text-n-8 h2">Sign in</h3>
-          <p className="text-n-4 text-sm tracking-wider">Please enter your details.</p>
+          <h3 className="text-n-8 h2">{t("SIGNIN.signin")}</h3>
+          <p className="text-n-4 text-sm tracking-wider">{t("SIGNIN.details")}</p>
         </div>
         <form onSubmit={loginUser} className="flex flex-col w-[80%] lg:w-[60%] mt-4">
           <div className="flex flex-col py-2">
-            <label htmlFor="email" className="text-n-8/70 pb-1 font-bold">Email</label>
-            <input className="bg-n-1 border text-n-8 border-n-8/20 focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-sky-700 p-3 rounded-lg" type="email" placeholder="Enter your email" value={data.email} onChange={(e) => setData({ ...data, email: e.target.value })} />
+            <label htmlFor="email" className="text-n-8/70 pb-1 font-bold">{t("SIGNIN.email")}</label>
+            <input className="bg-n-1 border text-n-8 border-n-8/20 focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-sky-700 p-3 rounded-lg" type="email" value={data.email} onChange={(e) => setData({ ...data, email: e.target.value })} />
           </div>
           <div className="flex flex-col py-2">
-            <label htmlFor="password" className="text-n-8/70 pb-1 font-bold">Password</label>
-            <input className="bg-n-1 border text-n-8 border-n-8/20 focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-sky-700 p-3 rounded-lg" type="password" placeholder="Enter your password" value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })} />
+            <label htmlFor="password" className="text-n-8/70 pb-1 font-bold">{t("SIGNIN.password")}</label>
+            <input className="bg-n-1 border text-n-8 border-n-8/20 focus:outline focus:outline-1 focus:outline-offset-0 focus:outline-sky-700 p-3 rounded-lg" type="password" value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })} />
           </div>
-          <Link to="/forgot-password" className="text-blue-700 text-xs font-semibold">Forgot Password?</Link>
-          <button type="submit" className="bg-sky-700 px-3 py-3 mt-3 rounded-lg border hover:bg-sky-800">Sign In</button>
+          <Link to="/forgot-password" className="text-blue-700 text-xs font-semibold">{t("SIGNIN.forgot")}</Link>
+          <button type="submit" className="bg-sky-700 px-3 py-3 mt-3 rounded-lg border hover:bg-sky-800">{t("SIGNIN.signin")}</button>
         </form>
         <div className="flex mt-3 items-center justify-between w-[80%] lg:w-[60%]">
-          <p className="text-n-8 text-sm">Don't have an account?</p>&nbsp;
-          <Link to="/register" className="text-blue-700 text-sm font-semibold">Sign up</Link>
+          <p className="text-n-8 text-sm">{t("SIGNIN.dont")}</p>&nbsp;
+          <Link to="/register" className="text-blue-700 text-sm font-semibold">{t("SIGNUP.signup")}</Link>
           
         </div>
       </div>

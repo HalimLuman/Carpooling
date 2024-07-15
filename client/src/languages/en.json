@@ -28,6 +28,51 @@
         "support": "Support"
       }
     },
+    "SIGNUP": {
+      "signup": "Sign up",
+      "details": "Please enter your details",
+      "step": "Step",
+      "name": "First Name",
+      "surname": "Last Name",
+      "email": "E-mail",
+      "city": "City",
+      "gender": "Gender",
+      "age": "Date Of Birth",
+      "address":"Address",
+      "option": "Please select an option",
+      "male": "Male",
+      "female": "Female",
+      "phone": "Phone Number",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "verification": "Enter Verification Code",
+      "verify": "Verify",
+      "already": "Already have an account?",
+      "notMatch": "Passwords do not match",
+      "signedUp": "Signed up successfully",
+      "exists": "User already exists",
+      "contain": "Password must contain at least 8 characters, one number, one letter, and one symbol",
+      "invalidVerification": "Invalid Verification code",
+      "enterVerification": "Please enter verification code"
+    },
+    "SIGNIN": {
+      "signin": "Sign in",
+      "details": "Please enter your details",
+      "email": "E-mail",
+      "password": "Password",
+      "forgot": "Forgot Password",
+      "dont": "Don't have an account?",
+      "signup": "Sign up",
+      "signedIn": "Signed in successfully",
+      "forgotPassword": "Forgot Password",
+      "forgotDesc": "Enter your email address and we'll send you a link to reset your password.",
+      "sendReset": "Send Reset Link",
+      "resetSent": "Password reset link sent to your e-mail",
+      "wentWrong": "Something went wrong",
+      "reset": "Reset Password",
+      "newPass": "New Password",
+      "confirmPass":"Confirm New Password"
+    },
     "HOME": {
       "Hero": {
         "header": "Explore affordable and accessible carpooling for exciting travel adventures.",
@@ -95,6 +140,52 @@
       },
       "Footer": {
         "rights": "All rights reserved"
+      }
+    },
+    "EXPLORE": {
+      "lowHigh": "Low to High",
+      "highLow": "High to Low",
+      "location":"Location",
+      "destination":"Destination",
+      "date":"Date",
+      "submit":"Submit",
+      "searchResult": "Search Results",
+      "sort":"Sort",
+      "filters": "Filters",
+      "notFound":"No rides available in this criteria",
+      "Filter": {
+        "filters": "Filters",
+        "cancel": "Cancel",
+        "priceRange": "Price Range",
+        "priceDesc": "Enter the range of price that you want to travel",
+        "smoking": "Smoking Policy",
+        "smokingAllowed": "Smoking Allowed",
+        "pets": "Pets Policy",
+        "petsAllowed": "Pets Allowed",
+        "capacity": "Capacity",
+        "apply": "Apply Filters"
+
+      },
+      "Post": {
+        "date": "Date",
+        "time":"Time",
+        "capacity":"Capacity",
+        "price":"Price",
+        "reservations": "Reservations",
+        "seats": "Available Seats",
+        "tripInfo": "Travel Information",
+        "additionalInfo": "Additional Information",
+        "yes":"Yes",
+        "no":"No",
+        "totalPrice": "Total Price",
+        "request": "Request a reservation",
+        "booked": "Fully Booked",
+        "contact": "Before requesting a reservation, check the owner's profile",
+        "carDetails": "Car Details",
+        "model": "Model",
+        "color": "Color",
+        "goto": "Go to owner's profile",
+        "reservationSuccess": "Reservation made and an email has been sent to the travel owner"
       }
     },
     "ACCOUNT": {
@@ -210,7 +301,7 @@
       "averageRating": "Average Rating",
       "createdTravels": "Created Travels",
       "joinedTravels": "Joined Travels",
-      "canceledTravels": "Total Travels Created",
+      "canceledTravels": "Canceled/Left Travels",
       "writeComment": "Write your comment...",
       "addComment": "Add Comment",
       "comments": "Comments and Ratings",

@@ -4,8 +4,10 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
 import { disablePageScroll, enablePageScroll } from 'scroll-lock';
+import { useTranslation } from 'react-i18next';
 
 const Filter = ({ onFilterChange, filter }) => {
+    const { t } = useTranslation();
     const [priceRange, setPriceRange] = useState([0, 1000]);
     const [smoking, setSmoking] = useState(false);
     const [petsAllowed, setPetsAllowed] = useState(false);
@@ -79,17 +81,17 @@ const Filter = ({ onFilterChange, filter }) => {
     };
 
     return (
-        <div className={`${openFilter ? "block" : "hidden"} custom-scrollbar fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 dark:bg-opacity-80 z-[51] py-5`}>
+        <div className={`${openFilter ? "block" : "hidden"} fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 dark:bg-opacity-80 z-[51] py-5`}>
             <div className="bg-white dark:bg-neutral-900 text-gray-800 dark:text-gray-200 w-[90%] max-w-lg lg:max-w-3xl h-auto max-h-full overflow-y-auto shadow-xl rounded-lg p-8">
                 <div className='flex justify-between items-center mb-6'>
-                    <h2 className="text-3xl font-bold">Filters</h2>
-                    <button className='underline h-max self-start cursor-pointer' onClick={handleCancel}>Cancel</button>
+                    <h2 className="text-3xl font-bold">{t("EXPLORE.Filter.filters")}</h2>
+                    <button className='underline h-max self-start cursor-pointer' onClick={handleCancel}>{t("EXPLORE.Filter.cancel")}</button>
                 </div>
                 
                 {/* Price Range Section */}
                 <div className="mb-6">
-                    <label className="block text-xl font-semibold mb-2">Price Range</label>
-                    <p className="mb-2 text-gray-600 dark:text-gray-400">Enter the range of price that you want to travel</p>
+                    <label className="block text-xl font-semibold mb-2">{t("EXPLORE.Filter.priceRange")}</label>
+                    <p className="mb-2 text-gray-600 dark:text-gray-400">{t("EXPLORE.Filter.priceDesc")}</p>
                     <Slider
                         value={tempPriceRange}
                         onChange={handleSliderChange}
@@ -120,30 +122,30 @@ const Filter = ({ onFilterChange, filter }) => {
                 
                 {/* Cigarette Allowed Section */}
                 <div className="mb-6">
-                    <label className="block text-xl font-semibold mb-2">Cigarette Policy</label>
+                    <label className="block text-xl font-semibold mb-2">{t("EXPLORE.Filter.smoking")}</label>
                     <FormControlLabel
                         control={
                             <Checkbox
                                 checked={tempSmoking}
                                 onChange={handleCigaretteChange}
                                 color="primary"
-                                aria-label="Cigarettes Allowed"
+                                aria-label={`${t("EXPLORE.Filter.smokingAllowed")}`}
                             />
                         }
-                        label="Cigarettes Allowed"
+                        label="Smoking Allowed"
                     />
                 </div>
                 
                 {/* Pets Allowed Section */}
                 <div className="mb-6">
-                    <label className="block text-xl font-semibold mb-2">Pets Policy</label>
+                    <label className="block text-xl font-semibold mb-2">{t("EXPLORE.Filter.pets")}</label>
                     <FormControlLabel
                         control={
                             <Checkbox
                                 checked={tempPetsAllowed}
                                 onChange={handlePetsChange}
                                 color="primary"
-                                aria-label="Pets Allowed"
+                                aria-label={`${t("EXPLORE.Filter.petsAllowed")}`}
                             />
                         }
                         label="Pets Allowed"
@@ -152,14 +154,14 @@ const Filter = ({ onFilterChange, filter }) => {
                 
                 {/* Capacity Section */}
                 <div className="mb-6">
-                    <label className="block text-xl font-semibold mb-2">Capacity</label>
+                    <label className="block text-xl font-semibold mb-2">{t("EXPLORE.Filter.capacity")}</label>
                     <div className='flex gap-5'>
-                        {[1, 2, 3, 4].map(num => (
+                        {[1, 2, 3, 4, 5].map(num => (
                             <div
                                 key={num}
                                 onClick={() => handleCapacityChange(num)}
                                 className={`hover:bg-n-8/20 cursor-pointer w-[50px] h-max text-center border rounded-xl ${tempCapacity === num ? 'bg-blue-500 dark:bg-gray-600 text-white' : ''}`}
-                                aria-label={`Capacity ${num}`}
+                                aria-label={`${t("EXPLORE.Filter.capacity")} ${num}`}
                             >
                                 <span>{num}</span>
                             </div>
@@ -173,7 +175,7 @@ const Filter = ({ onFilterChange, filter }) => {
                         variant="contained"
                         color="primary"
                     >
-                        Apply Filters
+                        {t("EXPLORE.Filter.apply")}
                     </Button>
                 </div>
             </div>

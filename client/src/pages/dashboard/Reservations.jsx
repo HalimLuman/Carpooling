@@ -41,7 +41,9 @@ const Reservations = () => {
       (post) => new Date(post.date).getTime() >= currentDate
     );
     const joinedPosts = posts.filter(
-      (post) => userInfo?.joinedPosts.includes(post._id)
+      (post) => 
+        userInfo?.joinedPosts.includes(post._id) && 
+        new Date(post.date).getTime() >= currentDate
     );
     setJoinedPosts(joinedPosts);
     console.log(joinedPosts);
@@ -84,7 +86,7 @@ const Reservations = () => {
             <div className="flex flex-col justify-between items-center w-full relative">
               {postsLoading && <p>Loading ongoing travels...</p>}
               {postsError && <p>Error fetching ongoing travels</p>}
-              {ongoingPosts?.length === 0 && !postsLoading && !postsError && (
+              {ongoingPosts?.length === 0 && joinedPosts?.length === 0 && !postsLoading && !postsError && (
                 <div className="text-center py-10">
                   <h1 className="text-n-8 dark:text-n-1 text-3xl font-bold py-2">
                     {t("DASHBOARD.Travels.notFoundOngoingTitle")}

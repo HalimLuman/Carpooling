@@ -1,9 +1,10 @@
 import React from 'react';
-import { MdOutlineVerifiedUser } from "react-icons/md";
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 const Post = ({ post }) => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const handleClick = () => {
         if (post.reservations.length < post.capacity) {
@@ -42,40 +43,37 @@ const Post = ({ post }) => {
                         </h1>
                     </div>
                 </div>
-                <div className='bg-blue-500 p-3 rounded-full'>
-                    <MdOutlineVerifiedUser size={24} color='white'/>
-                </div>
             </div>
             <div className='mt-6'>
                 <h2 className='text-gray-800 dark:text-gray-100 text-lg font-semibold'>
                     {post.from} - {post.to}
                 </h2>
                 <div className='flex justify-between mt-4'>
-                    <h2 className='text-gray-700 dark:text-gray-400 text-base'>Trip Date:</h2>
+                    <h2 className='text-gray-700 dark:text-gray-400 text-base'>{t("EXPLORE.Post.date")}:</h2>
                     <h2 className='text-gray-800 dark:text-gray-100 text-base'>
                         {formatDate(post.date)}
                     </h2>
                 </div>
                 <div className='flex justify-between mt-2'>
-                    <h2 className='text-gray-700 dark:text-gray-400 text-base'>Trip Time:</h2>
+                    <h2 className='text-gray-700 dark:text-gray-400 text-base'>{t("EXPLORE.Post.time")}:</h2>
                     <h2 className='text-gray-800 dark:text-gray-100 text-base'>
                         {post.time}
                     </h2>
                 </div>
                 <div className='flex justify-between mt-2'>
-                    <h2 className='text-gray-700 dark:text-gray-400 text-base'>Capacity:</h2>
+                    <h2 className='text-gray-700 dark:text-gray-400 text-base'>{t("EXPLORE.Post.capacity")}:</h2>
                     <h2 className='text-gray-800 dark:text-gray-100 text-base'>
                         {post.capacity}
                     </h2>
                 </div>
                 <div className='flex justify-between mt-2'>
-                    <h2 className='text-gray-700 dark:text-gray-400 text-base'>Price:</h2>
+                    <h2 className='text-gray-700 dark:text-gray-400 text-base'>{t("EXPLORE.Post.price")}:</h2>
                     <h2 className='text-gray-800 dark:text-gray-100 text-base'>
                         {post.price} MKD
                     </h2>
                 </div>
                 <div className='flex justify-between mt-4'>
-                    <h2 className='text-gray-700 dark:text-gray-400 text-base'>Reservations:</h2>
+                    <h2 className='text-gray-700 dark:text-gray-400 text-base'>{t("EXPLORE.Post.reservations")}:</h2>
                     <h2 className='text-gray-800 dark:text-gray-100 text-base'>
                         {post.reservations.length} / {post.capacity}
                     </h2>

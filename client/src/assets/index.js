@@ -22,7 +22,7 @@ import ecoFriendly from './roadmap/ecofriendly.svg'
 import schedule from './roadmap/schedule.svg'
 import socialConnection from './roadmap/socialconnection.svg'
     
-import registration from './Registration.png'
+import registration from './Registration (1).png'
 import notFound from './notFoundAlternative1.jpg'
 import fullLogo1Black from './Logo1BlackFull.svg'
 import fullLogo1White from './Logo1WhiteFull.svg'

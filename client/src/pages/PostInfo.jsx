@@ -5,10 +5,12 @@ import { setCredentials } from "../slices/authSlice";
 import { useReservePostMutation } from "../slices/usersApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const PostInfo = () => {
   const location = useLocation();
   const post = location.state?.post;
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,20 +20,25 @@ const PostInfo = () => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
+    
+    // Retrieve the selected language from localStorage
+    const selectedLanguage = localStorage.getItem('i18nextLng') || 'en-US';
+    
     const options = {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      year: "numeric",
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
     };
-    return date.toLocaleDateString("en-US", options);
+    
+    return date.toLocaleDateString(selectedLanguage, options);
   };
 
   if (!post) {
     return (
       <>
         <NavbarMain />
-        <div className="container mx-auto mt-12 text-center">
+        <div className="container mx-auto mt-[5rem] text-center">
           <p className="text-lg text-gray-700 dark:text-gray-300">
             No post data available
           </p>
@@ -51,7 +58,7 @@ const PostInfo = () => {
         userId: userInfo._id,
       }).unwrap();
       toast.success(
-        "Reservation made and an email has been sent to the travel owner"
+        `${t("EXPLORE.Post.reservationSuccess")}`
       );
       dispatch(setCredentials({ ...reservationRes }));
     } catch (err) {
@@ -77,11 +84,11 @@ const PostInfo = () => {
               </h1>
               <div className="px-3 lg:px-6 py-3 col-span-2">
                 <h2 className="text-xl md:text-2xl mb-4 text-gray-800 dark:text-gray-100">
-                  Trip Information
+                {t("EXPLORE.Post.tripInfo")}
                 </h2>
                 <div className="flex justify-between items-center mb-4">
                   <p className="text-lg text-gray-700 dark:text-gray-300">
-                    Date:
+                  {t("EXPLORE.Post.date")}:
                   </p>
                   <p className="text-lg text-gray-900 dark:text-gray-200">
                     {formatDate(post.date)}
@@ -89,7 +96,7 @@ const PostInfo = () => {
                 </div>
                 <div className="flex justify-between items-center mb-4">
                   <p className="text-lg text-gray-700 dark:text-gray-300">
-                    Departure Time:
+                  {t("EXPLORE.Post.time")}:
                   </p>
                   <p className="text-lg text-gray-900 dark:text-gray-200">
                     {post.time}
@@ -97,7 +104,7 @@ const PostInfo = () => {
                 </div>
                 <div className="flex justify-between items-center mb-4">
                   <p className="text-lg text-gray-700 dark:text-gray-300">
-                    Available Seats:
+                  {t("EXPLORE.Post.seats")}:
                   </p>
                   <p className="text-lg text-gray-900 dark:text-gray-200">
                     {post.capacity - post.reservations.length}
@@ -105,22 +112,22 @@ const PostInfo = () => {
                 </div>
                 <div className="mt-6">
                   <h2 className="text-xl md:text-2xl mb-4 text-gray-800 dark:text-gray-100">
-                    Additional Information
+                  {t("EXPLORE.Post.additionalInfo")}
                   </h2>
                   <div className="flex justify-between items-center">
                     <p className="text-lg text-gray-700 dark:text-gray-300">
-                      Smoking Allowed:
+                    {t("EXPLORE.Filter.smokingAllowed")}:
                     </p>
                     <p className="text-lg text-gray-900 dark:text-gray-200">
-                      {post.smoking ? "Yes" : "No"}
+                      {post.smoking ? `${t("EXPLORE.Post.yes")}` : `${t("EXPLORE.Post.no")}`}
                     </p>
                   </div>
                   <div className="flex justify-between items-center mt-2">
                     <p className="text-lg text-gray-700 dark:text-gray-300">
-                      Pets Allowed:
+                    {t("EXPLORE.Filter.petsAllowed")}:
                     </p>
                     <p className="text-lg text-gray-900 dark:text-gray-200">
-                      {post.pets ? "Yes" : "No"}
+                      {post.pets ? `${t("EXPLORE.Post.yes")}` : `${t("EXPLORE.Post.no")}`}
                     </p>
                   </div>
                 </div>
@@ -130,7 +137,7 @@ const PostInfo = () => {
               <div className="flex flex-col items-center bg-white dark:bg-neutral-800 border border-transparent rounded-lg shadow-lg p-8">
                 <div className="w-full mb-4">
                   <p className="text-lg text-gray-700 dark:text-gray-300 mb-2">
-                    Total Price:
+                  {t("EXPLORE.Post.totalPrice")}:
                   </p>
                   <p className="text-3xl text-gray-900 dark:text-gray-200">
                     {post.price} MKD
@@ -146,21 +153,18 @@ const PostInfo = () => {
                   disabled={post.reservations.length >= post.capacity}
                 >
                   {post.reservations.length >= post.capacity
-                    ? "Fully Booked"
-                    : "Request a reservation"}
+                    ? `${t("EXPLORE.Post.booked")}`
+                    : `${t("EXPLORE.Post.request")}`}
                 </button>
                 <div className="mt-6 w-full">
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    For inquiries, please contact:
-                  </p>
-                  <p className="text-lg font-medium text-gray-900 dark:text-gray-200">
-                    {post.publisher.email}
+                  {t("EXPLORE.Post.contact")}
                   </p>
                 </div>
               </div>
               <div className="bg-white dark:bg-neutral-800 border border-transparent rounded-lg shadow-lg p-8 mt-5 w-full">
                 <h2 className="text-xl md:text-2xl mb-4 text-gray-800 dark:text-gray-100">
-                  Car Details
+                {t("EXPLORE.Post.carDetails")}
                 </h2>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center">
@@ -180,7 +184,7 @@ const PostInfo = () => {
                     </svg>
                     <div>
                       <p className="text-lg text-gray-700 dark:text-gray-300">
-                        Model
+                      {t("EXPLORE.Post.model")}
                       </p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         {post.carModel}
@@ -204,7 +208,7 @@ const PostInfo = () => {
                     </svg>
                     <div>
                       <p className="text-lg text-gray-700 dark:text-gray-300 ">
-                        Color
+                      {t("EXPLORE.Post.color")}
                       </p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         {post.carColor}
@@ -218,7 +222,7 @@ const PostInfo = () => {
 
           <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-md p-6 mt-8 w-full">
             <h2 className="text-xl md:text-2xl mb-2 text-gray-800 dark:text-gray-100">
-              {`Go to ${post.publisher.name}'s profile`}
+              {`${t("EXPLORE.Post.goto")}`}
             </h2>
             <div
               className="flex items-center p-3 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"

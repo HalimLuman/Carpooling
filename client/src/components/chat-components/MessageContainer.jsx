@@ -23,7 +23,7 @@ const MessageContainer = ({showSidebar, toggleSidebar}) => {
                     <span className='dark:text-gray-200 text-n-8'>To:</span>{" "}
                     <span className='dark:text-white text-n-8 font-bold'>{selectedConversation.name}{" "}{selectedConversation.surname}</span>
                 </div>
-                <CiCircleRemove onClick={toggleSidebar} size={30} className='lg:hidden'/>
+                <CiCircleRemove onClick={toggleSidebar} size={30} className='lg:hidden text-n-8 dark:text-n-1'/>
             </header>
             <div className='flex flex-col flex-1 overflow-hidden h-screen'>
               <Messages />

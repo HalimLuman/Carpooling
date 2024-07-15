@@ -83,6 +83,7 @@ const leavePost = asyncHandler(async (req, res) => {
 
     post.reservations.splice(reservationIndex, 1);
     user.joinedPosts = user.joinedPosts.filter(postId => postId.toString() !== post._id.toString());
+    user.deletedPosts += 1;
     await post.save();
     await user.save();
 

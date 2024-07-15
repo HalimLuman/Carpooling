@@ -6,8 +6,10 @@ import { FaSearch, FaSortAmountDown } from "react-icons/fa";
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
 import { debounce } from "lodash";
 import NavbarMain from "../components/NavbarMain";
+import { useTranslation } from "react-i18next";
 
 const Explore = () => {
+  const { t } = useTranslation();
   const { data: posts, refetch } = useFetchPostsQuery();
   const [filters, setFilters] = useState({
     min: 0,
@@ -50,7 +52,7 @@ const Explore = () => {
   const handleSortChange = (sortOrder) => {
     setFilters((prev) => ({ ...prev, sortOrder }));
     setDropdownVisible(false);
-    setSortLabel(sortOrder === "asc" ? "Low to High" : "High to Low");
+    setSortLabel(sortOrder === "asc" ? `${t("EXPLORE.lowHigh")}` : `${t("EXPLORE.highLow")}`);
   };
 
   const toggleDropdown = () => {
@@ -141,7 +143,7 @@ const Explore = () => {
                       name="from"
                       value={tempSearch.from}
                       onChange={handleSearchChange}
-                      placeholder="Location"
+                      placeholder={`${t("EXPLORE.location")}`}
                       className="border border-gray-300 dark:border-neutral-800 bg-n-1 dark:bg-neutral-800 text-gray-700 dark:text-gray-100 rounded-md pl-10 pr-3 py-2 w-full focus:outline-none focus:border-blue-500 dark:focus:border-blue-400"
                     />
                   </div>
@@ -154,7 +156,7 @@ const Explore = () => {
                       name="to"
                       value={tempSearch.to}
                       onChange={handleSearchChange}
-                      placeholder="Destination"
+                      placeholder={`${t("EXPLORE.destination")}`}
                       className="border border-gray-300 dark:border-neutral-800 bg-n-1 dark:bg-neutral-800 text-gray-700 dark:text-gray-100 rounded-md pl-10 pr-3 py-2 w-full focus:outline-none focus:border-blue-500 dark:focus:border-blue-400"
                     />
                   </div>
@@ -167,7 +169,7 @@ const Explore = () => {
                       name="date"
                       value={tempSearch.date}
                       onChange={handleSearchChange}
-                      placeholder="Date"
+                      placeholder={`${t("EXPLORE.date")}`}
                       className="border border-gray-300 dark:border-neutral-800 bg-n-1 dark:bg-neutral-800 text-gray-700 dark:text-gray-100 rounded-md pl-10 pr-3 py-2 w-full focus:outline-none focus:border-blue-500 dark:focus:border-blue-400"
                     />
                   </div>
@@ -176,7 +178,7 @@ const Explore = () => {
                   onClick={applyFiltersAndSearch}
                   className="bg-black dark:bg-neutral-500 text-n-1 dark:text-n-1 px-4 py-2 dark:hover:bg-sky-700 hover:bg-sky-700 rounded-lg w-full"
                 >
-                  Submit
+                  {t("EXPLORE.submit")}
                 </button>
               </div>
               {filter ? (
@@ -188,26 +190,26 @@ const Explore = () => {
               <div className={`flex flex-col lg:flex-row w-full justify-between gap-3 items-center mb-4 relative right-0`}>
                 {sortedPosts.length > 0 && (
                   <h1 className="text-n-8 dark:text-gray-100 text-2xl font-bold px-4 py-2">
-                    Search Results: {sortedPosts.length}
+                  {t("EXPLORE.searchResult")}: {sortedPosts.length}
                   </h1>
                 )}
                 <div className="relative text-n-8 dark:text-gray-100 flex gap-2">
                   <button
                     onClick={toggleDropdown}
-                    className="flex items-center justify-center rounded px-6 py-1 w-full shadow dark:bg-neutral-800 bg-n-1 border border-transparent hover:shadow-md dark:hover:shadow-white/30 dark:shadow-sm"
+                    className="flex items-center justify-center rounded py-1 w-[130px] shadow dark:bg-neutral-800 bg-n-1 border border-transparent hover:shadow-md dark:hover:shadow-white/30 dark:shadow-sm"
                   >
                     <FaSortAmountDown className="mr-2" color="gray" />
                     <h3 className="text-xs flex flex-col">
-                      Sort:{" "}
+                    {t("EXPLORE.sort")}:{" "}
                       <span className="text-xs font-bold">{sortLabel}</span>
                     </h3>
                   </button>
                   <button
                     onClick={() => setFilter(!filter)}
-                    className="flex items-center justify-center rounded px-6 py-1 w-full shadow dark:bg-neutral-800 bg-n-1 border border-transparent hover:shadow-md dark:hover:shadow-white/30 dark:shadow-sm"
+                    className="flex items-center justify-center rounded py-1 w-[130px] shadow dark:bg-neutral-800 bg-n-1 border border-transparent hover:shadow-md dark:hover:shadow-white/30 dark:shadow-sm"
                   >
                     <FaSortAmountDown className="mr-2" color="gray" />
-                    <h3 className="text-xs">Filters</h3>
+                    <h3 className="text-xs">{t("EXPLORE.filters")}</h3>
                   </button>
                   {dropdownVisible && (
                     <div className="absolute bg-white dark:bg-neutral-800 mt-15 w-1/2 border rounded-md text-center z-10 border-gray-300 dark:border-neutral-700">
@@ -216,15 +218,15 @@ const Explore = () => {
                         onClick={() => handleSortChange("asc")}
                       >
                         <h3 className="text-xs text-gray-700 dark:text-gray-100">
-                          Low to High
+                        {t("EXPLORE.lowHigh")}
                         </h3>
                       </div>
                       <div
                         className="flex items-center hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer w-full justify-center py-2 pb-3"
                         onClick={() => handleSortChange("desc")}
                       >
-                        <h3 className="text-sm text-gray-700 dark:text-gray-100">
-                          High to Low
+                        <h3 className="text-xs text-gray-700 dark:text-gray-100">
+                        {t("EXPLORE.highLow")}
                         </h3>
                       </div>
                     </div>
@@ -275,7 +277,7 @@ const Explore = () => {
                 </>
               ) : (
                 <h1 className="h4 font-bold text-n-8 dark:text-gray-100">
-                  No Rides Available on this criteria
+                {t("EXPLORE.notFound")}
                 </h1>
               )}
             </div>
